@@ -61,7 +61,11 @@ Open the `server` and `client` in separate VSCode workspaces or open the combine
 
 ### Purpose
 
-2-5 sentences describing what the system does
+Finding a way to quickly find small-scale handymen, such as electricians, plumbers, carpenters, painters and many more, for house works can be tough. This application bridges the gap between clients who are in dire need of a capable handyman for most common reparation and maintenance/installation jobs found in homes. 
+
+The client is able to find handymen in different fields within a specified area/location, and book reservations for particular jobs. 
+
+The handymen can publish an advertisement that they are willing to work, and connect with clients. Upon so, they can reserve timeslots/day-slots depending on agreement with the handyman. The application also has the possibility to allow interactive chatting between the two. 
 
 ### Pages
 
