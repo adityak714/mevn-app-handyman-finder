@@ -68,9 +68,17 @@ The client is able to find handymen in different fields within a specified area/
 The handymen can publish an advertisement that they are willing to work, and connect with clients. Upon so, they can reserve timeslots/day-slots depending on agreement with the handyman. The application also has the possibility to allow interactive chatting between the two. 
 
 ### Pages
+ 
+* Login: page for users to access their personal accounts
+* SignUp: page for new users to create their personal accounts 
+* ForgotMyPassword: page used for users that forgot their password
+* Home: page with dashboard with options like searching for listings and looking for handymen in a specified area
+* CreateRequest: page which asks the user for all of the required information to request services
+* MyRequests: page showing all of the requests made by a user (with optional filtering/sorting) 
+* AcceptedRequests: page showing in ascending order by date all of the accepted service requests made by a user 
+* ClientProfilePage: page showing the personal information of the user
+* WorkerProfilePage: page showing the personal information/reviews of the handymen
 
-* Home: 1-3 sentences describing what the page displays and what a user can do
-* Shopping cart: ...
 
 ### Entity-Relationship (ER) Diagram
 
