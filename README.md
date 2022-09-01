@@ -61,16 +61,29 @@ Open the `server` and `client` in separate VSCode workspaces or open the combine
 
 ### Purpose
 
-2-5 sentences describing what the system does
+Finding a way to quickly find small-scale handymen, such as electricians, plumbers, carpenters, painters and many more, for house works can be tough. This application bridges the gap between clients who are in dire need of a capable handyman for most common reparation and maintenance/installation jobs found in homes. 
+
+The client is able to find handymen in different fields within a specified area/location, and book reservations for particular jobs. 
+
+The handymen can publish an advertisement that they are willing to work, and connect with clients. Upon so, they can reserve timeslots/day-slots depending on agreement with the handyman. The application also has the possibility to allow interactive chatting between the two. 
 
 ### Pages
+ 
+* Login: page for users to access their personal accounts
+* SignUp: page for new users to create their personal accounts 
+* ForgotMyPassword: page used for users that forgot their password
+* Home: page with dashboard with options like searching for listings and looking for handymen in a specified area
+* CreateRequest: page which asks the user for all of the required information to request services
+* MyRequests: page showing all of the requests made by a user (with optional filtering/sorting) 
+* AcceptedRequests: page showing in ascending order by date all of the accepted service requests made by a user
+* SearchResults: upon clients search entry, a page showing all listings matching criteria (such as location, job, etc) 
+* ClientProfilePage: page showing the personal information of the user
+* WorkerProfilePage: page showing the personal information/reviews of the handymen
 
-* Home: 1-3 sentences describing what the page displays and what a user can do
-* Shopping cart: ...
 
 ### Entity-Relationship (ER) Diagram
 
-![ER Diagram](./images/er_diagram.png)
+![ER Diagram](./images/Entity_Relation.drawio__3_.png)
 
 ## Teaser (MS3)
 
