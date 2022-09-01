@@ -75,7 +75,8 @@ The handymen can publish an advertisement that they are willing to work, and con
 * Home: page with dashboard with options like searching for listings and looking for handymen in a specified area
 * CreateRequest: page which asks the user for all of the required information to request services
 * MyRequests: page showing all of the requests made by a user (with optional filtering/sorting) 
-* AcceptedRequests: page showing in ascending order by date all of the accepted service requests made by a user 
+* AcceptedRequests: page showing in ascending order by date all of the accepted service requests made by a user
+* SearchResults: upon clients search entry, a page showing all listings matching criteria (such as location, job, etc) 
 * ClientProfilePage: page showing the personal information of the user
 * WorkerProfilePage: page showing the personal information/reviews of the handymen
 
