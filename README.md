@@ -74,7 +74,7 @@ The handymen can publish an advertisement that they are willing to work, and con
 
 ### Entity-Relationship (ER) Diagram
 
-![ER Diagram](./images/er_diagram.png)
+![ER Diagram](./images/EntityRelationDiagram)
 
 ## Teaser (MS3)
 
