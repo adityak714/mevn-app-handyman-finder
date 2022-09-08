@@ -5,9 +5,19 @@ var path = require('path');
 var cors = require('cors');
 var history = require('connect-history-api-fallback');
 
+// Create Express app
+var app = express();
+
 // Variables
-var mongoURI = process.env.MONGODB_URI || 'mongodb://localhost:27017/animalDevelopmentDB';
+var mongoURI = process.env.MONGODB_URI || 'mongodb+srv://oscareinagus:3tXWisPEbcijWIB4@cluster0.ynhyrmr.mongodb.net/test';
 var port = process.env.PORT || 3000;
+
+app.listen(port, function(err) {
+    if (err) throw err;
+    console.log(`Express server listening on port ${port}, in ${env} mode`);
+    console.log(`Backend: http://localhost:${port}/api/`);
+    console.log(`Frontend (production): http://localhost:${port}/`);
+});
 
 // Connect to MongoDB
 mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true }, function(err) {
@@ -19,8 +29,6 @@ mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true }, 
     console.log(`Connected to MongoDB with URI: ${mongoURI}`);
 });
 
-// Create Express app
-var app = express();
 // Parse requests of content-type 'application/json'
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -31,8 +39,8 @@ app.options('*', cors());
 app.use(cors());
 
 // Import routes
-app.get('/api', function(req, res) {
-    res.json({'message': 'Welcome to your DIT342 backend ExpressJS project!'});
+app.get('/handymen', function(req, res) {
+    res.sendStatus(200);
 });
 
 // Catch all non-error handler for api (i.e., 404 Not Found)
@@ -63,13 +71,6 @@ app.use(function(err, req, res, next) {
     }
     res.status(err.status || 500);
     res.json(err_res);
-});
-
-app.listen(port, function(err) {
-    if (err) throw err;
-    console.log(`Express server listening on port ${port}, in ${env} mode`);
-    console.log(`Backend: http://localhost:${port}/api/`);
-    console.log(`Frontend (production): http://localhost:${port}/`);
 });
 
 module.exports = app;
