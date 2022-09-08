@@ -6,7 +6,7 @@ var handymenSchema = new Schema ({
     firstName: { type: String},
     lastName: { type: String},
     email: { type: String},
-    phoneNumber : {type: int},
+    phoneNumber : {type: Number},
     area : {type: String},
     profession: {type:String}
 
