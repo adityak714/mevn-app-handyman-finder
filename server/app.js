@@ -4,7 +4,8 @@ var morgan = require("morgan");
 var path = require("path");
 var cors = require("cors");
 var history = require("connect-history-api-fallback");
-const Review = require("./src/Infrastructure/models/ReviewSchema");
+
+const ClientController = require("./src/API/Controllers/ClientController");
 
 // Create Express app
 var app = express();
@@ -46,29 +47,13 @@ app.options("*", cors());
 app.use(cors());
 
 // Import routes
-app.post("/api/reviews", function (req, res) {
-  let new_review = new Review({
-    reviewer: req.body.reviewer,
-    datetime: req.body.datetime,
-    rating: req.body.rating,
-    comment: req.body.comment,
-  });
-  new_review.save(function (err, new_review) {
-    if (err) { res.send(err); }
-    res.status(201).json(new_review);
-  });
-});
-app.get("/api/reviews", function (req, res) {
-    Review.find((err, reviews) => {
-        if (err) { res.send(err);}
-        res.status(200).json({"reviews": reviews});
-    });
-});
+app.route("/api/clients").all(ClientController);
 
 // Catch all non-error handler for api (i.e., 404 Not Found)
-app.use("/api/*", function (req, res) {
-  res.status(404).json({ message: "Not Found" });
-});
+
+// app.use("/api/*", function (req, res) {
+//   res.status(404).json({ message: "Not Found" });
+// });
 
 // Configuration for serving frontend in production mode
 // Support Vuejs HTML 5 history mode
