@@ -4,7 +4,7 @@ var morgan = require("morgan");
 var path = require("path");
 var cors = require("cors");
 var history = require("connect-history-api-fallback");
-const reviews = require("./src/Infrastructure/models/ReviewSchema");
+const Review = require("./src/Infrastructure/models/ReviewSchema");
 
 // Create Express app
 var app = express();
@@ -59,7 +59,7 @@ app.post("/api/reviews", function (req, res) {
   });
 });
 app.get("/api/reviews", function (req, res) {
-    reviews.find((err, reviews) => {
+    Review.find((err, reviews) => {
         if (err) { res.send(err);}
         res.status(200).json({"reviews": reviews});
     });

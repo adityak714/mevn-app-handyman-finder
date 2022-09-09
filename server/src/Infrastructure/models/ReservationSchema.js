@@ -4,8 +4,7 @@ var Schema = mongoose.Schema;
 var reservationSchema = new Schema( {
     id: {type: String},
     address: {type: String},
-    date: {type: Date},
-    time:{type: time},
+    datetime: {type: Date},
     location: {type: String},
     description: {type: String},
     job: {type: String}
