@@ -6,6 +6,7 @@ var cors = require("cors");
 var history = require("connect-history-api-fallback");
 
 const ClientController = require("./src/API/Controllers/ClientController");
+const HandymanController = require("./src/API/Controllers/HandymanController");
 
 // Create Express app
 var app = express();
@@ -47,15 +48,16 @@ app.options("*", cors());
 app.use(cors());
 
 // Import routes
-app.get('/api', function(req, res) {
-  res.json({'message': 'Welcome to your DIT342 backend ExpressJS project!'});
+app.get("/api", function (req, res) {
+  res.json({ message: "Welcome to your DIT342 backend ExpressJS project!" });
 });
+app.route("/api/handymen").all(HandymanController);
 app.route("/api/clients").all(ClientController);
 
 // Catch all non-error handler for api (i.e., 404 Not Found)
 app.use("/api/*", function (req, res) {
-   res.status(404).json({ message: "Not Found" });
- });
+  res.status(404).json({ message: "Not Found" });
+});
 
 // Configuration for serving frontend in production mode
 // Support Vuejs HTML 5 history mode
