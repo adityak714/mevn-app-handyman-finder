@@ -53,6 +53,7 @@ app.get("/api", function (req, res) {
 });
 app.route("/api/handymen").all(HandymanController);
 app.route("/api/clients").all(ClientController);
+app.route("/api/clients/:id").all(ClientController);
 
 // Catch all non-error handler for api (i.e., 404 Not Found)
 app.use("/api/*", function (req, res) {
