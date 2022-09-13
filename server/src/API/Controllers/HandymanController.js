@@ -14,3 +14,11 @@ router.post("/api/handymen", function (req, res, next) {
 });
 
 module.exports = router;
+
+//Delete client
+router.delete("/api/handymen/:id", function(req, res, next){
+  HandyMan.findById(req.params.id).then(handyman => {
+    return res.status(204).json(handyman);
+  
+  }).catch(err => next(err));
+});

@@ -5,6 +5,7 @@ var handymenSchema = new Schema ({
     firstName: { type: String },
     lastName: { type: String },
     email: { type: String },
+    password: {type: String},
     phoneNumber : { type: Number },
     area : { type: String },
     profession: { type: String },

@@ -52,6 +52,7 @@ app.get("/api", function (req, res) {
   res.json({ message: "Welcome to your DIT342 backend ExpressJS project!" });
 });
 app.route("/api/handymen").all(HandymanController);
+app.route("/api/handymen/:id").all(HandymanController);
 app.route("/api/clients").all(ClientController);
 app.route("/api/clients/:id").all(ClientController);
 
