@@ -52,6 +52,7 @@ app.get("/api", function (req, res) {
   res.json({ message: "Welcome to your DIT342 backend ExpressJS project!" });
 });
 app.route("/api/handymen").all(HandymanController);
+app.route("/api/handymen/:id").all(HandymanController);
 app.route("/api/clients").all(ClientController);
 
 // Catch all non-error handler for api (i.e., 404 Not Found)
