@@ -13,7 +13,12 @@ router.post("/api/handymen", function (req, res, next) {
   });
 });
 
-module.exports = router;
+router.get("/api/handymen", function (req, res, next) {
+  HandyMan.find({}, function(err, handymen){
+    if (err){res.status(404).send(err)}
+    res.status(200).json({"handyman": handymen})
+  })
+})
 
 //Delete client
 router.delete("/api/handymen/:id", function(req, res, next){
@@ -22,3 +27,13 @@ router.delete("/api/handymen/:id", function(req, res, next){
   
   }).catch(err => next(err));
 });
+
+
+router.put('/api/handymen/:id', function(req, res, next){
+  HandyMan.findByIdAndUpdate(req.params.id, req.body).then(updatedHandyman => {
+    if(updatedHandyman == null){res.status(404).send("The handyman could not be updated")}
+    res.status(200).json(updatedHandyman);
+  })
+})
+
+module.exports = router;
