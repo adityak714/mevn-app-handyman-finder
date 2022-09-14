@@ -33,9 +33,6 @@ router.get("/api/clients/:id", function (req, res, next) {
       } else {
         res.send("No such client exists!");
       }
-    })
-    .catch((err) => {
-      res.send(err);
     });
 });
 
