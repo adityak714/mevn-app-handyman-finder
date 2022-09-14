@@ -1,5 +1,6 @@
 var express = require("express");
-var router = express.Router();
+const { Mongoose } = require("mongoose");
+const router = express.Router();
 var Client = require("../../Infrastructure/models/ClientSchema");
 
 //Sign up client
@@ -7,7 +8,7 @@ router.post("/api/clients", function (req, res, next) {
   var client = new Client(req.body);
   client.save(function (err, client) {
     if (err) {
-      res.send(err);
+      res.status(400).send(err);
     }
     res.status(201).json(client);
   });
@@ -29,6 +30,8 @@ router.get("/api/clients/:id", function (req, res, next) {
     .then((clientFound) => {
       if (clientFound) {
         res.status(200).json(clientFound);
+      } else {
+        res.send("No such client exists!");
       }
     })
     .catch((err) => {
@@ -51,18 +54,41 @@ router.put("/api/clients/:id", function (req, res) {
 
 //Update client password via PATCH
 router.patch("/api/clients/:id", function (req, res) {
-  let updatedClient = Client.findById(req.params.id);
+  let updatedClient = Client.findById(req.params.id, {password: 1});
+  updatedClient
+    .then((client) => {
+      if (req.body.password) {
+        client.password = req.body.password;
+      }
+      client.save();
+      res.status(200).json(client);
+    })
+    .catch((clientNotFound) => {
+      res.send(clientNotFound);
+    });
+});
 
-  updatedClient.then((client) => {
-    if (req.body.password) {
-      client.password = req.body.password;
-    }
-    client.save();
-    res.status(200).json('Updated password successfully!');
-  })
-  .catch((clientNotFound) => {
-    res.send(clientNotFound);
-  });
+//Delete all clients
+router.delete("/api/clients", async function (req, res) {
+  await Client.collection
+    .deleteMany({})
+    .then(() => {
+      res.status(202).send("All clients deleted successfully.");
+    })
+    .catch((err) => {
+      res.send(err);
+    });
+});
+
+//Delete a specific client
+router.delete("/api/clients/:id", function (req, res) {
+  Client.findByIdAndRemove(req.params.id)
+    .then(() => {
+      res.status(204).json(`User with id ${req.params.id} successfully deleted.`);
+    })
+    .catch((err) => {
+      res.send(`${err} User could not be deleted.`);
+    });
 });
 
 module.exports = router;
