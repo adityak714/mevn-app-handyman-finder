@@ -13,7 +13,7 @@ router.post("/api/handymen", function (req, res, next) {
   });
 });
 
-module.exports = router;
+
 
 //Get all handymen
 router.get('/api/handymen', function(req, res, next){
@@ -43,4 +43,22 @@ router.put("/api/handymen/:id", function (req, res) {
       res.status(404).send(err);
     });
 });
+
+
+router.patch("/api/handymen/:id", function (req, res) {
+  let updatedHandyman = HandyMan.findById(req.params.id, {password: 1});
+  updatedHandyman
+    .then((handyMan) => {
+      if (req.body.password) {
+        handyMan.password = req.body.password;
+      }
+      handyMan.save();
+      res.status(200).json(handyMan);
+    })
+    .catch((handyMantNotFound) => {
+      res.send(handyMantNotFound);
+    });
+});
+
+module.exports = router;
 
