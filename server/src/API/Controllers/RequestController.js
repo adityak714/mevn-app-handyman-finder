@@ -38,9 +38,32 @@ router.get('/api/requests', function(req, res, next) {
         if (err) { return next(err); }
         res.json({"requests": requests});
     });
-}); 
+});
 
+//Delete a request by if
+router.delete('/api/requests/:id', async (req, res) => {
+    const _id = req.params.id;
+    try {
 
+     const request = await Request.findByIdAndDelete(_id);
+     if (!request) return res.status(200).json({"Message": "Request does not exist and could not be deleted"});
+     return res.send(request);
+    } catch (e) {
+     return res.sendStatus(400);
+    }
+})
+
+//Delete all requests 
+router.delete('/api/requests', function(req, res) {
+    Request.deleteMany({}, function(err, requests) {
+        if(err) {return res.send(err);}
+        if(requests == null) {
+            return res.status(200).send("No requests found");
+
+        }
+        res.status(200).json({"Message": "All requests deleted"})
+    })
+})
 
 
 module.exports = router;
