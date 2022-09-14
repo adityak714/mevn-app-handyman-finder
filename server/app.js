@@ -7,6 +7,8 @@ var history = require("connect-history-api-fallback");
 
 const ClientController = require("./src/API/Controllers/ClientController");
 const HandymanController = require("./src/API/Controllers/HandymanController");
+const RequestController = require("./src/API/Controllers/RequestController");
+const ReviewController = require("./src/API/Controllers/ReviewController");
 
 // Create Express app
 var app = express();
@@ -54,7 +56,10 @@ app.get("/api", function (req, res) {
 app.route("/api/handymen").all(HandymanController);
 app.route("/api/handymen/:id").all(HandymanController);
 app.route("/api/clients").all(ClientController);
-app.route("/api/clients/:id").all(ClientController);
+app.route("/api/requests").all(RequestController);
+app.route("/api/reviews").all(ReviewController);
+
+
 
 // Catch all non-error handler for api (i.e., 404 Not Found)
 app.use("/api/*", function (req, res) {
