@@ -6,8 +6,12 @@
   "scripts": {
     "postinstall": "npm install --prefix server && npm install --prefix client && npm install --only=dev --prefix client && npm run build --prefix client"
   },
-  "engines" : {
-    "npm" : "6.x",
+  "engines": {
+    "npm": "6.x",
     "node": "14.x"
+  },
+  "dependencies": {
+    "async": "^3.2.4",
+    "mongoose-autopopulate": "^0.16.1"
   }
 }

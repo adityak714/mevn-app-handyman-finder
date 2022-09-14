@@ -56,10 +56,13 @@ app.get("/api", function (req, res) {
 app.route("/api/handymen").all(HandymanController);
 app.route("/api/handymen/:id").all(HandymanController);
 app.route("/api/clients").all(ClientController);
+app.route("/api/clients/:id").all(ClientController);
 app.route("/api/requests").all(RequestController);
-app.route("/api/reviews").all(ReviewController);
 app.route("/api/requests/:id").all(RequestController);
-
+app.route("/api/reviews").all(ReviewController);
+app.route("/api/reviews/:id").all(ReviewController);
+app.route("/api/handymen/:id/reviews").all(HandymanController);
+//app.route("/api/handymen/:h_id/reviews/:r_id").all(HandymanController);
 
 // Catch all non-error handler for api (i.e., 404 Not Found)
 app.use("/api/*", function (req, res) {
