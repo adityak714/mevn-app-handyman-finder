@@ -15,6 +15,14 @@ router.post("/api/handymen", function (req, res, next) {
 
 module.exports = router;
 
+//Get all handymen
+router.get('/api/handymen', function(req, res, next){
+  HandyMan.find({}, function(err, handymen){
+    if(err){res.send(err)}
+    res.status(200).json({'handymen': handymen})
+  })
+})
+
 //Delete client
 router.delete("/api/handymen/:id", function(req, res, next){
   HandyMan.findById(req.params.id).then(handyman => {
@@ -22,3 +30,17 @@ router.delete("/api/handymen/:id", function(req, res, next){
   
   }).catch(err => next(err));
 });
+
+//Update client profile details
+router.put("/api/handymen/:id", function (req, res) {
+  HandyMan.findByIdAndUpdate(req.params.id, req.body)
+    .then((updatedHandyman) => {
+      if (updatedHandyman) {
+        res.status(200).json(updatedHandyman);
+      }
+    })
+    .catch((err) => {
+      res.status(404).send(err);
+    });
+});
+
