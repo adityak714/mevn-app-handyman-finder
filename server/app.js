@@ -58,7 +58,7 @@ app.route("/api/handymen/:id").all(HandymanController);
 app.route("/api/clients").all(ClientController);
 app.route("/api/requests").all(RequestController);
 app.route("/api/reviews").all(ReviewController);
-
+app.route("/api/requests/:id").all(RequestController);
 
 
 // Catch all non-error handler for api (i.e., 404 Not Found)

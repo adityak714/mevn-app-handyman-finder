@@ -15,4 +15,4 @@ var handymenSchema = new Schema ({
     }] 
 });
 
-module.exports = mongoose.model('handymen', handymenSchema);
+module.exports = mongoose.model('Handyman', handymenSchema);
