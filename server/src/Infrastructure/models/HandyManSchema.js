@@ -2,10 +2,10 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var handymenSchema = new Schema ({
-    firstName: { type: String },
-    lastName: { type: String },
-    email: { type: String },
-    password: {type: String},
+    firstName: { type: String , required : true},
+    lastName: { type: String, required : true },
+    email: { type: String, required : true},
+    password: {type: String, required: true},
     phoneNumber : { type: Number },
     area : { type: String },
     profession: { type: String },
