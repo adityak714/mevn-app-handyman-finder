@@ -26,7 +26,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"firstName\": \"Test5\",\n    \"lastName\": \"Handyman\",\n    \"email\": \"handyman1@gmail.com\",\n    \"phoneNumber\": \"1389123124123\",\n    \"area\": \"Gothenburg\",\n    \"profession\": \"Electrician\"\n}",
+					"raw": "{\n    \"firstName\": \"Test5\",\n    \"lastName\": \"Handyman\",\n    \"email\": \"handyman1@gmail.com\",\n    \"phoneNumber\": \"1389123124123\",\n    \"area\": \"Gothenburg\",\n    \"password\": \"13ef239c\",\n    \"profession\": \"Electrician\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -110,7 +110,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"datetime\": \"\",\r\n  \"rating\": 4,\r\n  \"comment\": \"test2\",\r\n  \"sender\": \"63219b6fb588f57b18169484\",\r\n  \"to\": \"632365697dbe9c0d707e6068\"\r\n}",
+					"raw": "{\r\n  \"rating\": 4,\r\n  \"comment\": \"test2\",\r\n  \"sender\": \"63219b6fb588f57b18169484\",\r\n  \"to\": \"63239f7fa6fd5e32347cc8a7\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -118,7 +118,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:3000/api/handymen/632365697dbe9c0d707e6068/reviews",
+					"raw": "http://localhost:3000/api/handymen/63239f7fa6fd5e32347cc8a7/reviews",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -127,7 +127,7 @@
 					"path": [
 						"api",
 						"handymen",
-						"632365697dbe9c0d707e6068",
+						"63239f7fa6fd5e32347cc8a7",
 						"reviews"
 					]
 				}
@@ -285,7 +285,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:3000/api/handymen/632365697dbe9c0d707e6068",
+					"raw": "http://localhost:3000/api/handymen/63239f7fa6fd5e32347cc8a7",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -294,7 +294,7 @@
 					"path": [
 						"api",
 						"handymen",
-						"632365697dbe9c0d707e6068"
+						"63239f7fa6fd5e32347cc8a7"
 					]
 				}
 			},
@@ -375,7 +375,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:3000/api/handymen/631caf423c0e2612cb52b8c2",
+					"raw": "http://localhost:3000/api/handymen/63239f7fa6fd5e32347cc8a7",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -384,7 +384,7 @@
 					"path": [
 						"api",
 						"handymen",
-						"631caf423c0e2612cb52b8c2"
+						"63239f7fa6fd5e32347cc8a7"
 					]
 				}
 			},
@@ -410,7 +410,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"firstName\": \"Update\",\r\n    \"lastName\": \"Reina\",\r\n    \"email\": \"xxxx@something.com\",\r\n    \"password\": \"venacamuchacho123\",\r\n    \"phoneNumber\": 255,\r\n    \"address\": \"Sientogatan 5\"\r\n}",
+					"raw": "{\r\n    \"firstName\": \"NewUpdate\",\r\n    \"lastName\": \"Reina\",\r\n    \"email\": \"xxxx@something.com\",\r\n    \"password\": \"venacamuchacho123\",\r\n    \"phoneNumber\": 255,\r\n    \"address\": \"Sientogatan 5\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -461,7 +461,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:3000/api/handymen/632370425362a933a4bdceee",
+					"raw": "http://localhost:3000/api/handymen/63239f7fa6fd5e32347cc8a7",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -470,7 +470,7 @@
 					"path": [
 						"api",
 						"handymen",
-						"632370425362a933a4bdceee"
+						"63239f7fa6fd5e32347cc8a7"
 					]
 				}
 			},
