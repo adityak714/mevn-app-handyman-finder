@@ -12,7 +12,13 @@ var handymenSchema = new Schema ({
     reviews: [{
         type: Schema.Types.ObjectId,
         ref: 'Review'
-    }] 
+    }],
+    requests: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: 'Request'
+        }
+    ]
 });
 
 module.exports = mongoose.model('Handyman', handymenSchema);
