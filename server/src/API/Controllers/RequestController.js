@@ -4,15 +4,28 @@ var Request = require('../../Infrastructure/models/RequestSchema');
 var Client = require("../../Infrastructure/models/ClientSchema")
 
 //Creates a request
-router.post('/api/requests', function(req, res) {
-    let new_request = new Request(req.body);
-    new_request.save(function(err, new_request){
-        if(err) {
-            res.send(err);
-        }
-        res.status(201).json(new_request);
-    })
-});
+router.post("/api/requests", function (req, res) {
+    let request = new Request(req.body);
+    request.save(function (err, new_request) {
+      if (err) {
+        return res.send(err);
+      }
+      Client.findById(new_request.client, (err, client) => {
+        client.requests.push(new_request._id);
+        client.save()
+        .then(() => {
+          return res.status(201).json(new_request);
+        })
+      });
+      HandyMan.findById(new_request.handyman, (err, handyman) => {
+        handyman.requests.push(new_request._id);
+        handyman.save()
+        .then(() => {
+          return res.status(201).json(new_request);
+        })
+      });
+    });
+  });
 //Update a request by id
 router.put("/api/requests/:id", function (req, res) {
     Request.findByIdAndUpdate(req.params.id, req.body)
