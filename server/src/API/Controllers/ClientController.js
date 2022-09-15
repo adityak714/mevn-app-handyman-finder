@@ -2,7 +2,7 @@ var express = require("express");
 const { Mongoose } = require("mongoose");
 const router = express.Router();
 var Client = require("../../Infrastructure/models/ClientSchema");
-
+const Request = require("../../Infrastructure/models/RequestSchema")
 //Sign up client
 router.post("/api/clients", function (req, res, next) {
   var client = new Client(req.body);
@@ -22,6 +22,17 @@ router.get("/api/clients", function (req, res, next) {
     }
     res.status(200).json({ clients: clients });
   });
+});
+//Get all requests for a client(Client must exist and verified)
+router.get("/api/clients/:id/requests", async function (req, res) {
+  Client.findById(req.params.id, { requests: 1 })
+    .populate("requests")
+    .exec((err, client) => {
+      if (err) {
+        return res.status(400).send(err);
+      }
+      return res.status(200).json(client.requests);
+    });
 });
 
 //Get a specific client
