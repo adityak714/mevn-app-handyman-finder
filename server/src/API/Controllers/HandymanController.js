@@ -70,7 +70,7 @@ router.put("/api/handymen/:id", function (req, res) {
   HandyMan.findByIdAndUpdate(req.params.id, req.body)
     .then((updatedHandyman) => {
       if (updatedHandyman) {
-        return res.status(200).json(updatedHandyman);
+        return res.status(200).json(req.body);
       }
     })
     .catch((err) => {
@@ -107,12 +107,14 @@ router.delete("/api/handymen", async function (req, res) {
 });
 
 //Delete one handyman
-router.delete("/api/handymen/:id", function (req, res, next) {
-  HandyMan.findById(req.params.id)
-    .then((handyman) => {
-      return res.status(204).json(handyman);
+router.delete("/api/handymen/:id", function (req, res) {
+  HandyMan.findByIdAndRemove(req.params.id)
+    .then(() => {
+      res.status(204).json(`User with id ${req.params.id} successfully deleted.`);
     })
-    .catch((err) => next(err));
+    .catch((err) => {
+      res.send(`${err} User could not be deleted.`);
+    });
 });
 
 module.exports = router;
