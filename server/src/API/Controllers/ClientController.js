@@ -52,7 +52,7 @@ router.put("/api/clients/:id", function (req, res) {
   Client.findByIdAndUpdate(req.params.id, req.body)
     .then((updatedClient) => {
       if (updatedClient) {
-        res.status(200).json(updatedClient);
+        res.status(200).json(req.body);
       }
     })
     .catch((err) => {
