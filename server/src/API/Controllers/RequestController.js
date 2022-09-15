@@ -52,6 +52,21 @@ router.get('/api/requests', function(req, res, next) {
         res.json({"requests": requests});
     });
 });
+//Update status for a specific request
+router.patch("/api/requests/:id", function (req, res) {
+  let updatedRequest = Request.findById(req.params.id, {status: 1});
+  updatedRequest
+    .then((request) => {
+      if (req.body.status) {
+        request.status = req.body.password;
+      }
+      request.save();
+      res.status(200).json(request);
+    })
+    .catch((requestNotFound) => {
+      res.send(requestNotFound);
+    });
+});
 
 //Delete a request by if
 router.delete('/api/requests/:id', async (req, res) => {

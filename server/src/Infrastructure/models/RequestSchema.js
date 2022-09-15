@@ -6,7 +6,7 @@ var requestSchema = new Schema( {
     address: {type: String, required: true},
     status : {
         type: String,
-        //default: () => "pending"
+        default : "PENDING"
     },
     datetime: {
         type: Date,
