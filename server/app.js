@@ -55,6 +55,8 @@ app.get("/api", function (req, res) {
 });
 app.route("/api/handymen").all(HandymanController);
 app.route("/api/handymen/:id").all(HandymanController);
+//New routes
+app.route("/api/clients/:id/reviews").all(ClientController);
 app.route("/api/clients").all(ClientController);
 app.route("/api/clients/:id").all(ClientController);
 app.route("/api/requests").all(RequestController);

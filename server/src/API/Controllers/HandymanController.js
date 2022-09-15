@@ -2,6 +2,7 @@ var express = require("express");
 var router = express.Router();
 var HandyMan = require("../../Infrastructure/models/HandyManSchema");
 const Review = require("../../Infrastructure/models/ReviewSchema");
+const Request = require("../../Infrastructure/models/RequestSchema");
 
 //Sign up handyman
 router.post("/api/handymen", function (req, res, next) {
@@ -114,5 +115,33 @@ router.delete("/api/handymen/:id", function (req, res, next) {
     })
     .catch((err) => next(err));
 });
+
+//Create a request for a handyman
+router.post("/api/handymen/:id/requests", async function(req, res){
+  let request = new Request(req.body);
+  request.save(function (err, new_request) {
+    if (err) {
+      return res.send(err);
+    }
+    HandyMan.findById(new_request.handyman, (err, handyman) => {
+      handyman.requests.push(new_request._id);
+      handyman.save().then(() => {
+        return res.status(201).json(new_request);
+      });
+    });
+  });
+})
+
+//Retrieve all requests of a handyman
+router.get("/api/handymen/:id/requests", async function(req, res) {
+  HandyMan.findById(req.params.id, { requests: 1 })
+  .populate("requests")
+  .exec((err, handyman) => {
+    if (err) {
+      return res.status(400).send(err);
+    }
+    return res.status(200).json(handyman.requests);
+  });
+})
 
 module.exports = router;
