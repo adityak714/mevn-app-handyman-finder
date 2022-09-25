@@ -2,6 +2,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var handymenSchema = new Schema ({
+    accessToken: {type: String},
     firstName: { type: String , required : true},
     lastName: { type: String, required : true },
     email: { type: String, required : true},
