@@ -6,7 +6,7 @@
 
       <b-col cols = "9" class="left-container">
 
-          <div :class = "information-container">
+          <div class = "information-container">
 
                   <p class="sign-in">Log In To Your Account</p>
 
