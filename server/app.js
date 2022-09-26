@@ -9,6 +9,7 @@ const ClientController = require("./src/API/Controllers/ClientController");
 const HandymanController = require("./src/API/Controllers/HandymanController");
 const RequestController = require("./src/API/Controllers/RequestController");
 const ReviewController = require("./src/API/Controllers/ReviewController");
+const AuthController = require("./src/API/Controllers/AuthController");
 
 // Create Express app
 var app = express();
@@ -64,6 +65,7 @@ app.route("/api/requests/:id").all(RequestController);
 app.route("/api/reviews").all(ReviewController);
 app.route("/api/reviews/:id").all(ReviewController);
 app.route("/api/handymen/:id/reviews").all(HandymanController);
+app.route("/api/auth/signin").all(AuthController)
 //app.route("/api/handymen/:h_id/reviews/:r_id").all(HandymanController);
 
 // Catch all non-error handler for api (i.e., 404 Not Found)

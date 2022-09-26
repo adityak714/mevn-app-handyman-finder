@@ -2,20 +2,19 @@ var express = require("express");
 const { Mongoose } = require("mongoose");
 const router = express.Router();
 var Client = require("../../Infrastructure/models/ClientSchema");
-var HandyMan = require("../../Infrastructure/models/HandymanSchema");
+var HandyMan = require("../../Infrastructure/models/HandyManSchema");
 //Encription password
 const { SHA3 } = require('sha3');
 //JWT Authentication
 const jwt = require('jsonwebtoken');
-import {encryptionJWTKey} from '../../Domain/Constants.js';
+var encryptionJWTKey =  require('../../Domain/Constants.js');
 
 //Sign In client
-router.post("/api/auth/signin", async function (req, res, next) {
+router.post("/api/auth/signin", async function (req, res) {
 
     const hash = new SHA3(512);
     hash.update(req.body.password);
        
-    
     var email = req.body.email;
     var password = hash.digest('hex');
   
@@ -31,11 +30,11 @@ router.post("/api/auth/signin", async function (req, res, next) {
                 data: '123'
               }, encryptionJWTKey);
             
-              handyman.save(function (err, client) {
-                if (err) {
-                res.status(400).send(err);
-                }
-                res.status(201).json(client);
+            handyman.save(function (err, handyman) {
+            if (err) {
+            res.status(400).send(err);
+            }
+            res.status(201).json(handyman);
             });
         }
     }
