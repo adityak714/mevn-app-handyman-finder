@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="login-page">
     <p class="sign-in">Log In To Your Account</p>
     <form class="sign-in-form" id="email">
         <input type='email' v-model="email" placeholder='Email'>
@@ -42,12 +42,17 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+div#login-page {
+  width: 100%;
+  height: 100%;
+}
+
 .sign-in {
     font-size: 30px;
 }
 
-.information-container{
+.information-container {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -58,14 +63,15 @@ export default {
 .sign-in-form {
     min-height: 35px;
     border-radius: 20px;
+    margin: 10px;
     align-items: center;
     display: flex;
-    background-color: rgba(59, 187, 133, 0.22);
-    color: #808080;
+    background-color: rgba(100, 0, 0, 0.4);
+    color: black;
 }
 
 .right-container {
-    background-color: #3BBB85;
+    background-color: rgba(100, 0, 0, 0.4);
 }
 
 .sign-in-btn {
@@ -74,8 +80,8 @@ export default {
     padding-bottom: 10px;
     padding-left: 40px;
     padding-right: 40px;
-    border: 1px solid #3BBB85;
-    color: #3BBB85;
+    border: 1px solid rgba(100, 0, 0, 0.4);
+    color: black;
     background-color: white;
 }
 
@@ -87,6 +93,6 @@ export default {
     padding-right: 40px;
     border: none;
     color: white;
-    background-color: #3BBB85;
+    background-color:rgba(100, 0, 0, 0.4);
 }
 </style>

@@ -6,14 +6,14 @@
               <SignInBox v-on:signIn='login'/>
             </div>
         </b-col>
-      <b-col cols = "3" class="right-container" style="background-color:green">Hola buenas</b-col>
+      <b-col cols = "3" class="right-container" style="background-color:green"></b-col>
     </b-row>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import SignInBox from '../components/signIn.vue'
+import SignInBox from '../components/SignIn'
 
 export default {
   name: 'login',
