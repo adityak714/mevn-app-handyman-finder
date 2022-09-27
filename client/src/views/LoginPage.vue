@@ -28,7 +28,7 @@ export default {
   methods: {
     login() {
       this.loggedIn = true
-      this.$router.push('/profile')
+      this.$router.push('/account')
     }
   }
 }
