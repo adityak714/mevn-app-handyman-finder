@@ -1,45 +1,43 @@
 <template>
-        <!----- Header -->
-    <b-container fluid>
-    <div class="home-page">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@40,700,1,0" />
-        <b-row>
-            <b-col col="12">
-             <div class="header-container">
-                <ClientHeader/>
-             </div>
-    </b-col>
-   </b-row>
-   <b-row>
-    <b-container fluid>
-    <div class="main-container">
-        <b-col cols="9">
-                <b-container fluid class="content">
-                    <p>Find Handyman</p>
-                        <div>
-                            <label for="area">Area/Location</label>
-                        </div>
-                        <div>
-                            <b-form-input size="sm" class="mt-3" v-model="text" placeholder="Enter your name"></b-form-input>
-                            <div class="mt-2">Value: {{ text }}</div>
-                        </div>
-                    <div>
-                    <b-form-select v-model="selected" :options="options" size="sm" class="mt-3"></b-form-select>
-                    </div>
-                    <div>
-                        <label for="range-2">Price Level 0- 500 (SEK/hr)</label>
-                    </div>
-                    <div>
-                        <b-form-input class="mt-3" id="range-2" v-model="priceValue" type="range" min="0" max="500" step="10"></b-form-input>
-                        <div>{{ priceValue}}</div>
-                    </div>
-                </b-container>
+    <!----- Header -->
+<div class="home-page">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@40,700,1,0" />
+    <b-row>
+        <b-col col="12">
+         <div class="header-container">
+            <ClientHeader/>
+         </div>
         </b-col>
-   </div>
-   </b-container>
-   </b-row>
+    </b-row>
+    <b-row>
+    <b-container fluid>
+        <div class="main-container">
+        <b-col cols="12">
+            <b-container fluid class="content">
+                <p class="title">Find Handyman</p>
+                <div>
+                    <label for="area">Area/Location</label>
+                </div>
+                <b-form-input size="sm" class="area-location" v-model="text" placeholder="Enter the location"></b-form-input>
+                <div>
+                <b-form-select v-model="selected" :options="options" size="sm" class="mt-3"></b-form-select>
+                </div>
+                <div>
+                    <label for="range-2">Price Level 0- 500 (SEK/hr)</label>
+                </div>
+                <div>
+                    <b-form-input class="mt-3" id="range-2" v-model="priceValue" type="range" min="0" max="500" step="10"></b-form-input>
+                    <div>{{ priceValue}}</div>
+                </div>
+                <div>
+                    <b-button class="button">Find</b-button>
+                </div>
+            </b-container>
+    </b-col>
 </div>
 </b-container>
+</b-row>
+</div>
 </template>
 <script>
 import ClientHeader from '@/components/ClientHeader.vue'
@@ -66,32 +64,41 @@ export default {
 </script>
 <style scoped>
 .material-symbols-outlined {
-    display: block;
-    padding-top: 10px;
+display: block;
+padding-top: 10px;
 }
 .main-container {
-    display: flex;
-  background-color: #FFFFFF;
-  height: 1000px;
+display: flex;
+background-color: rgba(100, 0, 0, 0.7);
+height: 500px;
 }
 .sidebar{
-    display:flex;
-    align-content: center;
-    justify-content: center;
-    background-color:rgba(222, 116, 9, 0.4);
-    height: 800px
+display:flex;
+align-content: center;
+justify-content: center;
+background-color:rgba(222, 116, 9, 0.4);
+height: 800px
 }
 .header-container{
-    border:#9D5100
+border:#9D5100
 }
 .content{
-    align-items: center;
-    padding-top: 50px;
-    background-color: white;
-    height: 480px;
-    border:solid
+display:flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+padding-top: 50px;
+background-color: white;
+height: 480px;
+border:solid
 }
 .mt-3{
-    width: 500px;
+width: 300px;
+}
+.area-location{
+width: 300px;
+}
+.title{
+font-size: 50px;
 }
 </style>
