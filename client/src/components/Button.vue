@@ -15,9 +15,8 @@ export default {
       padding-bottom: 10px;
       padding-left: 10px;
       padding-right: 10px;
-      border:none;
       width: 200px;
-      border: solid;
+      border: none;
       color: white;
       background-color: #FBAB9C;
       cursor: pointer;
