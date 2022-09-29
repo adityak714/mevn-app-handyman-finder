@@ -2,7 +2,7 @@
     <header class="header">
       <div>
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@40,700,1,0" />
-        <b-navbar>
+        <b-navbar  class="navbar">
           <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
           <b-collapse class="nav-collapse" is-nav>
@@ -10,14 +10,11 @@
               <img class="full-logo" src='../assets/full-logo.png'/>
               <div class="header-right">
               <div id="nav">
-                <router-link class="link" to="/home"><p><strong>Home</strong></p></router-link>
-                <router-link class="link" to="/login"><p><strong>My Requests</strong></p></router-link>
-                <router-link class="link" to="/signup"><p><strong>Create Request</strong></p></router-link>
-                <router-link class="link" to="/findhandymenpage"><p><strong>Find Handymen</strong></p></router-link>
+                <router-link class="link" to="/"><p><strong>Home</strong></p></router-link>
+                <router-link class="link" to=""><p><strong>All Requests</strong></p></router-link>
               </div>
               </div>
             </b-navbar-nav>
-
             <!-- Right aligned nav items -->
             <b-navbar-nav class="ml-auto">
               <b-nav-item-dropdown right>
@@ -25,7 +22,7 @@
                 <template #button-content>
                     <div class="material-symbols-outlined">person</div><span>First Last</span>
                 </template>
-                <b-dropdown-item class="link" to="/clienthomepage">Profile</b-dropdown-item>
+                <b-dropdown-item href="#">Profile</b-dropdown-item>
                 <b-dropdown-item href="#">Sign Out</b-dropdown-item>
               </b-nav-item-dropdown>
             </b-navbar-nav>
@@ -34,19 +31,16 @@
       </div>
     </header>
 </template>
-
 <script>
 export default {
-  name: 'Header'
+  name: 'ClientHeader'
 }
 </script>
-
 <style scoped>
 .material-symbols-outlined {
     display: block;
     padding-top: 10px;
 }
-
 .full-logo{
     display: flex;
     align-self: center;
@@ -55,12 +49,14 @@ export default {
     transform: rotate(0.8deg);
     padding-right: 20px;
 }
-
+.header {
+    background-color: white;
+}
 .header a.link, .header a.link p {
     display: block;
     margin: 10px 20px 10px 20px;
     font-size: 1.3rem;
-    color: rgba(170, 0, 0, 0.7);
+    color: rgba(100, 0, 0, 0.6)
 }
 
 #nav {
@@ -74,8 +70,9 @@ export default {
   align-items: center;
   justify-content: center;
 }
-
-html body {
-    background-color: white;
+.testrow {
+    padding-top: 50px;
+  background-color: green;
+  height: 1000px;
 }
 </style>

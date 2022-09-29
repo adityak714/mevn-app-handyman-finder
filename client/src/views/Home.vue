@@ -2,10 +2,16 @@
   <div class='home-page'>
     <Header/>
     <div id="body">
-      <h1 class="display-3">DIT342 Frontend</h1>
-      <p class="lead">Welcome to your DIT342 Frontend Vue.js App</p>
-      <button type="button" class="btn btn_message btn-primary">Get Message from Server</button>
-      <p>Message from the server:<br> none</p>
+      <h1 class="display-3">Welcome {{ firstName }} {{ lastName }}</h1>
+        <br/>
+      <h2>Profile Page</h2>
+      <h3 class="profile-info">
+        First Name: {{firstName}} <br/>
+        Last Name: {{lastName}} <br/>
+        Phone Number: {{phoneNumber}} <br/>
+        Address: {{address}} <br/>
+        Profession: {{profession}}
+      </h3>
     </div>
   </div>
 </template>
@@ -19,7 +25,12 @@ export default {
   name: 'home',
   data() {
     return {
-      message: 'none'
+      message: 'none',
+      firstName: '',
+      lastName: '',
+      phoneNumber: '',
+      address: '',
+      profession: ''
     }
   },
   components: {
@@ -35,6 +46,36 @@ export default {
           this.message = error
         })
     }
+  },
+  created() {
+    const searchURL = new URL(window.location).pathname
+    const strs = searchURL.split('/')
+    const id = strs.at(-1)
+    console.log(id)
+    this.id = id
+    Api.get(`/clients/${id}`)
+      .then(response => {
+        if (response.data === 'No such client exists!') {
+          Api.get(`/handymen/${id}`)
+            .then(response => {
+              this.firstName = response.data.firstName
+              this.lastName = response.data.lastName
+              this.phoneNumber = response.data.phoneNumber
+              this.address = response.data.address
+              this.profession = response.data.profession
+            })
+            .catch(error => {
+              this.firstname = error
+            })
+        }
+        this.firstName = response.data.firstName
+        this.lastName = response.data.lastName
+        this.phoneNumber = response.data.phoneNumber
+        this.address = response.data.address
+      })
+      .catch(error => {
+        this.firstname = error
+      })
   }
 }
 </script>
@@ -48,5 +89,14 @@ div#body {
   padding-top: 50px;
   background-color: rgba(100, 0, 0, 0.4);
   height: 1000px;
+}
+
+.display-3 {
+ display: flex;
+ justify-content: center;
+}
+
+.profile-info {
+  font-size: 20px;
 }
 </style>
