@@ -11,15 +11,11 @@ var encryptionJWTKey =  require('../../Domain/Constants.js');
 
 //Sign In client
 router.post("/api/auth/signin", async function (req, res) {
-
     const hash = new SHA3(512);
     hash.update(req.body.password);
-       
     var email = req.body.email;
     var password = hash.digest('hex');
-  
     var client = await Client.findOne({email: email, password: password});
-    
     if(client == null){
         var handyman = await HandyMan.findOne({email: email, password: password});
         if(handyman == null){
@@ -29,7 +25,6 @@ router.post("/api/auth/signin", async function (req, res) {
             handyman.accessToken = jwt.sign({
                 data: '123'
               }, encryptionJWTKey);
-            
             handyman.save(function (err, handyman) {
             if (err) {
             res.status(400).send(err);
@@ -42,7 +37,6 @@ router.post("/api/auth/signin", async function (req, res) {
         client.accessToken = jwt.sign({
             data: '123'
           }, encryptionJWTKey);
-        
         client.save(function (err, client) {
             if (err) {
             res.status(400).send(err);
@@ -51,5 +45,16 @@ router.post("/api/auth/signin", async function (req, res) {
         });
     }
 });
+
+//Get authenticated user
+router.get('/api/client', function (req, res, next) {
+    let token = req.body.token;
+    jwt.verify(token, 'secretkey', (err, client) => {
+      User.findOne({_id: client._id}, (err, client) => {
+          if(err) next(err);
+          return res.status(200).json(client);
+      })
+    })
+  })  
 
 module.exports = router;
