@@ -69,15 +69,16 @@ padding-top: 10px;
 }
 .main-container {
 display: flex;
-background-color: rgba(100, 0, 0, 0.7);
-height: 500px;
+background-color: rgba(100, 0, 0, 0.4);
+height: 1000px;
+align-items: center;
 }
 .sidebar{
 display:flex;
 align-content: center;
 justify-content: center;
 background-color:rgba(222, 116, 9, 0.4);
-height: 800px
+height:1000px
 }
 .header-container{
 border:#9D5100
@@ -87,7 +88,7 @@ display:flex;
 flex-direction: column;
 justify-content: center;
 align-items: center;
-padding-top: 50px;
+/*padding-top: 50px;*/
 background-color: white;
 height: 480px;
 border:solid

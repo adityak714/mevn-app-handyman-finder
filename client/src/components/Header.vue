@@ -11,9 +11,9 @@
               <div class="header-right">
               <div id="nav">
                 <router-link class="link" to="/"><p><strong>Home</strong></p></router-link>
-                <router-link class="link" to="/login"><p><strong>Login</strong></p></router-link>
-                <router-link class="link" to="/signup"><p><strong>ClientSignUp</strong></p></router-link>
-                <router-link class="link" to="/clienthomepage"><p><strong>ClientHomePage</strong></p></router-link>
+                <router-link class="link" to="/login"><p><strong>My Requests</strong></p></router-link>
+                <router-link class="link" to="/signup"><p><strong>Create Request</strong></p></router-link>
+                <router-link class="link" to="/clienthomepage"><p><strong>Find Handymen</strong></p></router-link>
               </div>
               </div>
             </b-navbar-nav>
@@ -25,7 +25,7 @@
                 <template #button-content>
                     <div class="material-symbols-outlined">person</div><span>First Last</span>
                 </template>
-                <b-dropdown-item href="#">Profile</b-dropdown-item>
+                <b-dropdown-item class="link" to="/clienthomepage">Profile</b-dropdown-item>
                 <b-dropdown-item href="#">Sign Out</b-dropdown-item>
               </b-nav-item-dropdown>
             </b-navbar-nav>
