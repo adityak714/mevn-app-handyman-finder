@@ -24,11 +24,9 @@ export default {
   components: {
     SignInBox
   },
-  methods: {
-    login() {
-      this.loggedIn = true
-      this.$router.push('/account')
-    }
+  created() {
+    this.loggedIn = true
+    // this.$router.push('/account')
   }
 }
 </script>

@@ -9,13 +9,14 @@
     </form>
     <a href=''><p class="forgot-password"><u>Forgot your password?</u></p></a>
     <div class = "sign-in-btn-container">
-        <button class="sign-in-btn" v-on:click="signIn">Sign In</button>
+        <button class="sign-in-btn" @click="signIn">Sign In</button>
     </div>
   </div>
 </template>
 
 <script>
 import { Api } from '../Api'
+import { bus } from '../main'
 // eslint-disable-next-line indent
 export default {
   name: 'SignInBox',
@@ -31,8 +32,9 @@ export default {
       const auth = { email: this.email, password: this.password }
       Api.post('/auth/signin', auth)
         .then(response => {
-          console.log(response.data)
-          this.$emit('signIn', response.data)
+          bus.$emit('sign-in-event', response.data)
+          const id = response.data._id
+          this.$router.push(`/account/${id}`)
         })
         .catch(error => {
           console.log(error)

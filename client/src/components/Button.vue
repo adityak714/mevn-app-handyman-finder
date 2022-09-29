@@ -15,7 +15,6 @@ export default {
       padding-bottom: 10px;
       padding-left: 10px;
       padding-right: 10px;
-      border:none;
       width: 200px;
       border: 1px solid rgba(100, 0, 0, 0.4);
       background-color: #FFFFFF;
