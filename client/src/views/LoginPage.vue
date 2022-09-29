@@ -1,12 +1,11 @@
 <template>
     <div class = "web-container">
       <b-row class = "container">
-        <b-col cols = "9" class="left-container">
-            <div class = "information-container">
-              <SignInBox/>
+        <b-col cols = "12" class="left-container">
+          <div class = "information-container">
+              <SignInBox v-on:signIn='login'/>
             </div>
         </b-col>
-      <b-col cols = "3" class="right-container" style="background-color:green"></b-col>
     </b-row>
   </div>
 </template>
