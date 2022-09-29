@@ -4,7 +4,7 @@ import Home from './views/Home.vue'
 import LoginPage from './views/LoginPage.vue'
 // import ProfilePage from './views/ProfilePage.vue'
 import ClientSignUp from './views/ClientSignUp.vue'
-import ClientHomePage from './views/ClientHomePage.vue'
+import FindHandyMenPage from './views/FindHandyMenPage.vue'
 
 Vue.use(Router)
 
@@ -28,14 +28,9 @@ export default new Router({
       component: ClientSignUp
     },
     {
-      path: '/clienthomepage',
-      name: 'clienthomepage',
-      component: ClientHomePage
-    },
-    {
-      path: '/clienthomepage',
-      name: 'clienthomepage',
-      component: ClientHomePage
+      path: '/findhandymenpage',
+      name: 'findhandymenpage',
+      component: FindHandyMenPage
     }
   ]
 })

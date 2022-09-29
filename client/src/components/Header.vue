@@ -10,10 +10,10 @@
               <img class="full-logo" src='../assets/full-logo.png'/>
               <div class="header-right">
               <div id="nav">
-                <router-link class="link" to="/"><p><strong>Home</strong></p></router-link>
+                <router-link class="link" to="/home"><p><strong>Home</strong></p></router-link>
                 <router-link class="link" to="/login"><p><strong>My Requests</strong></p></router-link>
                 <router-link class="link" to="/signup"><p><strong>Create Request</strong></p></router-link>
-                <router-link class="link" to="/clienthomepage"><p><strong>Find Handymen</strong></p></router-link>
+                <router-link class="link" to="/findhandymenpage"><p><strong>Find Handymen</strong></p></router-link>
               </div>
               </div>
             </b-navbar-nav>

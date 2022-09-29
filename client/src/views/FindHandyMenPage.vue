@@ -5,7 +5,7 @@
     <b-row>
         <b-col col="12">
          <div class="header-container">
-            <ClientHeader/>
+            <Header />
          </div>
         </b-col>
     </b-row>
@@ -14,7 +14,7 @@
         <div class="main-container">
         <b-col cols="12">
             <b-container fluid class="content">
-                <p class="title">Find Handyman</p>
+                <p class="title">Find Handymen</p>
                 <div>
                     <label for="area">Area/Location</label>
                 </div>
@@ -40,7 +40,7 @@
 </div>
 </template>
 <script>
-import ClientHeader from '@/components/ClientHeader.vue'
+import Header from '../components/Header.vue'
 export default {
   data() {
     return {
@@ -58,7 +58,7 @@ export default {
   },
   name: 'ClientHomePage',
   components: {
-    ClientHeader
+    Header
   }
 }
 </script>
