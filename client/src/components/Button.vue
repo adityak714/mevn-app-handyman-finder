@@ -17,14 +17,15 @@ export default {
       padding-right: 10px;
       border:none;
       width: 200px;
-      border: solid;
-      color: white;
-      background-color: #FBAB9C;
+      border: 1px solid rgba(100, 0, 0, 0.4);
+      background-color: #FFFFFF;
+      color: black;
       cursor: pointer;
       transition: 0.3s;
   }
   .sign-up-btn:hover{
-    background-color: #FFFFFF;
-    color: #FBAB9C
+    color: white;
+    background-color: rgba(100, 0, 0, 0.4);
+    border:none;
   }
 </style>

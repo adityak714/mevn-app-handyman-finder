@@ -1,13 +1,8 @@
 <template>
     <div class = "web-container">
       <b-row class = "container">
-        <b-col cols = "9" class="left-container">
+        <b-col cols = "12" class="left-container">
           <Form />
-        </b-col>
-        <b-col cols = "3" class="right-container">
-          <p class="right-container-text">
-            Why HandyMan App?
-          </p><br>
         </b-col>
       </b-row>
     </div>
@@ -103,21 +98,6 @@ export default {
   .first-name {
     margin-top: 2px;
     margin-bottom: 2px;
-  }
-  .right-container {
-    display: flex;
-    background: linear-gradient(180deg,rgba(13, 25, 81, 0.58) 32.81%, rgba(13, 25, 81, 0) 100%);
-    align-items: center;
-    justify-content: center;
-  }
-  .right-container-text {
-    position: absolute;
-    color: #FFFFFF;
-    font-weight: bold;
-    font-size: 30px;
-    display: flex;
-    align-items: center;
-    text-align: center;
   }
   #handyman-logo{
     width: 300px;
