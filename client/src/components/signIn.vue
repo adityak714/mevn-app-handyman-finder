@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import { Api } from '../Api'
+// import { Api } from '../Api'
 // eslint-disable-next-line indent
 export default {
   name: 'SignInBox',
@@ -27,16 +27,7 @@ export default {
   },
   methods: {
     signIn() {
-      // eslint-disable-next-line no-unused-vars
-      const auth = { email: this.email, password: this.password }
-      Api.post('/auth/signin', auth)
-        .then(response => {
-          console.log(response.data)
-          this.$emit('signIn', response.data)
-        })
-        .catch(error => {
-          console.log(error)
-        })
+      this.$emit('sign-in')
     }
   }
 }

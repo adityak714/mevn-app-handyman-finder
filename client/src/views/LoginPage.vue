@@ -2,8 +2,8 @@
     <div class = "web-container">
       <b-row class = "container">
         <b-col cols = "9" class="left-container">
-            <div class = "information-container">
-              <SignInBox v-on:signIn='login'/>
+            <div class = "information-container" v-on:signIn="$emit('logIn')">
+              <SignInBox/>
             </div>
         </b-col>
       <b-col cols = "3" class="right-container" style="background-color:green"></b-col>
@@ -25,11 +25,9 @@ export default {
   components: {
     SignInBox
   },
-  methods: {
-    login() {
-      this.loggedIn = true
-      this.$router.push('/account')
-    }
+  created() {
+    this.loggedIn = true
+    // this.$router.push('/account')
   }
 }
 </script>
