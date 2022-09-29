@@ -1,23 +1,21 @@
 <template>
   <div>
-    <Clients @sign-in=signIn v-bind:clients='clients'/>
-    <h1>Hello {{firstname}}</h1>
+    <h1>Hello {{ firstname }} {{id}}</h1>
+    <button @click = "click">Click Me</button>
   </div>
 </template>
 
 <script>
 import { Api } from '../Api'
-import Clients from '@/components/Clients.vue'
+// import { bus } from '../main'
 
 export default {
   name: 'ProfilePage',
-  components: {
-    Clients
-  },
   data() {
     return {
       firstname: '',
-      lastname: ''
+      lastname: '',
+      id: ''
     }
   },
   methods: {
@@ -26,19 +24,23 @@ export default {
       this.$router.push('/login')
     }
   },
-  signIn() {
-    // eslint-disable-next-line no-unused-vars
-    const auth = { email: this.email, password: this.password }
-    Api.post('/auth/signin', auth)
+  created() {
+    const searchURL = new URL(window.location).pathname
+    const strs = searchURL.split('/')
+    const id = strs.at(-1)
+    console.log(id)
+    this.id = id
+    Api.get(`/clients/${id}`)
       .then(response => {
-        if (response.status === 200) {
-          localStorage.setItem('token', response.data.token)
-        }
+        this.firstname = response.data.firstName
       })
       .catch(error => {
-        console.log(error)
+        this.firstname = error
       })
-  },
+  }
+}
+
+/*
   mounted() {
     Api.get('/client', { headers: { token: localStorage.getItem('token') } })
       .then(function (res) {
@@ -46,17 +48,20 @@ export default {
         this.lastname = res.data.lastname
       })
   },
-  created() {
+  */
+
+/*
     if (localStorage.getItem('token') === null) {
       this.$router.push('/login')
     }
-    //  .then((res) => {
-    //    this.clients = res.data.email
-    //  }).catch((err) => {
-    //    console.log(err)
-    //  })
-  }
-}
+    */
+
+// .then((res) => {
+//    this.clients = res.data.email
+//  }).catch((err) => {
+//    console.log(err)
+//  })
+
 </script>
 
 <style>

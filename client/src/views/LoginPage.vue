@@ -2,7 +2,7 @@
     <div class = "web-container">
       <b-row class = "container">
         <b-col cols = "9" class="left-container">
-            <div class = "information-container" v-on:signIn="$emit('logIn')">
+            <div class = "information-container">
               <SignInBox/>
             </div>
         </b-col>

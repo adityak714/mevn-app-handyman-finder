@@ -22,7 +22,7 @@ export default new Router({
       component: LoginPage
     },
     {
-      path: '/account',
+      path: '/account/*',
       name: 'profile',
       component: ProfilePage
     },
