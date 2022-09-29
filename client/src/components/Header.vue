@@ -12,6 +12,7 @@
               <div id="nav">
                 <router-link class="link" to="/"><p><strong>Home</strong></p></router-link>
                 <router-link class="link" to="/login"><p><strong>Login</strong></p></router-link>
+                <router-link class="link" to="/signup"><p><strong>ClientSignUp</strong></p></router-link>
               </div>
               </div>
             </b-navbar-nav>
