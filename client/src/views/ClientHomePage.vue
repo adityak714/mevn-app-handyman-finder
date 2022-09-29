@@ -101,4 +101,8 @@ width: 300px;
 .title{
 font-size: 50px;
 }
+.button{
+    width: 100px;
+    background-color: rgba(100, 0, 0, 0.4);
+}
 </style>
