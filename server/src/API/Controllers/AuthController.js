@@ -9,6 +9,38 @@ const { SHA3 } = require('sha3');
 const jwt = require('jsonwebtoken');
 var encryptionJWTKey =  require('../../Domain/Constants.js');
 
+//Sign Up Client
+router.post('/api/client', async (req, res) => {
+    const hash = new SHA3(512);
+    hash.update(req.body.password);
+    const newClient = new Client({
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        email: req.body.email,
+        phoneNumber: req.body.phonenumber,
+        address: req.body.address,
+        password: hash.digest('hex')
+    })
+    try {
+        const client = await newClient.save();
+        res.status(201).json(client);
+    } catch (err) {
+        return res.status(400).send('Fields are not filled correctly.')
+    }
+})
+
+//Get already registered client
+router.get('/api/client', (req, res) => {
+    let token = req.body.accessToken;
+    jwt.verify(token, 'secretkey', (err, payload) => {
+        if (err) return res.status(401).send('Access denied.')
+        Client.findOne({_id: payload._id}, (err, client) => {
+            if (err) return res.send(err);
+            return res.status(200).json({client: client});
+        })
+    })
+})
+
 //Sign In client
 router.post("/api/auth/signin", async function (req, res) {
     const hash = new SHA3(512);
@@ -26,11 +58,11 @@ router.post("/api/auth/signin", async function (req, res) {
                 data: '123'
               }, encryptionJWTKey);
             handyman.save(function (err, handyman) {
-            if (err) {
-            res.status(400).send(err);
-            }
-            res.status(201).json(handyman);
-            });
+                if (err) {
+                    res.status(400).send(err);
+                }
+                res.status(201).json(handyman);
+            })
         }
     }
     else {
