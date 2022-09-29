@@ -4,9 +4,23 @@ var HandyMan = require("../../Infrastructure/models/HandyManSchema");
 const Review = require("../../Infrastructure/models/ReviewSchema");
 const Request = require("../../Infrastructure/models/RequestSchema");
 
+var  SHA3  = require('sha3');
+const jwt = require('jsonwebtoken');
+var encryptionJWTKey = require('../../Domain/Constants.js');
 //Sign up handyman
 router.post("/api/handymen", function (req, res, next) {
+  
+  const hash = new SHA3.SHA3(512);
+  hash.update(req.body.password);
+  
+  req.body.password = hash.digest('hex');
+
+  req.body.accessToken = jwt.sign({
+    data: '123'
+  }, encryptionJWTKey);
+
   var handyMan = new HandyMan(req.body);
+  
   handyMan.save(function (err, handyMan) {
     if (err) {
       res.send(err);
