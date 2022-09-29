@@ -23,7 +23,7 @@
                   <input type = "password"  placeholder="confirm password">
               </form>
               <div>
-                <Button @click="createUser()"/>
+                <Button :description="SignUp" @click="createUser()"/>
                 <a href= ""><p class="account-exist"><u>Already have an account?</u></p></a>
         </div>
         </b-container>
