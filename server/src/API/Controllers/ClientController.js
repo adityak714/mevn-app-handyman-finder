@@ -3,8 +3,23 @@ const { Mongoose } = require("mongoose");
 const router = express.Router();
 var Client = require("../../Infrastructure/models/ClientSchema");
 const Request = require("../../Infrastructure/models/RequestSchema")
+
+var  SHA3  = require('sha3');
+const jwt = require('jsonwebtoken');
+var encryptionJWTKey = require('../../Domain/Constants.js');
+
 //Sign up client
 router.post("/api/clients", function (req, res, next) {
+  
+  const hash = new SHA3.SHA3(512);
+  hash.update(req.body.password);
+  
+  req.body.password = hash.digest('hex');
+
+  req.body.accessToken = jwt.sign({
+    data: '123'
+  }, encryptionJWTKey);
+  
   var client = new Client(req.body);
   client.save(function (err, client) {
     if (err) {
