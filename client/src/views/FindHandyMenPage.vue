@@ -15,14 +15,12 @@
         <b-col cols="12">
             <b-container fluid class="content">
                 <p class="title">Find Handymen</p>
+                <label for="area">Area/Location</label>
+                <b-form-select size="sm" class="mt-3" :options="area_options" v-model="area"></b-form-select>
                 <div>
-                    <label for="area">Area/Location</label>
+                <b-form-select v-model="occupation" :options="options" size="sm" class="mt-3"></b-form-select>
                 </div>
-                <b-form-input size="sm" class="area-location" v-model="text" placeholder="Enter the location"></b-form-input>
-                <div>
-                <b-form-select v-model="selected" :options="options" size="sm" class="mt-3"></b-form-select>
-                </div>
-                <div>
+                <div class="range">
                     <label for="range-2">Price Level 0- 500 (SEK/hr)</label>
                 </div>
                 <div>
@@ -44,15 +42,32 @@ import Header from '../components/Header.vue'
 export default {
   data() {
     return {
-      selected: null,
+      occupation: null,
+      area: null,
       priceValue: 0,
-      occupation: '',
-      text: '',
       options: [
         { value: null, text: 'Please select an occupation' },
         { value: 'Architect', text: 'Architect' },
         { value: 'Plumber', text: 'Plumber' },
         { value: 'Electrician', text: 'Electrician' }
+      ],
+      area_options: [
+        { value: null, text: 'Please select an area' },
+        { value: 'Lindholmen', text: 'Lindholmen' },
+        { value: 'Torslanda', text: 'Torslanda' },
+        { value: 'Sannegården', text: 'Sannegården' },
+        { value: 'Lundbyvassen', text: 'Lundbyvassen' },
+        { value: 'Tingstadsvassen', text: 'Tingstadsvassen' },
+        { value: 'Lillhagen-Brunnsbo', text: 'Lillhagen-Brunnsbo' },
+        { value: 'Lorensberg', text: 'Lorensberg' },
+        { value: 'Heden', text: 'Heden' },
+        { value: 'Lunden', text: 'Lunden' },
+        { value: 'Gamlestaden', text: 'Gamlestaden' },
+        { value: 'Inom Vallgraven', text: 'Inom Vallgraven' },
+        { value: 'Haga', text: 'Haga' },
+        { value: 'Solängen', text: 'Solängen' },
+        { value: 'Guldheden', text: 'Guldheden' },
+        { value: 'Annedal', text: 'Annedal' }
       ]
     }
   },
@@ -105,5 +120,8 @@ font-size: 50px;
 .button{
     width: 100px;
     background-color: rgba(100, 0, 0, 0.4);
+}
+.range{
+  margin-top: 10px;
 }
 </style>
