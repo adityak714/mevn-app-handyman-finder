@@ -3,8 +3,15 @@
     <Header/>
     <div id="body">
       <h1 class="display-3">Welcome {{ firstName }} {{ lastName }}</h1>
-      <button type="button" class="btn btn_message btn-primary">Get Message from Server</button>
-      <p>Message from the server:<br> none</p>
+        <br/>
+      <h2>Profile Page</h2>
+      <h3 class="profile-info">
+        First Name: {{firstName}} <br/>
+        Last Name: {{lastName}} <br/>
+        Phone Number: {{phoneNumber}} <br/>
+        Address: {{address}} <br/>
+        Profession: {{profession}}
+      </h3>
     </div>
   </div>
 </template>
@@ -20,7 +27,10 @@ export default {
     return {
       message: 'none',
       firstName: '',
-      lastName: ''
+      lastName: '',
+      phoneNumber: '',
+      address: '',
+      profession: ''
     }
   },
   components: {
@@ -45,8 +55,23 @@ export default {
     this.id = id
     Api.get(`/clients/${id}`)
       .then(response => {
+        if (response.data === 'No such client exists!') {
+          Api.get(`/handymen/${id}`)
+            .then(response => {
+              this.firstName = response.data.firstName
+              this.lastName = response.data.lastName
+              this.phoneNumber = response.data.phoneNumber
+              this.address = response.data.address
+              this.profession = response.data.profession
+            })
+            .catch(error => {
+              this.firstname = error
+            })
+        }
         this.firstName = response.data.firstName
         this.lastName = response.data.lastName
+        this.phoneNumber = response.data.phoneNumber
+        this.address = response.data.address
       })
       .catch(error => {
         this.firstname = error
@@ -69,5 +94,9 @@ div#body {
 .display-3 {
  display: flex;
  justify-content: center;
+}
+
+.profile-info {
+  font-size: 20px;
 }
 </style>
