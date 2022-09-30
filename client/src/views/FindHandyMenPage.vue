@@ -17,15 +17,16 @@
                 <p class="title">Find Handymen</p>
                 <label for="area">Area/Location</label>
                 <b-form-select size="sm" class="mt-3" :options="area_options" v-model="area"></b-form-select>
+                  <Gmap :region="area"/>
                 <div>
                 <b-form-select v-model="occupation" :options="options" size="sm" class="mt-3"></b-form-select>
                 </div>
                 <div class="range">
-                    <label for="range-2">Price Level 0- 500 (SEK/hr)</label>
+                    <label for="range-2">Price Level 0 - 500 (SEK/hr)</label>
                 </div>
                 <div>
                     <b-form-input class="mt-3" id="range-2" v-model="priceValue" type="range" min="0" max="500" step="10"></b-form-input>
-                    <div>{{ priceValue}}</div>
+                    <div>{{priceValue}}</div>
                 </div>
                 <div>
                     <b-button class="button">Find</b-button>
@@ -37,19 +38,23 @@
 </b-row>
 </div>
 </template>
+
 <script>
+import Gmap from '../components/Gmap'
 import Header from '../components/Header.vue'
+
 export default {
   data() {
     return {
       occupation: null,
-      area: null,
+      area: '',
       priceValue: 0,
       options: [
         { value: null, text: 'Please select an occupation' },
         { value: 'Architect', text: 'Architect' },
         { value: 'Plumber', text: 'Plumber' },
-        { value: 'Electrician', text: 'Electrician' }
+        { value: 'Electrician', text: 'Electrician' },
+        { value: 'Carpenter', text: 'Carpenter' }
       ],
       area_options: [
         { value: null, text: 'Please select an area' },
@@ -73,10 +78,12 @@ export default {
   },
   name: 'ClientHomePage',
   components: {
-    Header
+    Header,
+    Gmap
   }
 }
 </script>
+
 <style scoped>
 .material-symbols-outlined {
 display: block;
