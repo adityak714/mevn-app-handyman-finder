@@ -32,12 +32,18 @@ export default {
       const auth = { email: this.email, password: this.password }
       Api.post('/auth/signin', auth)
         .then(response => {
+          if (response.status === 200) {
+            localStorage.setItem('token', response.data.token)
+            localStorage.setItem('user', response.data)
+          }
           bus.$emit('sign-in-event', response.data)
-          const id = response.data._id
-          this.$router.push(`/account/${id}`)
+          this.$router.push(`/account/${response.data._id}`)
         })
         .catch(error => {
-          console.log(error)
+          console.log({
+            error: error,
+            reason: 'Invalid Credentials'
+          })
         })
     }
   }
