@@ -5,7 +5,7 @@
     <b-row>
         <b-col col="12">
          <div class="header-container">
-            <Header />
+            <Header :firstName="firstName" :lastName='lastName'/>
          </div>
         </b-col>
     </b-row>
