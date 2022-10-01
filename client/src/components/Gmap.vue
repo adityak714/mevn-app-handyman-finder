@@ -1,9 +1,9 @@
 <template>
     <div>
         <iframe
-            width="550"
+            width="350"
             height="350"
-            frameborder="0" style="border:0"
+            frameborder="0" style="min-width: 200px; min-height: 200px;"
             referrerpolicy="no-referrer-when-downgrade"
             :area='region'
             :src="src"

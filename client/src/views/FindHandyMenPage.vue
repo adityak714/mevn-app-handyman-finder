@@ -17,9 +17,9 @@
                 <p class="title">Find Handymen</p>
                 <label for="area">Area/Location</label>
                 <b-form-select size="sm" class="mt-3" :options="area_options" v-model="area"></b-form-select>
-                  <Gmap :region="area"/>
+                  <b-container fluid id='rendered-map'><Gmap v-if="area !== ''" :region="area"/></b-container>
                 <div>
-                <b-form-select v-model="occupation" :options="options" size="sm" class="mt-3"></b-form-select>
+                <b-form-select class="mt-3" v-model="occupation" :options="options" size="sm"></b-form-select>
                 </div>
                 <div class="range">
                     <label for="range-2">Price Level 0 - 500 (SEK/hr)</label>
@@ -57,22 +57,13 @@ export default {
         { value: 'Carpenter', text: 'Carpenter' }
       ],
       area_options: [
-        { value: null, text: 'Please select an area' },
-        { value: 'Lindholmen', text: 'Lindholmen' },
-        { value: 'Torslanda', text: 'Torslanda' },
-        { value: 'Sannegården', text: 'Sannegården' },
-        { value: 'Lundbyvassen', text: 'Lundbyvassen' },
-        { value: 'Tingstadsvassen', text: 'Tingstadsvassen' },
-        { value: 'Lillhagen-Brunnsbo', text: 'Lillhagen-Brunnsbo' },
-        { value: 'Lorensberg', text: 'Lorensberg' },
-        { value: 'Heden', text: 'Heden' },
-        { value: 'Lunden', text: 'Lunden' },
-        { value: 'Gamlestaden', text: 'Gamlestaden' },
-        { value: 'Inom Vallgraven', text: 'Inom Vallgraven' },
-        { value: 'Haga', text: 'Haga' },
-        { value: 'Solängen', text: 'Solängen' },
-        { value: 'Guldheden', text: 'Guldheden' },
-        { value: 'Annedal', text: 'Annedal' }
+        { value: '', text: 'Please select an area' },
+        { value: 'Västra Götaland', text: 'Västra Götaland' },
+        { value: 'Stockholms Län', text: 'Stockholms Län' },
+        { value: 'Skåne Län', text: 'Skåne' },
+        { value: 'Hallands Län', text: 'Hallands Län' },
+        { value: 'Jönköpings Län', text: 'Jönköpings Län' },
+        { value: 'Uppsala Län', text: 'Uppsala Län' }
       ]
     }
   },
@@ -92,8 +83,8 @@ padding-top: 10px;
 .main-container {
 display: flex;
 background-color: rgba(100, 0, 0, 0.4);
-height: 1000px;
-align-items: center;
+min-height: 100%;
+align-items: flex-start;
 }
 .sidebar{
 display:flex;
@@ -110,9 +101,10 @@ display:flex;
 flex-direction: column;
 justify-content: center;
 align-items: center;
-/*padding-top: 50px;*/
+margin-top: 50px;
+padding-bottom: 30px;
 background-color: white;
-height: 480px;
+height: auto;
 border:solid
 }
 .mt-3{
@@ -123,12 +115,14 @@ width: 300px;
 }
 .title{
 font-size: 50px;
+padding-top: 30px;
 }
 .button{
     width: 100px;
+    margin-top: 20px;
     background-color: rgba(100, 0, 0, 0.4);
 }
 .range{
-  margin-top: 10px;
+  margin-top: 30px;
 }
 </style>
