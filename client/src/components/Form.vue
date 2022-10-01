@@ -23,7 +23,7 @@
                   <input type = "password"  placeholder="Confirm Password">
               </form>
               <div class="button-container">
-                <Button  @click="createUser()"/>
+                <Button text="Sign Up" @click="createUser()"/>
                 <a href= "/login"><p class="account-exist"><u>Already have an account?</u></p></a>
         </div>
         </b-container>

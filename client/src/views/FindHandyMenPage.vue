@@ -28,7 +28,7 @@
                     <div>{{ priceValue}}</div>
                 </div>
                 <div>
-                    <b-button class="button">Find</b-button>
+                    <Button text="Find"/>
                 </div>
             </b-container>
     </b-col>
@@ -39,6 +39,7 @@
 </template>
 <script>
 import Header from '../components/Header.vue'
+import Button from '../components/Button.vue'
 export default {
   data() {
     return {
@@ -73,7 +74,8 @@ export default {
   },
   name: 'ClientHomePage',
   components: {
-    Header
+    Header,
+    Button
   }
 }
 </script>
