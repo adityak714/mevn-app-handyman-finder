@@ -5,38 +5,46 @@
                 <input v-model="firstName"  placeholder="First Name">
               </form>
               <form class="sign-up-form" id="lastname">
-                  <input v-model= "lastName" class="input" placeholder="Last Name">
+                  <input v-model="lastName" class="input" placeholder="Last Name">
               </form>
               <form class="sign-up-form" id="email">
                   <input type="email" v-model="email" class="input" placeholder="Email">
               </form>
               <form class="sign-up-form" id="phonenumber">
-                  <input type="text" v-model="phonenumber"  placeholder="Phone Number">
+                  <input type="text" v-model="phoneNumber" placeholder="Phone Number">
               </form>
               <form class="sign-up-form" id="address">
                   <input type="text" v-model="address" placeholder="Address">
               </form>
               <form class="sign-up-form" id="password" >
-                  <input type="password" v-model= "password"  placeholder="Password">
+                  <input type="password" v-model='password' placeholder="Password">
               </form>
-              <form class="sign-up-form" id="confirm-password">
-                  <input type = "password"  placeholder="Confirm Password">
+              <form class="sign-up-form" id="confirmPassword">
+                  <input type = "password" v-model='confirmpassword' placeholder="Confirm Password">
               </form>
               <div class="button-container">
-                <Button  @click="createUser()"/>
                 <a href= "/login"><p class="account-exist"><u>Already have an account?</u></p></a>
+                <b-button @click="createUser" class="sign-up-btn">Sign Up</b-button>
         </div>
-        </b-container>
+        <div>
+          <b-modal id="signup-failed" title="Invalid">
+          <p class="my-4">Passwords do not match.</p>
+          </b-modal>
+        </div>
+          <b-modal id="fill-all-fields" title="Invalid">
+          <p class="my-4">Please fill in all the fields. </p>
+          </b-modal>
+      </b-container>
 </template>
 <script>
-import Button from '@/components/Button.vue'
+import { Api } from '../Api'
+
 export default {
   name: 'Form',
   props: {
     header: String
   },
   components: {
-    Button
   },
   data() {
     return {
@@ -51,13 +59,35 @@ export default {
   },
   methods: {
     createUser() {
-      console.log(this.firstName)
-      console.log(this.lastName)
-      console.log(this.email)
-      console.log(this.phoneNumber)
-      console.log(this.address)
-      console.log(this.password)
-      console.log(this.confirmpassword)
+      if (this.firstName === '' || this.lastName === '' ||
+          this.email === '' || this.phoneNumber === '' || this.address === '' ||
+            this.password === '' || this.confirmpassword === '') {
+        this.$bvModal.show('fill-all-fields')
+      } else {
+        if (this.password !== this.confirmpassword) {
+          this.$bvModal.show('signup-failed')
+        } else {
+          const auth = {
+            firstName: this.firstName,
+            lastName: this.lastName,
+            email: this.email,
+            phoneNumber: this.phoneNumber,
+            address: this.address,
+            password: this.password
+          }
+          Api.post('/client', auth)
+            .then(response => {
+              console.log(response.data)
+              this.$router.push('/login')
+            })
+            .catch(error => {
+              console.log({
+                error: error,
+                reason: 'Invalid Credentials'
+              })
+            })
+        }
+      }
     }
   }
 }
