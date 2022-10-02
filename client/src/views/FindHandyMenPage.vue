@@ -25,7 +25,7 @@
                 </div>
                 <div>
                     <b-form-input class="mt-3" id="range-2" v-model="priceValue" type="range" min="0" max="500" step="10"></b-form-input>
-                    <div>{{ priceValue}}</div>
+                    <div>{{priceValue}}</div>
                 </div>
                 <div>
                     <Button text="Find"/>
@@ -39,46 +39,38 @@
 </template>
 <script>
 import Header from '../components/Header.vue'
-import Button from '../components/Button.vue'
 export default {
   data() {
     return {
       occupation: null,
-      area: null,
+      area: '',
       priceValue: 0,
       options: [
         { value: null, text: 'Please select an occupation' },
         { value: 'Architect', text: 'Architect' },
         { value: 'Plumber', text: 'Plumber' },
-        { value: 'Electrician', text: 'Electrician' }
+        { value: 'Electrician', text: 'Electrician' },
+        { value: 'Carpenter', text: 'Carpenter' }
       ],
       area_options: [
-        { value: null, text: 'Please select an area' },
-        { value: 'Lindholmen', text: 'Lindholmen' },
-        { value: 'Torslanda', text: 'Torslanda' },
-        { value: 'Sannegården', text: 'Sannegården' },
-        { value: 'Lundbyvassen', text: 'Lundbyvassen' },
-        { value: 'Tingstadsvassen', text: 'Tingstadsvassen' },
-        { value: 'Lillhagen-Brunnsbo', text: 'Lillhagen-Brunnsbo' },
-        { value: 'Lorensberg', text: 'Lorensberg' },
-        { value: 'Heden', text: 'Heden' },
-        { value: 'Lunden', text: 'Lunden' },
-        { value: 'Gamlestaden', text: 'Gamlestaden' },
-        { value: 'Inom Vallgraven', text: 'Inom Vallgraven' },
-        { value: 'Haga', text: 'Haga' },
-        { value: 'Solängen', text: 'Solängen' },
-        { value: 'Guldheden', text: 'Guldheden' },
-        { value: 'Annedal', text: 'Annedal' }
+        { value: '', text: 'Please select an area' },
+        { value: 'Västra Götaland', text: 'Västra Götaland' },
+        { value: 'Stockholms Län', text: 'Stockholms Län' },
+        { value: 'Skåne Län', text: 'Skåne' },
+        { value: 'Hallands Län', text: 'Hallands Län' },
+        { value: 'Jönköpings Län', text: 'Jönköpings Län' },
+        { value: 'Uppsala Län', text: 'Uppsala Län' }
       ]
     }
   },
   name: 'ClientHomePage',
   components: {
     Header,
-    Button
+    Gmap
   }
 }
 </script>
+
 <style scoped>
 .material-symbols-outlined {
 display: block;
@@ -87,8 +79,8 @@ padding-top: 10px;
 .main-container {
 display: flex;
 background-color: rgba(100, 0, 0, 0.4);
-height: 1000px;
-align-items: center;
+min-height: 100%;
+align-items: flex-start;
 }
 .sidebar{
 display:flex;
@@ -118,12 +110,14 @@ width: 300px;
 }
 .title{
 font-size: 50px;
+padding-top: 30px;
 }
 .button{
     width: 100px;
+    margin-top: 20px;
     background-color: rgba(100, 0, 0, 0.4);
 }
 .range{
-  margin-top: 10px;
+  margin-top: 30px;
 }
 </style>
