@@ -7,7 +7,6 @@ var encryptionJWTKey = require("../../Domain/Constants.js");
 const HandyMan = require("../../Infrastructure/models/HandyManSchema");
 const Review = require("../../Infrastructure/models/ReviewSchema");
 const Request = require("../../Infrastructure/models/RequestSchema");
-const Client = require("../../Infrastructure/models/ClientSchema");
 
 //Sign up handyman
 router.post("/api/handymen", function (req, res, next) {
