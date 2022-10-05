@@ -2,18 +2,9 @@ var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
 const reviewSchema = new Schema({
-  datetime: { 
-    type: Date, 
-    default: () => Date.now() 
-  },
-  rating: {
-    type: Number,
-    min: 0,
-    max: 5 
-  },
-  comment: { 
-    type: String 
-  },
+  datetime: { type: Date, default: () => {Date.now()} },
+  rating: { type: Number },
+  comment: { type: String },
   sender: { 
     type: Schema.Types.ObjectId, 
     ref: "Client",

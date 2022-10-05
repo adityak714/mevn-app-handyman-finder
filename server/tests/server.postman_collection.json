@@ -7,1623 +7,637 @@
 	},
 	"item": [
 		{
-			"name": "PRE-TEST",
-			"item": [
+			"name": "2a. Sign Up HandyMan",
+			"event": [
 				{
-					"name": "Clear Clients",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 204\", function () {\r",
-									"    pm.response.to.have.status(204);\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "{{localhost}}/api/clients",
-							"host": [
-								"{{localhost}}"
-							],
-							"path": [
-								"api",
-								"clients"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Clear Handymen",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 204\", function () {\r",
-									"    pm.response.to.have.status(204);\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "{{localhost}}/api/handymen/",
-							"host": [
-								"{{localhost}}"
-							],
-							"path": [
-								"api",
-								"handymen",
-								""
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Clear Reviews",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 204\", function () {\r",
-									"    pm.response.to.have.status(204);\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "{{localhost}}/api/clients",
-							"host": [
-								"{{localhost}}"
-							],
-							"path": [
-								"api",
-								"clients"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Clear Requests",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 204\", function () {\r",
-									"    pm.response.to.have.status(204);\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "{{localhost}}/api/clients",
-							"host": [
-								"{{localhost}}"
-							],
-							"path": [
-								"api",
-								"clients"
-							]
-						}
-					},
-					"response": []
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
 				}
-			]
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"firstName\": \"Test5\",\n    \"lastName\": \"Handyman\",\n    \"email\": \"handyman1@gmail.com\",\n    \"phoneNumber\": \"1389123124123\",\n    \"area\": \"Gothenburg\",\n    \"password\": \"13ef239c\",\n    \"profession\": \"Electrician\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/handymen",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"handymen"
+					]
+				}
+			},
+			"response": []
 		},
 		{
-			"name": "POST",
-			"item": [
+			"name": "2a. Sign up Client",
+			"event": [
 				{
-					"name": "2a. POST /handymen (for filtering later)",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 201\", function () {\r",
-									"    pm.response.to.have.status(201);\r",
-									"});\r",
-									"\r",
-									"const res = pm.response.json();\r",
-									"pm.globals.set(\"createdHandymanID\", res._id);\r",
-									"pm.globals.set(\"createdHandymanEmail\", res.email);\r",
-									"pm.globals.set(\"handymanAccessToken\", res.accessToken);"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"firstName\": \"{{$randomFirstName}}\",\n    \"lastName\": \"{{$randomLastName}}\",\n    \"email\": \"{{$randomExampleEmail}}\",\n    \"phoneNumber\": 132334452,\n    \"area\": \"Gothenburg\",\n    \"password\": \"password\",\n    \"profession\": \"Electrician\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{localhost}}/api/handymen",
-							"host": [
-								"{{localhost}}"
-							],
-							"path": [
-								"api",
-								"handymen"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "2a. POST /clients",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 201\", function () {\r",
-									"    pm.response.to.have.status(201);\r",
-									"});\r",
-									"\r",
-									"const res = pm.response.json();\r",
-									"pm.globals.set(\"createdClientID\", res._id);\r",
-									"pm.globals.set(\"createdClientEmail\", res.email);\r",
-									"pm.globals.set(\"clientAccessToken\", res.accessToken);"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"firstName\": \"{{$randomFirstName}}\",\r\n    \"lastName\": \"{{$randomLastName}}\",\r\n    \"email\": \"{{$randomExampleEmail}}\",\r\n    \"password\": \"password\",\r\n    \"phoneNumber\": 123456789,\r\n    \"address\": \"Sientogatan 5\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{localhost}}/api/clients",
-							"host": [
-								"{{localhost}}"
-							],
-							"path": [
-								"api",
-								"clients"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "3a. POST /handymen/:id/reviews",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 201\", function () {\r",
-									"    pm.response.to.have.status(201);\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n  \"rating\": 4,\r\n  \"comment\": \"Thank you for fixing the lighting system. Highly recommend!\",\r\n  \"sender\": \"{{createdClientID}}\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{localhost}}/api/handymen/{{createdHandymanID}}/reviews",
-							"host": [
-								"{{localhost}}"
-							],
-							"path": [
-								"api",
-								"handymen",
-								"{{createdHandymanID}}",
-								"reviews"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "3a. POST /clients/:id/requests",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 201\", function () {\r",
-									"    pm.response.to.have.status(201);\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"client\": \"{{createdClientID}}\",\r\n    \"address\": \"Addressgatan 12\",\r\n    \"handyman\": \"{{createdHandymanID}}\",\r\n    \"date\": \"2022-10-11\",\r\n    \"priceRange\": \"50-100 SEK/h\",\r\n    \"job\": \"Fix Lighting System\",\r\n    \"description\": \"Hey. I am able to provide the service. Please see the proposed price range. \"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{localhost}}/api/handymen/{{createdHandymanID}}/requests",
-							"host": [
-								"{{localhost}}"
-							],
-							"path": [
-								"api",
-								"handymen",
-								"{{createdHandymanID}}",
-								"requests"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "2a. POST /requests",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 201\", function () {\r",
-									"    pm.response.to.have.status(201);\r",
-									"});\r",
-									"\r",
-									"const res = pm.response.json();\r",
-									"const id = pm.globals.set(\"createdReqID\", res._id);"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"client\": \"{{createdClientID}}\",\r\n    \"address\": \"Addressgatan 12\",\r\n    \"handyman\": \"{{createdHandymanID}}\",\r\n    \"date\": \"2022-10-11\",\r\n    \"job\": \"Fix lighting\",\r\n    \"description\": \"Need an electrician urgently...\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{localhost}}/api/requests",
-							"host": [
-								"{{localhost}}"
-							],
-							"path": [
-								"api",
-								"requests"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "2a. POST /handymen (for filtering later)",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 201\", function () {\r",
-									"    pm.response.to.have.status(201);\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"firstName\": \"{{$randomFirstName}}\",\n    \"lastName\": \"{{$randomLastName}}\",\n    \"email\": \"croissant@gmail.com\",\n    \"phoneNumber\": 123456,\n    \"area\": \"Gothenburg\",\n    \"password\": \"password\",\n    \"profession\": \"Electrician\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{localhost}}/api/handymen",
-							"host": [
-								"{{localhost}}"
-							],
-							"path": [
-								"api",
-								"handymen"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "3a. POST /handymen/:id/requests",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 201\", function () {\r",
-									"    pm.response.to.have.status(201);\r",
-									"});\r",
-									"\r",
-									"const res = pm.response.json();\r",
-									"const id = pm.globals.set(\"createdReqID2\", res._id);"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"client\": \"{{createdClientID}}\",\r\n    \"address\": \"Addressgatan 12\",\r\n    \"handyman\": \"{{createdHandymanID}}\",\r\n    \"date\": \"2022-10-11\",\r\n    \"job\": \"Fix Lighting System\",\r\n    \"description\": \"Looking for an electrician!\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{localhost}}/api/handymen/{{createdHandymanID}}/requests",
-							"host": [
-								"{{localhost}}"
-							],
-							"path": [
-								"api",
-								"handymen",
-								"{{createdHandymanID}}",
-								"requests"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "2a. POST /reviews",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 201\", function () {\r",
-									"    pm.response.to.have.status(201);\r",
-									"});\r",
-									"\r",
-									"const res = pm.response.json();\r",
-									"const id = pm.globals.set(\"createdReviewID\", res._id);"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n  \"rating\": 4,\r\n  \"comment\": \"Hi! General review after POST /reviews.\",\r\n  \"sender\": \"{{createdClientID}}\",\r\n  \"to\": \"{{createdHandymanID}}\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{localhost}}/api/reviews",
-							"host": [
-								"{{localhost}}"
-							],
-							"path": [
-								"api",
-								"reviews"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "2a. POST /handymen",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 201\", function () {\r",
-									"    pm.response.to.have.status(201);\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"firstName\": \"{{$randomFirstName}}\",\r\n    \"lastName\": \"{{$randomLastName}}\",\r\n    \"email\": \"test2@gmail.com\",\r\n    \"password\": \"password\",\r\n    \"phoneNumber\": 1234567,\r\n    \"address\": \"Hisingen\",\r\n    \"profession\": \"Electrician\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{localhost}}/api/clients",
-							"host": [
-								"{{localhost}}"
-							],
-							"path": [
-								"api",
-								"clients"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "AUTH POST /auth/signin (as Client)",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Is Client\", function () {\r",
-									"    pm.response.json().hasOwnProperty('Profession');\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"email\": \"{{createdClientEmail}}\",\r\n    \"password\": \"password\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{localhost}}/api/auth/signin",
-							"host": [
-								"{{localhost}}"
-							],
-							"path": [
-								"api",
-								"auth",
-								"signin"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "AUTH POST /auth/signin (as Handyman)",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									"\r",
-									"pm.test(\"Is Handyman\", function () {\r",
-									"    !pm.response.json().hasOwnProperty('Profession');\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"email\": \"{{createdHandymanEmail}}\",\r\n    \"password\": \"password\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{localhost}}/api/auth/signin",
-							"host": [
-								"{{localhost}}"
-							],
-							"path": [
-								"api",
-								"auth",
-								"signin"
-							]
-						}
-					},
-					"response": []
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
 				}
-			]
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"firstName\": \"Test\",\r\n    \"lastName\": \"Client\",\r\n    \"email\": \"xxxx@something.com\",\r\n    \"password\": \"venacamuc123\",\r\n    \"phoneNumber\": 255,\r\n    \"address\": \"Sientogatan 5\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/clients",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"clients"
+					]
+				}
+			},
+			"response": []
 		},
 		{
-			"name": "GET",
-			"item": [
+			"name": "3a. Post new review inside a specific handyman",
+			"event": [
 				{
-					"name": "* FILTERING 'Electricians' out of all handymen",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});\r",
-									"\r",
-									"pm.test(\"All are electricians\", function () {\r",
-									"    for (var i = 0; i < data.length; i++) {\r",
-									"        pm.expect(data[i].profession) == 'Electrician'\r",
-									"    }\r",
-									"})"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{localhost}}/api/handymen?profession=Electrician",
-							"host": [
-								"{{localhost}}"
-							],
-							"path": [
-								"api",
-								"handymen"
-							],
-							"query": [
-								{
-									"key": "profession",
-									"value": "Electrician"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "2b. GET /handymen",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{localhost}}/api/handymen",
-							"host": [
-								"{{localhost}}"
-							],
-							"path": [
-								"api",
-								"handymen"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "2b. GET /clients",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});          "
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "{{localhost}}/api/clients",
-							"host": [
-								"{{localhost}}"
-							],
-							"path": [
-								"api",
-								"clients"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "2b. GET /requests",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{localhost}}/api/requests",
-							"host": [
-								"{{localhost}}"
-							],
-							"path": [
-								"api",
-								"requests"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "2d. GET /handymen/:id",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{localhost}}/api/handymen/{{createdHandymanID}}",
-							"host": [
-								"{{localhost}}"
-							],
-							"path": [
-								"api",
-								"handymen",
-								"{{createdHandymanID}}"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "2d. GET /clients/:id",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{localhost}}/api/clients/{{createdClientID}}",
-							"host": [
-								"{{localhost}}"
-							],
-							"path": [
-								"api",
-								"clients",
-								"{{createdClientID}}"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "3b. GET /handymen/:id/reviews",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{localhost}}/api/handymen/{{createdHandymanID}}/reviews",
-							"host": [
-								"{{localhost}}"
-							],
-							"path": [
-								"api",
-								"handymen",
-								"{{createdHandymanID}}",
-								"reviews"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "3c. GET /clients/:id/requests/:rq_id",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{localhost}}/api/clients/{{createdClientID}}/requests/{{createdReqID}}",
-							"host": [
-								"{{localhost}}"
-							],
-							"path": [
-								"api",
-								"clients",
-								"{{createdClientID}}",
-								"requests",
-								"{{createdReqID}}"
-							]
-						}
-					},
-					"response": []
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
 				}
-			]
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"rating\": 4,\r\n  \"comment\": \"test2\",\r\n  \"sender\": \"63219b6fb588f57b18169484\",\r\n  \"to\": \"63239f7fa6fd5e32347cc8a7\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/handymen/63239f7fa6fd5e32347cc8a7/reviews",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"handymen",
+						"63239f7fa6fd5e32347cc8a7",
+						"reviews"
+					]
+				}
+			},
+			"response": []
 		},
 		{
-			"name": "PUT",
-			"item": [
+			"name": "2b. Get All Handymen",
+			"event": [
 				{
-					"name": "2e. PUT /handymen/:id",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"firstName\": \"Aditya\",\n    \"lastName\": \"Khadkikar\",\n    \"email\": \"handyman1@gmail.com\",\n    \"phoneNumber\": \"1389123124123\",\n    \"area\": \"Gothenburg\",\n    \"password\": \"13ef239c\",\n    \"profession\": \"Electrician\"\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{localhost}}/api/handymen/{{createdHandymanID}}",
-							"host": [
-								"{{localhost}}"
-							],
-							"path": [
-								"api",
-								"handymen",
-								"{{createdHandymanID}}"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "2e. PUT /clients/:id",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"firstName\": \"Kwabena\",\r\n    \"lastName\": \"Asare\",\r\n    \"password\": \"kwabena\",\r\n    \"phoneNumber\": 120,\r\n    \"address\": \"Calle San Martin 23\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{localhost}}/api/clients/{{createdClientID}}",
-							"host": [
-								"{{localhost}}"
-							],
-							"path": [
-								"api",
-								"clients",
-								"{{createdClientID}}"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "2e. PUT /requests/:id",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"status\": \"Rejected\",\r\n    \"client\": \"{{createdClientID}}\",\r\n    \"address\": \"\",\r\n    \"handyman\": \"{{createdHandymanID}}\",\r\n    \"date\": \"2022-10-11\",\r\n    \"job\": \"Fix Lighting System\",\r\n    \"description\": \"Not looking for an electrician anymore!\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{localhost}}/api/requests/{{createdReqID}}",
-							"host": [
-								"{{localhost}}"
-							],
-							"path": [
-								"api",
-								"requests",
-								"{{createdReqID}}"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "2e. PUT /reviews/:id",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n  \"rating\": 3,\r\n  \"comment\": \"Hi! This review has been changed.\",\r\n  \"sender\": \"{{createdClientID}}\",\r\n  \"to\": \"{{createdHandymanID}}\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{localhost}}/api/reviews/{{createdReviewID}}",
-							"host": [
-								"{{localhost}}"
-							],
-							"path": [
-								"api",
-								"reviews",
-								"{{createdReviewID}}"
-							]
-						}
-					},
-					"response": []
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
 				}
-			]
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/handymen",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"handymen"
+					]
+				}
+			},
+			"response": []
 		},
 		{
-			"name": "PATCH",
-			"item": [
+			"name": "2b. Get all clients",
+			"event": [
 				{
-					"name": "2f. PATCH /handymen/:id",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "PATCH",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"password\": \"123updatedHandyPass!\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{localhost}}/api/handymen/{{createdHandymanID}}",
-							"host": [
-								"{{localhost}}"
-							],
-							"path": [
-								"api",
-								"handymen",
-								"{{createdHandymanID}}"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "2f. PATCH /clients/:id",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "PATCH",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"password\": \"1234updatedClientPass\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{localhost}}/api/clients/{{createdClientID}}",
-							"host": [
-								"{{localhost}}"
-							],
-							"path": [
-								"api",
-								"clients",
-								"{{createdClientID}}"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "2f. PATCH /requests/:id",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "PATCH",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"status\": \"Accepted\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{localhost}}/api/requests/{{createdReqID}}",
-							"host": [
-								"{{localhost}}"
-							],
-							"path": [
-								"api",
-								"requests",
-								"{{createdReqID}}"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "2f. PATCH /reviews/:id",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 200\", function () {\r",
-									"    pm.response.to.have.status(200);\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "PATCH",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n  \"rating\": 5,\r\n  \"comment\": \"Hi! This review has been changed by PATCH!\",\r\n  \"sender\": \"{{createdClientID}}\",\r\n  \"to\": \"{{createdHandymanID}}\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{localhost}}/api/reviews/{{createdReviewID}}",
-							"host": [
-								"{{localhost}}"
-							],
-							"path": [
-								"api",
-								"reviews",
-								"{{createdReviewID}}"
-							]
-						}
-					},
-					"response": []
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
 				}
-			]
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/clients",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"clients"
+					]
+				}
+			},
+			"response": []
 		},
 		{
-			"name": "DELETE",
-			"item": [
+			"name": "3b. See all reviews of one handy",
+			"event": [
 				{
-					"name": "3d. DELETE /handymen/:id/requests/:rq_id",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 204\", function () {\r",
-									"    pm.response.to.have.status(204);\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "{{localhost}}/api/handymen/{{createdHandymanID}}/requests/{{createdReqID}}",
-							"host": [
-								"{{localhost}}"
-							],
-							"path": [
-								"api",
-								"handymen",
-								"{{createdHandymanID}}",
-								"requests",
-								"{{createdReqID}}"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "2g. DELETE /reviews/:id",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 204\", function () {\r",
-									"    pm.response.to.have.status(204);\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "{{localhost}}/api/reviews/{{createdReviewID}}",
-							"host": [
-								"{{localhost}}"
-							],
-							"path": [
-								"api",
-								"reviews",
-								"{{createdReviewID}}"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "2g. DELETE /requests/:id",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 204\", function () {\r",
-									"    pm.response.to.have.status(204);\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{localhost}}/api/requests/{{createdReqID2}}",
-							"host": [
-								"{{localhost}}"
-							],
-							"path": [
-								"api",
-								"requests",
-								"{{createdReqID2}}"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "2g. DELETE /clients/:id",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 204\", function () {\r",
-									"    pm.response.to.have.status(204);\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "{{localhost}}/api/clients/{{createdClientID}}",
-							"host": [
-								"{{localhost}}"
-							],
-							"path": [
-								"api",
-								"clients",
-								"{{createdClientID}}"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "2g. DELETE /handymen/:id",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 204\", function () {\r",
-									"    pm.response.to.have.status(204);\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{localhost}}/api/handymen/{{createdHandymanID}}",
-							"host": [
-								"{{localhost}}"
-							],
-							"path": [
-								"api",
-								"handymen",
-								"{{createdHandymanID}}"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "2c. DELETE /handymen",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 204\", function () {\r",
-									"    pm.response.to.have.status(204);\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "{{localhost}}/api/handymen/",
-							"host": [
-								"{{localhost}}"
-							],
-							"path": [
-								"api",
-								"handymen",
-								""
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "2c. DELETE /clients",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 204\", function () {\r",
-									"    pm.response.to.have.status(204);\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "{{localhost}}/api/clients",
-							"host": [
-								"{{localhost}}"
-							],
-							"path": [
-								"api",
-								"clients"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "2c. DELETE /reviews",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 204\", function () {\r",
-									"    pm.response.to.have.status(204);\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "{{localhost}}/api/reviews",
-							"host": [
-								"{{localhost}}"
-							],
-							"path": [
-								"api",
-								"reviews"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "2c. DELETE /requests",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 204\", function () {\r",
-									"    pm.response.to.have.status(204);\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "{{localhost}}/api/requests",
-							"host": [
-								"{{localhost}}"
-							],
-							"path": [
-								"api",
-								"requests"
-							]
-						}
-					},
-					"response": []
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
 				}
-			]
-		}
-	],
-	"event": [
-		{
-			"listen": "prerequest",
-			"script": {
-				"type": "text/javascript",
-				"exec": [
-					""
-				]
-			}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/handymen/632365697dbe9c0d707e6068/reviews",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"handymen",
+						"632365697dbe9c0d707e6068",
+						"reviews"
+					]
+				}
+			},
+			"response": []
 		},
 		{
-			"listen": "test",
-			"script": {
-				"type": "text/javascript",
-				"exec": [
-					""
-				]
-			}
+			"name": "2d. Get one Handyman",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/handymen/63239f7fa6fd5e32347cc8a7",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"handymen",
+						"63239f7fa6fd5e32347cc8a7"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "2d. Get one client",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"Response is in JSON\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.value).to.eql(100);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/clients/632370fc7727304998443608",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"clients",
+						"632370fc7727304998443608"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "3c. See specific request of specific client",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/clients/632370fc7727304998443608/requests",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"clients",
+						"632370fc7727304998443608",
+						"requests"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "2e. Edit Profile Handyman",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"firstName\": \"Julio\",\n    \"lastName\": \"Reina\",\n    \"email\": \"hola@gmail.com\",\n    \"phoneNumber\": 1389123124123,\n    \"area\": \"Gothenburg\",\n    \"profession\": \"Electrician\",\n    \"__v\": 0\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/handymen/63239f7fa6fd5e32347cc8a7",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"handymen",
+						"63239f7fa6fd5e32347cc8a7"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "2e. Edit Profile Client",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"firstName\": \"NewUpdate\",\r\n    \"lastName\": \"Reina\",\r\n    \"email\": \"xxxx@something.com\",\r\n    \"password\": \"venacamuchacho123\",\r\n    \"phoneNumber\": 255,\r\n    \"address\": \"Sientogatan 5\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/clients/632371907727304998443611",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"clients",
+						"632371907727304998443611"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "2f. Update handyman password",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"password\": \"abc123updated!\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/handymen/63239f7fa6fd5e32347cc8a7",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"handymen",
+						"63239f7fa6fd5e32347cc8a7"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "2f. Update client password",
+			"request": {
+				"method": "PATCH",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"password\": \"updated123\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/clients/632371907727304998443611",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"clients",
+						"632371907727304998443611"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "3d. Delete one Request of one Client",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 204\", function () {\r",
+							"    pm.response.to.have.status(204);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/clients/6321a0506d598b564432f9bc/requests/6321a0506d598b564432f9bc",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"clients",
+						"6321a0506d598b564432f9bc",
+						"requests",
+						"6321a0506d598b564432f9bc"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "2g. Delete Profile Handyman",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"reviews\": [],\r\n    \"firstName\": \"Michael\",\r\n    \"lastName\": \"Reina\",\r\n    \"email\": \"hola@gmail.com\",\r\n    \"phoneNumber\": 1389123124123,\r\n    \"area\": \"Gothenburg\",\r\n    \"profession\": \"Electrician\",\r\n    \"password\": \"123\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/handymen/632320599b047b2fc8fa2873",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"handymen",
+						"632320599b047b2fc8fa2873"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "2g. Delete Profile Client",
+			"request": {
+				"method": "DELETE",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "3d. Delete one request from one client",
+			"request": {
+				"method": "DELETE",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "2c. Delete All Handymen",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/handymen/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"handymen",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "2c. Delete All Clients",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/clients",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"clients"
+					]
+				}
+			},
+			"response": []
 		}
 	],
 	"variable": [
 		{
 			"key": "handymanID",
 			"value": "6321a1316d598b564432f9c0"
-		},
-		{
-			"key": "localhost",
-			"value": "http://localhost:3001"
 		}
 	]
 }

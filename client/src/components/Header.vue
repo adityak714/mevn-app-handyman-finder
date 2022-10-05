@@ -10,7 +10,7 @@
               <img class="full-logo" src='../assets/full-logo.png'/>
               <div class="header-right">
               <div id="nav">
-                <router-link class="link" :to="toHomePage"><p><strong>Home</strong></p></router-link>
+                <router-link class="link" to="/home"><p><strong>Home</strong></p></router-link>
                 <router-link class="link" to="/login"><p><strong>My Requests</strong></p></router-link>
                 <router-link class="link" to="/signup"><p><strong>Create Request</strong></p></router-link>
                 <router-link class="link" to="/findhandymenpage"><p><strong>Find Handymen</strong></p></router-link>
@@ -23,10 +23,10 @@
               <b-nav-item-dropdown right>
                 <!-- Using 'button-content' slot -->
                 <template #button-content>
-                    <div class="material-symbols-outlined">person</div><span v-bind:firstName='firstName' v-bind:lastName='lastName'>{{firstName}} {{lastName}}</span>
+                    <div class="material-symbols-outlined">person</div><span>First Last</span>
                 </template>
                 <b-dropdown-item class="link" to="/clienthomepage">Profile</b-dropdown-item>
-                <b-dropdown-item v-on:click="logout">Sign Out</b-dropdown-item>
+                <b-dropdown-item href="#">Sign Out</b-dropdown-item>
               </b-nav-item-dropdown>
             </b-navbar-nav>
           </b-collapse>
@@ -37,14 +37,7 @@
 
 <script>
 export default {
-  name: 'Header',
-  props: ['firstName', 'lastName'],
-  methods: {
-    logout() {
-      localStorage.clear()
-      this.$router.push('/login')
-    }
-  }
+  name: 'Header'
 }
 </script>
 
