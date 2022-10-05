@@ -32,5 +32,6 @@ export default new Router({
       name: 'findhandymenpage',
       component: FindHandyMenPage
     }
+
   ]
 })
