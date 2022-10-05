@@ -23,7 +23,7 @@
                     <div class="material-symbols-outlined">person</div><span>First Last</span>
                 </template>
                 <b-dropdown-item href="#">Profile</b-dropdown-item>
-                <b-dropdown-item href="#">Sign Out</b-dropdown-item>
+                <b-dropdown-item v-on:click="logout">Sign Out</b-dropdown-item>
               </b-nav-item-dropdown>
             </b-navbar-nav>
           </b-collapse>
@@ -33,7 +33,13 @@
 </template>
 <script>
 export default {
-  name: 'ClientHeader'
+  name: 'ClientHeader',
+  methods: {
+    logout() {
+      localStorage.clear()
+      this.$router.push('/login')
+    }
+  }
 }
 </script>
 <style scoped>
