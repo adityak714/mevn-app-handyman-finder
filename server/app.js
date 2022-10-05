@@ -70,7 +70,7 @@ app.route("/api/clients/:id/requests").all(ClientController);
 app.route("/api/clients/:id/requests/:rq_id").all(ClientController);
 app.route("/api/handymen/:id/requests/:rq_id").all(HandymanController);
 app.route("/api/auth/signin").all(AuthController)
-app.route("/api/client").all(AuthController);
+//app.route("/api/client").all(AuthController);
 //app.route("/api/handymen/:h_id/reviews/:r_id").all(HandymanController);
 
 // Catch all non-error handler for api (i.e., 404 Not Found)

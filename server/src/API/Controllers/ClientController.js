@@ -1,7 +1,7 @@
 var express = require("express");
 const { Mongoose } = require("mongoose");
 const router = express.Router();
-var  SHA3  = require('sha3');
+var SHA3 = require('sha3');
 const jwt = require('jsonwebtoken');
 var encryptionJWTKey = require('../../Domain/Constants.js');
 
@@ -9,20 +9,26 @@ const Client = require("../../Infrastructure/models/ClientSchema");
 const Request = require("../../Infrastructure/models/RequestSchema");
 const HandyMan = require("../../Infrastructure/models/HandyManSchema");
 
-//Post new client
-router.post("/api/clients", function (req, res, next) {
+//Sign Up Client
+router.post('/api/clients', async function (req, res) {
   const hash = new SHA3.SHA3(512);
   hash.update(req.body.password);
-  req.body.password = hash.digest('hex');
-  req.body.accessToken = jwt.sign({data: '123'}, encryptionJWTKey);
-  var client = new Client(req.body);
-  client.save(function (err, client) {
-    if (err) {
-      return res.status(500).send(err);
-    }
-    res.status(201).json(client);
-  });
-});
+  const newClient = new Client({
+      firstName: req.body.firstName,
+      lastName: req.body.lastName,
+      email: req.body.email,
+      phoneNumber: req.body.phoneNumber,
+      address: req.body.address,
+      password: hash.digest('hex'),
+      accessToken: jwt.sign({ data: "123" }, encryptionJWTKey)
+  })
+  newClient.save(function (err, client) {
+      if (err) {
+          return res.status(400).send('Details are not filled correctly.')
+      }
+      return res.status(201).json(client);
+  });    
+})
 
 //Get all clients
 router.get("/api/clients", function (req, res, next) {
@@ -37,15 +43,15 @@ router.get("/api/clients", function (req, res, next) {
 //Get a specific client
 router.get("/api/clients/:id", function (req, res, next) {
   Client.findById(req.params.id).populate("requests")
-    .then((clientFound) => {
-      if (clientFound) {
-        res.status(200).json(clientFound);
-      } else {
-        res.send("No such client exists!");
-      }})
-    .catch((err) => {
-      return next(err);
-    });
+  .then((clientFound) => {
+    if (clientFound) {
+      res.status(200).json(clientFound);
+    } else {
+      res.send("No such client exists!");
+    }})
+  .catch((err) => {
+    return res.send(err);
+  });
 });
 
 //Update client profile details
@@ -160,6 +166,7 @@ router.get("/api/clients/:id/requests", async function (req, res) {
     });
 });
 
+//Get a specific request of a specific client
 router.get("/api/clients/:id/requests/:rq_id", function (req, res) {
   Client.find({_id: req.params.id}, {requests: req.params.rq_id}, {_id: 0, requests: 1})
   .populate("requests")

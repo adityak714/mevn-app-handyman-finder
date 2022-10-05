@@ -48,15 +48,15 @@ router.get("/api/handymen", function (req, res, next) {
 //Get specific handyman
 router.get("/api/handymen/:id", function (req, res, next) {
   HandyMan.findById(req.params.id)
-    .populate("reviews")
-    .populate("requests")
-    .then((handyman) => {
-      if (handyman) {
-        return res.status(200).json(handyman);
-      } else {
-        return res.send("No such handyman exists!");
-      }
-    });
+  .populate("reviews")
+  .populate("requests")
+  .then((handyman) => {
+    if (handyman) {
+      return res.status(200).json(handyman);
+    } else {
+      return res.send("No such handyman exists!");
+    }
+  }).catch(err => {return res.send(err);});
 });
 
 //Update handyman profile details
@@ -85,7 +85,7 @@ router.put("/api/handymen/:id", function (req, res) {
     });
 });
 
-//Patch handyman details
+//Patch handyman attributes
 router.patch("/api/handymen/:id", function (req, res) {
   HandyMan.findById(req.params.id, (err, handyman) => {
     if (err) {
@@ -209,7 +209,7 @@ router.get("/api/handymen/:id/requests/:rq_id", async function (req, res) {
     });
 });
 
-// NESTED SPECIFIC DELETE
+//Delete specific request in specific handyman
 router.delete("/api/handymen/:id/requests/:rq_id", function (req, res) {
   HandyMan.findById(req.params.id, (err, handyman) => {
     if (err) return res.status(500).send(err);

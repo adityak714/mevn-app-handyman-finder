@@ -152,7 +152,8 @@
 									"\r",
 									"const res = pm.response.json();\r",
 									"pm.globals.set(\"createdHandymanID\", res._id);\r",
-									"pm.globals.set(\"createdHandyman\", JSON.stringify(res));"
+									"pm.globals.set(\"createdHandymanEmail\", res.email);\r",
+									"pm.globals.set(\"handymanAccessToken\", res.accessToken);"
 								],
 								"type": "text/javascript"
 							}
@@ -195,7 +196,9 @@
 									"});\r",
 									"\r",
 									"const res = pm.response.json();\r",
-									"const id = pm.globals.set(\"createdClientID\", res._id);"
+									"pm.globals.set(\"createdClientID\", res._id);\r",
+									"pm.globals.set(\"createdClientEmail\", res.email);\r",
+									"pm.globals.set(\"clientAccessToken\", res.accessToken);"
 								],
 								"type": "text/javascript"
 							}
@@ -373,7 +376,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"firstName\": \"{{$randomFirstName}}\",\n    \"lastName\": \"{{$randomLastName}}\",\n    \"email\": \"{{$randomExampleEmail}}\",\n    \"phoneNumber\": 123456,\n    \"area\": \"Gothenburg\",\n    \"password\": \"password\",\n    \"profession\": \"Electrician\"\n}",
+							"raw": "{\n    \"firstName\": \"{{$randomFirstName}}\",\n    \"lastName\": \"{{$randomLastName}}\",\n    \"email\": \"croissant@gmail.com\",\n    \"phoneNumber\": 123456,\n    \"area\": \"Gothenburg\",\n    \"password\": \"password\",\n    \"profession\": \"Electrician\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -501,7 +504,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"firstName\": \"{{$randomFirstName}}\",\r\n    \"lastName\": \"{{$randomLastName}}\",\r\n    \"email\": \"{{$randomExampleEmail}}\",\r\n    \"password\": \"password\",\r\n    \"phoneNumber\": 1234567,\r\n    \"address\": \"Hisingen\",\r\n    \"profession\": \"Electrician\"\r\n}",
+							"raw": "{\r\n    \"firstName\": \"{{$randomFirstName}}\",\r\n    \"lastName\": \"{{$randomLastName}}\",\r\n    \"email\": \"test2@gmail.com\",\r\n    \"password\": \"password\",\r\n    \"phoneNumber\": 1234567,\r\n    \"address\": \"Hisingen\",\r\n    \"profession\": \"Electrician\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -516,6 +519,96 @@
 							"path": [
 								"api",
 								"clients"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "AUTH POST /auth/signin (as Client)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Is Client\", function () {\r",
+									"    pm.response.json().hasOwnProperty('Profession');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"{{createdClientEmail}}\",\r\n    \"password\": \"password\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}/api/auth/signin",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"signin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "AUTH POST /auth/signin (as Handyman)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Is Handyman\", function () {\r",
+									"    !pm.response.json().hasOwnProperty('Profession');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"{{createdHandymanEmail}}\",\r\n    \"password\": \"password\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}/api/auth/signin",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"signin"
 							]
 						}
 					},
@@ -696,9 +789,21 @@
 							}
 						}
 					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"method": "GET",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
 							"raw": "{{localhost}}/api/handymen/{{createdHandymanID}}",
 							"host": [
@@ -728,9 +833,21 @@
 							}
 						}
 					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"method": "GET",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
 							"raw": "{{localhost}}/api/clients/{{createdClientID}}",
 							"host": [
