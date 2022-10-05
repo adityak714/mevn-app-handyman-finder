@@ -1,6 +1,6 @@
 <template>
   <div class='home-page'>
-    <Header :firstName='firstName' :lastName='lastName'/>
+    <Header :userId='userId' :firstName='firstName' :lastName='lastName'/>
     <div id="body">
       <h1 class="display-3">Welcome {{ firstName }} {{ lastName }}</h1>
         <br/>
@@ -10,7 +10,7 @@
         Last Name: {{lastName}} <br/>
         Phone Number: {{phoneNumber}} <br/>
         Address: {{address}} <br/>
-        Profession: {{profession}}
+        Profession: {{profession}} <br/>
       </h3>
     </div>
   </div>
@@ -19,13 +19,14 @@
 <script>
 // @ is an alias to /src
 import { Api } from '@/Api'
-import Header from '../components/Header.vue'
+import Header from '../components/ClientHeader.vue'
 
 export default {
   name: 'home',
   data() {
     return {
       message: 'none',
+      userId: '',
       firstName: '',
       lastName: '',
       phoneNumber: '',
@@ -57,7 +58,7 @@ export default {
     const strs = searchURL.split('/')
     const id = strs.at(-1)
     console.log(id)
-    this.id = id
+    this.userId = id
     Api.get(`/clients/${id}`)
       .then(response => {
         if (response.data === 'No such client exists!') {
