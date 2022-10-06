@@ -12,10 +12,10 @@
               <div class = "col-10 right-card">
                 <div class = "col-6 handyman-information">
                     <div class = "handyman-name">
-                      Oscar Reina
+                      {{handyman.firstName}} {{handyman.lastName}}
                     </div>
                     <div class = "handyman-profession">
-                      Electrician
+                      {{handyman.occupation}}
                     </div>
                 </div>
                 <div class = "col-6 create-request-button">
