@@ -1,18 +1,32 @@
 <template>
-    <div class = "web-container">
-      <b-row class = "container">
-        <b-col cols = "12" class="left-container">
-          <div class = "information-container">
-              <SignInBox v-on:signIn='login'/>
-            </div>
+    <!----- Header -->
+<div class="home-page">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@40,700,1,0" />
+    <b-row>
+        <b-col col="12">
+          <div class="header-container">
+              <Header :firstName="firstName" :lastName='lastName'/>
+          </div>
         </b-col>
     </b-row>
-  </div>
+    <b-row>
+    <b-container fluid>
+        <div class="main-container">
+        <b-col cols="12">
+            <div class = "information-container">
+              <SignInBox v-on:signIn='login'/>
+            </div>
+    </b-col>
+</div>
+    </b-container>
+    </b-row>
+</div>
 </template>
 
 <script>
 // @ is an alias to /src
 import SignInBox from '../components/SignIn'
+import Header from '../components/Header.vue'
 
 export default {
   name: 'login',
@@ -22,7 +36,8 @@ export default {
     }
   },
   components: {
-    SignInBox
+    SignInBox,
+    Header
   },
   created() {
     this.loggedIn = true

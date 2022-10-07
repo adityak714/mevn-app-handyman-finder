@@ -19,13 +19,13 @@
             </b-navbar-nav>
 
             <!-- Right aligned nav items -->
-            <b-navbar-nav class="ml-auto">
+            <b-navbar-nav class="ml-auto" v-bind:firstName='firstName' v-bind:lastName='lastName'>
               <b-nav-item-dropdown right>
                 <!-- Using 'button-content' slot -->
                 <template #button-content>
-                    <div class="material-symbols-outlined">person</div><span v-bind:firstName='firstName' v-bind:lastName='lastName'>{{firstName}} {{lastName}}</span>
+                    <div class="material-symbols-outlined">person</div><span>{{firstName}} {{lastName}}</span>
                 </template>
-                <b-dropdown-item class="link" to="/clienthomepage">Profile</b-dropdown-item>
+                <b-dropdown-item class="link" :to="clientProfilePage">Profile</b-dropdown-item>
                 <b-dropdown-item v-on:click="logout">Sign Out</b-dropdown-item>
               </b-nav-item-dropdown>
             </b-navbar-nav>
@@ -38,11 +38,19 @@
 <script>
 export default {
   name: 'Header',
-  props: ['firstName', 'lastName'],
+  props: ['firstName', 'lastName', 'userId'],
+  data() {
+    return {
+      id: this.userId
+    }
+  },
   methods: {
     logout() {
       localStorage.clear()
       this.$router.push('/login')
+    },
+    toHomePage() {
+
     }
   }
 }
