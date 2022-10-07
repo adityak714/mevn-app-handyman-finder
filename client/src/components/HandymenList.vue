@@ -1,97 +1,30 @@
 <template>
       <div class="content" >
         <div class = "col-12 title-container">
-          <p class="title">List of {{occupation}}s at {{area}}</p>
+          <p class="title">List of {{profession}}s at {{area}}</p>
         </div>
         <div class="col-12 cards">
           <div class = "card" v-for="handyman in handymen" :key="handyman._id">
-            <div class = "row card-content">
-              <div class = "col-2 left-card">
-                <b-card-img src="https://picsum.photos/400/400/?image=20" alt="Image" class="card-image rounded-0"></b-card-img>
-              </div>
-              <div class = "col-10 right-card">
-                <div class = "col-6 handyman-information">
-                    <div class = "handyman-name">
-                      {{handyman.firstName}} {{handyman.lastName}}
-                    </div>
-                    <div class = "handyman-profession">
-                      {{handyman.occupation}}
-                    </div>
-                </div>
-                <div class = "col-6 create-request-button">
-                  <b-button variant="outline-primary">Button</b-button>
-                </div>
-              </div>
+            <Handyman :handyman="handyman" />
             </div>
         </div>
-
-          <!--
-          <b-card no-body class="overflow-hidden" style="max-width: 100%;">
-            <b-row no-gutters>
-              <b-col md="3">
-                <b-card-img src="https://picsum.photos/400/400/?image=20" alt="Image" class="rounded-0"></b-card-img>
-              </b-col>
-              <b-col md="9">
-                <b-card-body >
-                  <div class="card-text-button">
-                    <b-card-text>
-                    <p class="text">Name: {{handyman.firstName}} {{handyman.lastName}}</p>
-                    <p class="text">Profession: {{handyman.occupation}}</p>
-                  </b-card-text>
-                    <b-button>Create request</b-button>
-                  </div>
-                </b-card-body>
-              </b-col>
-            </b-row>
-          </b-card>
-          -->
         </div>
-      </div>
-    <!-- Header
-                <b-container fluid class="content">
-                <div>
-                 <a href="/home"><b-button>Go to home</b-button></a>
-                </div>
-                </b-container>
-              -->
 </template>
 <script>
-// import Button from '../components/Button.vue'
+import Handyman from '../components/Handyman.vue'
 export default {
   data() {
     return {
-      images: [
-        {
-          id: 'Architect',
-          source: '../assets/architectpic.jpg'
-        },
-        {
-          id: 'Plumber',
-          source: '../assets/plumberpic.jpg'
-        },
-        {
-          id: 'Electrician',
-          source: '../assets/electricianpic.jpg'
-        }
-      ]
     }
   },
   name: 'HandymanList',
   props: {
     handymen: Array,
-    occupation: String,
+    profession: String,
     area: String
   },
-  methods: {
-    getHandymanPic(value) {
-      for (let i = 0; i < this.images.length; i++) {
-        if (this.images[i].id === value) {
-          return this.images[i].source
-        }
-      }
-    }
-  },
   components: {
+    Handyman
   // Button
   }
 }
@@ -122,6 +55,12 @@ font-size: 50px;
   width: 900px;
   border-radius: 10px;
   margin-bottom: 10px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  transition: 0.2s
+}
+.card:hover{
+  cursor: pointer;
+  border: 2px rgba(157, 81, 0, 1)
 }
 .text {
   display:flex;

@@ -18,7 +18,7 @@
                 <label for="area">Area/Location</label>
                 <b-form-select size="sm" class="mt-3" :options="area_options" v-model="area"></b-form-select>
                 <div>
-                <b-form-select v-model="occupation" :options="options" size="sm" class="mt-3"></b-form-select>
+                <b-form-select v-model="profession" :options="options" size="sm" class="mt-3"></b-form-select>
                 </div>
                 <div class="range">
                     <label for="range-2">Price Level 0- 500 (SEK/hr)</label>
@@ -29,9 +29,15 @@
                 </div>
                 <div>
                     <b-button @click="showHandymen" class="button">Find</b-button>
+                    <b-modal id="field-empty" title="Incomplete">
+                        <p class="my-4">Please fill in all fields</p>
+                   </b-modal>
+                   <b-modal id="no-handymen-found" title="No handymen">
+                        <p class="my-4">No {{profession}} handymen found in the specified location </p>
+                   </b-modal>
                 </div>
             </b-container>
-            <HandymenList v-show="!isFind" :handymen="handymen" :occupation="occupation" :area="area"/>
+            <HandymenList v-show="!isFind" :handymen="handymen" :profession="profession" :area="area"/>
     </b-col>
     </div>
 </b-container>
@@ -39,14 +45,14 @@
 </div>
 </template>
 <script>
+import { Api } from '../Api.js'
 import Header from '../components/Header.vue'
 import HandymenList from '../components/HandymenList.vue'
-// import HandymenList from '../components/HandymenList.vue'
 export default {
   data() {
     return {
       isFind: true,
-      occupation: null,
+      profession: null,
       area: null,
       priceValue: 0,
       options: [
@@ -65,40 +71,7 @@ export default {
         { value: 'Jönköpings Län', text: 'Jönköpings Län' },
         { value: 'Uppsala Län', text: 'Uppsala Län' }
       ],
-      handymen: [
-        {
-          _id: 1,
-          firstName: 'James',
-          lastName: 'Bond',
-          email: 'james.bond@gmail.com',
-          location: 'Skåne',
-          occupation: 'Plumber'
-        },
-        {
-          _id: 2,
-          firstName: 'David',
-          lastName: 'James',
-          email: 'jamesD@gmail.com',
-          location: 'Lindholmen',
-          occupation: 'Architect'
-        },
-        {
-          _id: 3,
-          firstName: 'David',
-          lastName: 'James',
-          email: 'jamesD@gmail.com',
-          location: 'Lindholmen',
-          occupation: 'Architect'
-        },
-        {
-          _id: 4,
-          firstName: 'David',
-          lastName: 'James',
-          email: 'jamesD@gmail.com',
-          location: 'Lindholmen',
-          occupation: 'Architect'
-        }
-      ]
+      handymen: []
     }
   },
   name: 'ClientHomePage',
@@ -108,12 +81,26 @@ export default {
   },
   methods: {
     showHandymen() {
-      this.isFind = !this.isFind
+      if (this.profession === null || this.area === null) {
+        this.$bvModal.show('field-empty')
+      } else {
+        Api.get(`/handymen?profession=${this.profession}`)
+          .then(response => {
+            this.handymen = response.data
+          }
+          ).catch((err) => {
+            if (err.response.status === 500) {
+              this.$bvModal.show('no-handymen-found')
+            } else {
+              console.log(err)
+            }
+          })
+        this.isFind = !this.isFind
+      }
     }
   }
 }
 </script>
-
 <style scoped>
 .material-symbols-outlined {
 display: block;
