@@ -57,16 +57,12 @@ router.get("/api/clients/:id", function (req, res, next) {
 //Update client profile details
 router.put("/api/clients/:id", function (req, res) {
   Client.findById(req.params.id, (err, client) => {
-    if (err) {return res.status(500).send(err);}
     if (!client) {
-      return res.status(404).send('Client could not be found.');
+      return res.send('No such client exists!');
     }
   }).then((client) => {
-    const hash = new SHA3.SHA3(512);
-    hash.update(req.body.password);
     client.firstName = req.body.firstName;
     client.lastName = req.body.lastName;
-    client.password = hash.digest('hex');
     client.phoneNumber = req.body.phoneNumber;
     client.address = req.body.address;
     client.save(() => {
@@ -79,14 +75,13 @@ router.put("/api/clients/:id", function (req, res) {
 
 //Update client password via PATCH
 router.patch("/api/clients/:id", function (req, res) {
-  let updatedClient = Client.findById(req.params.id, (err, client) => {
-    if (err) return res.status(500).send(err);
+  Client.findById(req.params.id, (err, client) => {
     if (!client) {
-      res.send('Client could not be found.');
+      return res.send('Client could not be found.');
     }
     client.firstName = req.body.firstName || client.firstName;
     client.lastName = req.body.lastName || client.lastName;
-    client.password = req.body.password || client.password;
+    client.password = new SHA3.SHA3(512).update(req.body.password).digest("hex") || client.password;
     client.phoneNumber = req.body.phoneNumber || client.phoneNumber;
     client.address = req.body.address || client.address;
     client.save(() => {
