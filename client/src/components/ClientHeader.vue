@@ -1,7 +1,7 @@
 <template>
   <b-navbar toggleable="lg" type="dark" variant="info">
 
-    <b-navbar-brand href="#">
+    <b-navbar-brand>
       <img v-on:click="toHomePage" class="full-logo"/>
     </b-navbar-brand>
 
