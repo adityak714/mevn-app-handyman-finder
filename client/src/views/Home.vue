@@ -9,9 +9,9 @@
         First Name: {{firstName}} <br/>
         Last Name: {{lastName}} <br/>
         Phone Number: {{phoneNumber}} <br/>
-        Address: {{address}} <br/>
-        Profession: {{profession}} <br/>
+        Address: {{address}}
       </h3>
+      <h5 v-show="profession !== null"> Profession: {{profession}} </h5>
     </div>
   </div>
 </template>
@@ -31,7 +31,7 @@ export default {
       lastName: '',
       phoneNumber: '',
       address: '',
-      profession: ''
+      profession: null
     }
   },
   components: {

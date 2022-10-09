@@ -22,7 +22,7 @@
                         </div>
                     <div class="row" style="align-items: center; justify-content: center;">
                       <button class="btn btn-primary change-password-button" id="pass-change" type="button" @click="changePasswordPopup">Update Password</button>
-                      <button class="btn btn-primary delete-account-button" style="margin-top: 10px;" id="del_button" type="button" @click="delAcc">Delete Profile</button>
+                      <button class="btn btn-primary delete-account-button" style="margin-top: 10px;" id="del_button" type="button" @click="delAccPopup">Delete Profile</button>
                     </div>
                   </div>
                   <div class="col-md-9">
@@ -35,10 +35,10 @@
                           <div class="col-md-6 input"><label class="labels">Last Name</label><input type="text" class="form-control" v-model="updatedLastName" :placeholder="ln" value=""></div>
                       </div>
                       <div class="row mt-3">
-                          <div class="col-md-12 input"><label class="labels">Email</label><input type="text" class="form-control" v-model.lazy="updatedEmail" :placeholder="email" value=""></div>
+                          <div class="col-md-12 input"><label class="labels">Email</label><input type="text" class="form-control" :placeholder="email" readonly></div>
                           <div class="col-md-12 input"><label class="labels">Address</label><input type="text" class="form-control" v-model.lazy="updatedAddress" :placeholder="address" value=""></div>
                           <div class="col-md-12 input"><label class="labels">Phone Number</label><input type="text" class="form-control" v-model.lazy="updatedPhoneNumber" :placeholder="phoneNumber" value=""></div>
-                          <div class="col-md-12 input" v-if="profession !== ''"><label class="labels">Occupation</label><input type="text" class="form-control" v-model.lazy="updatedProfession" :placeholder="profession" value=""></div>
+                          <div class="col-md-12 input" v-show="profession !== null"><b-form-select class="mt-3 form-control" :options="prof_options" v-model="updatedProfession"></b-form-select></div>
                       </div>
                       <div class="mt-5 text-center"><button class="btn btn-primary profile-button" @click="updateUser" type="button">Save Profile</button></div>
                     </div>
@@ -46,9 +46,9 @@
               </div>
             </div>
             <div>
-              <b-modal id="modal-center" centered title="You are about to delete your account" ok-title="Delete" ok-variant="danger" :ok-disabled="passwordIsCorrect">
+              <b-modal id="modal-center" centered title="You are about to delete your account" ok-title="Delete" ok-variant="danger" @ok="delAcc" :ok-disabled="oldPassword === ''">
                 <div class="col-md-10 input"><label class="labels">Password</label>
-                <input type="text" class="form-control" v-model="password" value="">
+                <input type="password" class="form-control" v-model="oldPassword" value="">
                 <p class="my-4">Are you sure?</p>
                 </div>
               </b-modal>
@@ -92,9 +92,16 @@ export default {
       email: '',
       address: '',
       phoneNumber: '',
-      profession: '',
+      profession: null,
       updatedProfession: '',
-      currPassHash: ''
+      currPassHash: '',
+      prof_options: [
+        { value: '', text: '- Change Occupation -' },
+        { value: 'Architect', text: 'Architect' },
+        { value: 'Plumber', text: 'Plumber' },
+        { value: 'Electrician', text: 'Electrician' },
+        { value: 'Carpenter', text: 'Carpenter' }
+      ]
     }
   },
   created() {
@@ -110,11 +117,40 @@ export default {
     this.getUser(id)
   },
   methods: {
-    delAcc() {
+    delAccPopup() {
       this.$bvModal.show('modal-center')
+      this.oldPassword = ''
+    },
+    delAcc() {
+      const SHA3 = require('../../../server/node_modules/sha3/index')
+      const hash = new SHA3.SHA3(512)
+      hash.update(this.oldPassword)
+
+      if (hash.digest('hex') === this.currPassHash) {
+        Api.delete(`/clients/${this.id}`)
+          .then(response => {
+            if (response.data === 'Client could not be found.') {
+              Api.delete(`/handymen/${this.id}`)
+                .then(res => {
+                  console.log(res.data)
+                  localStorage.clear()
+                })
+                .catch(error => {
+                  console.log(error)
+                })
+            } else {
+              console.log(response.data)
+              localStorage.clear()
+            }
+          })
+          .catch(error => {
+            console.log(error)
+          })
+      }
     },
     changePasswordPopup() {
       this.$bvModal.show('change-password')
+      this.oldPassword = ''
     },
     getUser(id) {
       Api.get(`/clients/${id}`)
@@ -153,9 +189,9 @@ export default {
 
       if (this.newPassword === this.confirmPass && hash.digest('hex') === this.currPassHash) {
         Api.patch(`/clients/${this.id}`, { password: this.newPassword }).then(response => {
-          if (response.status === 404) {
+          if (response.data === 'Client could not be found.') {
             Api.patch(`/handymen/${this.id}`, { password: this.newPassword }).then(response => {
-              this.$router.push(`/account/${this.id}`)
+              console.log(response.data)
             }).catch(error => console.log(error))
           }
           this.$router.push(`/account/${this.id}`)
@@ -174,7 +210,7 @@ export default {
         firstName: this.updatedFirstName || this.fn,
         lastName: this.updatedLastName || this.ln,
         phoneNumber: this.updatedPhoneNumber || this.phoneNumber,
-        email: this.updatedEmail || this.email,
+        email: this.email,
         address: this.updatedAddress || this.address
       }).then(response => {
         if (response.data === 'No such client exists!') {
@@ -182,7 +218,7 @@ export default {
             firstName: this.updatedFirstName || this.fn,
             lastName: this.updatedLastName || this.ln,
             phoneNumber: this.updatedPhoneNumber || this.phoneNumber,
-            email: this.updatedEmail || this.email,
+            email: this.email,
             address: this.updatedAddress || this.address,
             profession: this.updatedProfession || this.profession
           }).then(response => {
@@ -268,7 +304,6 @@ font-size: 50px;
   flex-direction: column;
   justify-content: flex-start;
 }
-
 .delete-account-button {
   align-self: flex-end;
   background-color: #007BFF;
