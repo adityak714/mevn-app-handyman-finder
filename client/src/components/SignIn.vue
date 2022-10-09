@@ -4,13 +4,17 @@
     <form class="sign-in-form" id="email">
         <input type='email' v-model="email" placeholder='Email'>
     </form>
+
     <form class="sign-in-form" id="password">
         <input type='password' v-model="password" placeholder='Password'>
     </form>
+
     <a href=''><p class="forgot-password"><u>Forgot your password?</u></p></a>
-    <div class = "sign-in-btn-container">
+    <b-row>
+      <b-col cols = "12" class = "sign-in-btn-container">
         <button class="sign-in-btn" @click="signIn">Sign In</button>
-    </div>
+      </b-col>
+    </b-row>
     <b-modal id="field-empty" title="Incomplete">
           <p class="my-4">Please fill in all fields</p>
     </b-modal>
@@ -74,6 +78,7 @@ div#login-page {
 
 .sign-in {
     font-size: 30px;
+    font-size: 3vw;
 }
 
 .information-container {
@@ -86,12 +91,14 @@ div#login-page {
 
 .sign-in-form {
     min-height: 35px;
-    border-radius: 20px;
+    border-radius: 10px;
     margin: 10px;
+    justify-content: flex-start;
     align-items: center;
     display: flex;
-    background-color: rgba(100, 0, 0, 0.4);
+    border: 0.5px solid grey;
     color: black;
+    margin-bottom: 20px;
 }
 
 .right-container {
@@ -102,11 +109,12 @@ div#login-page {
     border-radius: 30px;
     padding-top: 10px;
     padding-bottom: 10px;
-    padding-left: 40px;
-    padding-right: 40px;
-    border: 1px solid rgba(100, 0, 0, 0.4);
+    padding-left: 30px;
+    padding-right: 30px;
+    border: 0.5px solid grey;
     color: black;
     background-color: white;
+    flex-shrink: 1;
 }
 
 .sign-in-btn:hover {
@@ -116,7 +124,26 @@ div#login-page {
     padding-left: 40px;
     padding-right: 40px;
     border: none;
-    color: white;
-    background-color:rgba(100, 0, 0, 0.4);
+    color: black;
+    background-color:rgba(247, 233, 118, 0.5);
+}
+
+input {
+  text-align: left;
+  padding-top:10px;
+  padding-bottom: 10px;
+  font-size: 1.4vw;
+}
+
+.sign-in-btn-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  font-size: 1.3vw;
+}
+
+.forgot-password {
+  font-size: 1.3vw;
 }
 </style>

@@ -90,21 +90,12 @@ html{
   width: 100%;
 }
 
-.right-container {
-  background: #3BBB85;
-}
-
 input {
     all: unset;
     padding-left: 10px;
     padding-right: 10px;
     width: 100%;
 }
-
-.left-container {
-    background-color: #FFFFFF;
-}
-
 .sign-in {
     font-size: 30px;
 }
