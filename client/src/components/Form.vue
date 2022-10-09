@@ -23,7 +23,7 @@
                   <input type = "password" v-model='confirmpassword' placeholder="Confirm Password">
               </form>
               <div class="button-container">
-                <a href= "/login"><p class="account-exist"><u>Already have an account?</u></p></a>
+                <a href="/login"><p class="account-exist"><u>Already have an account?</u></p></a>
                 <b-button @click="createUser" class="sign-up-btn">Sign Up</b-button>
         </div>
         <div>

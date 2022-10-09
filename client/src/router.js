@@ -14,6 +14,11 @@ export default new Router({
   base: process.env.BASE_URL,
   routes: [
     {
+      path: '/',
+      name: 'start',
+      component: LoginPage
+    },
+    {
       path: '/login',
       name: 'login',
       component: LoginPage

@@ -8,8 +8,7 @@
     <form class="sign-in-form" id="password">
         <input type='password' v-model="password" placeholder='Password'>
     </form>
-
-    <a href=''><p class="forgot-password"><u>Forgot your password?</u></p></a>
+    <a href='/signup'><p class="sign-up"><u>Don't have an account?</u></p></a>
     <b-row>
       <b-col cols = "12" class = "sign-in-btn-container">
         <button class="sign-in-btn" @click="signIn">Sign In</button>
@@ -18,18 +17,15 @@
     <b-modal id="field-empty" title="Incomplete">
           <p class="my-4">Please fill in all fields</p>
     </b-modal>
-    <b-modal id="wrong-password" title="Wrong Password">
-          <p class="my-4">Please enter the correct password.</p>
-    </b-modal>
-    <b-modal id="no-such-user" title="Invalid">
-          <p class="my-4">The account cannot be found. Please try again.</p>
+    <b-modal id="wrong-details" title="Wrong Password">
+          <p class="my-4">Invalid Username or Password.</p>
     </b-modal>
   </div>
 </template>
 
 <script>
 import { Api } from '../Api'
-import { bus } from '../main'
+
 // eslint-disable-next-line indent
 export default {
   name: 'SignInBox',
@@ -52,14 +48,11 @@ export default {
               localStorage.setItem('token', response.data.token)
               localStorage.setItem('user', response.data)
             }
-            bus.$emit('sign-in-event', response.data)
             this.$router.push(`/account/${response.data._id}`)
           })
           .catch((err) => {
-            if (err.response.status === 401) {
-              this.$bvModal.show('wrong-password')
-            } else if (err.response.status === 404) {
-              this.$bvModal.show('no-such-user')
+            if (err.response.status === 401 || err.response.status === 404) {
+              this.$bvModal.show('wrong-details')
             } else {
               console.log(err)
             }
