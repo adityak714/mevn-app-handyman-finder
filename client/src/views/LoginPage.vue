@@ -2,22 +2,16 @@
     <!----- Header -->
 <div class="home-page">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@40,700,1,0" />
-    <b-row>
-        <b-col col="12">
-          <div class="header-container">
-              <Header :firstName="firstName" :lastName='lastName'/>
-          </div>
-        </b-col>
-    </b-row>
+    <Header/>
     <b-row>
     <b-container fluid>
         <div class="main-container">
-        <b-col cols="12">
-            <div class = "information-container">
-              <SignInBox v-on:signIn='login'/>
-            </div>
-    </b-col>
-</div>
+          <b-col cols="8">
+              <div class = "information-container">
+                <SignInBox v-on:signIn='login'/>
+              </div>
+          </b-col>
+        </div>
     </b-container>
     </b-row>
 </div>
@@ -53,6 +47,15 @@ html{
   height: 100%;
 }
 
+.main-container {
+  background-color: rgba(100, 0, 0, 0.4);
+  min-height: 1000px;
+  display: flex;
+  padding-top: 20px;
+  align-items: flex-start;
+  justify-content: center;
+}
+
 .web-container{
     background-color: #EFEFEF52;
     display: flex;
@@ -72,19 +75,14 @@ input {
     width: 100%;
 }
 
-.left-container {
-  background: yellow;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-}
-
-.right-container {
-  background: #3BBB85;
-}
-
-.left-container {
-    background-color: #FFFFFF;
+.information-container {
+    background-color: white;
+    border-radius: 30px;
+    margin-top: 50px;
+    padding-top: 40px;
+    padding-left: 40px;
+    padding-right: 40px;
+    padding-bottom: 40px;
+    max-width: 700px;
 }
 </style>
