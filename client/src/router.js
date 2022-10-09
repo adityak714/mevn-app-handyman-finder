@@ -34,7 +34,7 @@ export default new Router({
       component: ClientSignUp
     },
     {
-      path: '/findhandymenpage',
+      path: '/account/findhandymen/:accountId',
       name: 'findhandymenpage',
       component: FindHandyMenPage
     },

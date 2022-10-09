@@ -15,12 +15,12 @@
           </b-nav-item>
           <b-nav-item>
             <a data-v-280d9330="" v-on:click="toMyRequests /*To be done*/" aria-current="page" class="link router-link-exact-active router-link-active">
-              <p data-v-280d9330=""><strong>My Requests</strong></p>
+              <p data-v-280d9330=""><b-icon icon="inboxes-fill"></b-icon> <strong>My Requests</strong></p>
             </a>
           </b-nav-item>
           <b-nav-item>
-            <a data-v-280d9330="" v-on:click="toMyRequests /*To be done*/" aria-current="page" class="link router-link-exact-active router-link-active">
-              <p data-v-280d9330=""><strong>My Requests</strong></p>
+            <a data-v-280d9330="" v-on:click="toFindHandyMen /*To be done*/" aria-current="page" class="link router-link-exact-active router-link-active">
+              <p data-v-280d9330=""><b-icon icon="tools"></b-icon> <strong>Find Handymen</strong></p>
             </a>
           </b-nav-item>
       </b-navbar-nav>
@@ -94,8 +94,9 @@ export default {
       this.id = this.$route.params.accountId
       this.$router.push(`/account/profile/${this.id}`)
     },
-    toMyRequests() {
-
+    toFindHandyMen() {
+      this.id = this.$route.params.accountId
+      this.$router.push(`/account/findhandymen/${this.id}`)
     },
     mounted() {
       // console.log(userId)

@@ -1,8 +1,8 @@
 <template>
   <b-navbar toggleable="lg" type="dark" variant="info">
 
-    <b-navbar-brand href="#">
-      <img v-on:click="toHomePage" class="full-logo"/>
+    <b-navbar-brand>
+      <img class="full-logo"/>
     </b-navbar-brand>
   </b-navbar>
           <!--
@@ -82,7 +82,6 @@ export default {
 }
 
 .full-logo{
-    cursor: pointer;
     display: flex;
     align-self: center;
     width: 300px;

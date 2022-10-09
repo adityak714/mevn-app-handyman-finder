@@ -41,7 +41,7 @@
 
 <script>
 import Gmap from '../components/Gmap'
-import Header from '../components/Header.vue'
+import Header from '../components/ClientHeader.vue'
 
 export default {
   data() {

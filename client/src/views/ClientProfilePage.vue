@@ -20,10 +20,14 @@
                           <span class="font-weight-bold">{{fn}} {{ln}}</span>
                           <span class="text-black-50">{{email}}</span>
                         </div>
-                    <div class="row" style="align-items: center; justify-content: center;">
-                      <button class="btn btn-primary change-password-button" id="pass-change" type="button" @click="changePasswordPopup">Update Password</button>
-                      <button class="btn btn-primary delete-account-button" style="margin-top: 10px;" id="del_button" type="button" @click="delAccPopup">Delete Profile</button>
-                    </div>
+                    <b-row class="row left-container-options">
+                      <b-col cols = "12">
+                        <button class="btn btn-primary change-password-button" id="pass-change" type="button" @click="changePasswordPopup">Update Password</button>
+                      </b-col>
+                      <b-col cols = "12">
+                        <button class="btn btn-primary delete-account-button" id="del_button" type="button" @click="delAccPopup">Delete Profile</button>
+                      </b-col>
+                    </b-row>
                   </div>
                   <div class="col-md-9">
                     <div class="settings p-3 py-5">
@@ -312,5 +316,9 @@ font-size: 50px;
 .delete-account-button:hover {
   align-self: flex-end;
   background-color: red;
+}
+
+.delete-account-button {
+  margin-top: 10px;
 }
 </style>
