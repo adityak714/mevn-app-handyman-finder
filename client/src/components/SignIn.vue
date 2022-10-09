@@ -78,7 +78,6 @@ div#login-page {
 
 .sign-in {
     font-size: 30px;
-    font-size: 3vw;
 }
 
 .information-container {
@@ -132,7 +131,6 @@ input {
   text-align: left;
   padding-top:10px;
   padding-bottom: 10px;
-  font-size: 1.4vw;
 }
 
 .sign-in-btn-container {
@@ -140,10 +138,6 @@ input {
   justify-content: center;
   align-items: center;
   width: 100%;
-  font-size: 1.3vw;
-}
 
-.forgot-password {
-  font-size: 1.3vw;
 }
 </style>

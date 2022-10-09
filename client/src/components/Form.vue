@@ -94,15 +94,15 @@ export default {
 </script>
 <style scoped>
     .sign-up-form {
-      padding-top: 2px;
-      padding-bottom: 2px;
-      margin: 5px;
       min-height: 35px;
+      border-radius: 10px;
+      margin: 10px;
+      justify-content: flex-start;
       align-items: center;
       display: flex;
-      background: rgba(100, 0, 0, 0.4);;
-      border-radius: 30px;
+      border: 0.5px solid grey;
       color: black;
+      margin-bottom: 20px;
   }
   .sign-up {
       font-size: 40px;
@@ -119,6 +119,30 @@ export default {
         margin-top: 5px;
         margin-bottom: 5px;
     }
+
+    .sign-up-btn {
+      border-radius: 30px;
+      padding-top: 10px;
+      padding-bottom: 10px;
+      padding-left: 30px;
+      padding-right: 30px;
+      border: 0.5px solid grey;
+      color: black;
+      background-color: white;
+      flex-shrink: 1;
+    }
+
+    .sign-up-btn:hover {
+    border-radius: 30px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 40px;
+    padding-right: 40px;
+    border: none;
+    color: black;
+    background-color:rgba(247, 233, 118, 0.5);
+    }
+
     #firstName{
         background-color: #F7E976;
         border-radius: 10px;
