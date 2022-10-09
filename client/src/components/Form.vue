@@ -75,7 +75,7 @@ export default {
             address: this.address,
             password: this.password
           }
-          Api.post('/client', auth)
+          Api.post('/clients', auth)
             .then(response => {
               console.log(response.data)
               this.$router.push('/login')
