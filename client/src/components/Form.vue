@@ -22,6 +22,7 @@
               <form class="sign-up-form" id="confirmPassword">
                   <input type = "password" v-model='confirmpassword' placeholder="Confirm Password">
               </form>
+              <b-form-select class="sign-up-form mt-3" v-model="profession" :options="options" size="sm"></b-form-select>
               <div class="button-container">
                 <a href="/login"><p class="account-exist"><u>Already have an account?</u></p></a>
                 <b-button @click="createUser" class="sign-up-btn">Sign Up</b-button>
@@ -54,7 +55,15 @@ export default {
       phoneNumber: '',
       address: '',
       password: '',
-      confirmpassword: ''
+      confirmpassword: '',
+      profession: '',
+      options: [
+        { value: '', text: 'All' },
+        { value: 'Architect', text: 'Architect' },
+        { value: 'Plumber', text: 'Plumber' },
+        { value: 'Electrician', text: 'Electrician' },
+        { value: 'Carpenter', text: 'Carpenter' }
+      ]
     }
   },
   methods: {

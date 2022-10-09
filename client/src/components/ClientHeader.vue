@@ -19,7 +19,7 @@
             </a>
           </b-nav-item>
           <b-nav-item>
-            <a data-v-280d9330="" v-on:click="toFindHandyMen /*To be done*/" aria-current="page" class="link router-link-exact-active router-link-active">
+            <a data-v-280d9330="" v-on:click="toFindHandyMen" aria-current="page" class="link router-link-exact-active router-link-active">
               <p data-v-280d9330=""><b-icon icon="tools"></b-icon> <strong>Find Handymen</strong></p>
             </a>
           </b-nav-item>

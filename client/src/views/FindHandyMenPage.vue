@@ -17,6 +17,7 @@
                 <p class="title">Find Handymen</p>
                 <label for="area">Area/Location</label>
                 <b-form-select size="sm" class="mt-3" :options="area_options" v-model="area"></b-form-select>
+                <b-container fluid id='rendered-map'><Gmap v-if="area !== null" :region="area"/></b-container>
                 <div>
                 <b-form-select v-model="profession" :options="options" size="sm" class="mt-3"></b-form-select>
                 </div>
@@ -46,6 +47,7 @@
 </template>
 <script>
 
+import Gmap from '../components/Gmap.vue'
 import { Api } from '../Api.js'
 import Header from '../components/ClientHeader.vue'
 import HandymenList from '../components/HandymenList.vue'
@@ -54,11 +56,11 @@ export default {
   data() {
     return {
       isFind: true,
-      profession: null,
+      profession: '',
       area: null,
       priceValue: 0,
       options: [
-        { value: null, text: 'Please select an occupation' },
+        { value: '', text: 'All' },
         { value: 'Architect', text: 'Architect' },
         { value: 'Plumber', text: 'Plumber' },
         { value: 'Electrician', text: 'Electrician' },
@@ -79,7 +81,8 @@ export default {
   name: 'ClientHomePage',
   components: {
     Header,
-    HandymenList
+    HandymenList,
+    Gmap
   },
   methods: {
     showHandymen() {
