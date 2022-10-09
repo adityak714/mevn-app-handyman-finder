@@ -171,7 +171,7 @@ span {
 
 @media only screen and (max-width: 992px) {
   .full-logo {
-    background-image: url("../assets/handymanlogomobile.png");
+    background-image: url('../assets/handymanmobile.png');
     background-size: 65px 65px;
     background-repeat: no-repeat;
   }
