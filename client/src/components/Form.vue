@@ -25,7 +25,7 @@
               <div class="button-container">
                 <a href= "/login"><p class="account-exist"><u>Already have an account?</u></p></a>
                 <b-button @click="createUser" class="sign-up-btn">Sign Up</b-button>
-        </div>
+              </div>
         <div>
           <b-modal id="signup-failed" title="Invalid">
           <p class="my-4">Passwords do not match.</p>
