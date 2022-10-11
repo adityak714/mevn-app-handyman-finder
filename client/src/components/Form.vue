@@ -1,32 +1,34 @@
 <template>
-     <b-container fluid class = "information-container">
-              <p class="sign-up">Create Your Account</p>
-              <form class="sign-up-form" id="first-name">
-                <input v-model="firstName"  placeholder="First Name">
-              </form>
-              <form class="sign-up-form" id="lastname">
-                  <input v-model="lastName" class="input" placeholder="Last Name">
-              </form>
-              <form class="sign-up-form" id="email">
-                  <input type="email" v-model="email" class="input" placeholder="Email">
-              </form>
-              <form class="sign-up-form" id="phonenumber">
-                  <input type="text" v-model="phoneNumber" placeholder="Phone Number">
-              </form>
-              <form class="sign-up-form" id="address">
-                  <input type="text" v-model="address" placeholder="Address">
-              </form>
-              <form class="sign-up-form" id="password" >
-                  <input type="password" v-model='password' placeholder="Password">
-              </form>
-              <form class="sign-up-form" id="confirmPassword">
-                  <input type = "password" v-model='confirmpassword' placeholder="Confirm Password">
-              </form>
-              <b-form-select class="sign-up-form mt-3" v-model="profession" :options="options" size="sm"></b-form-select>
-              <div class="button-container">
-                <a href="/login"><p class="account-exist"><u>Already have an account?</u></p></a>
-                <b-button @click="createUser" class="sign-up-btn">Sign Up</b-button>
-              </div>
+  <b-container fluid class = "information-container">
+    <b-row>
+      <b-col cols = "12">
+        <p class="sign-up">Create Your Account</p>
+        <form class="sign-up-form" id="first-name">
+          <input v-model="firstName"  placeholder="First Name">
+        </form>
+        <form class="sign-up-form" id="lastname">
+            <input v-model="lastName" class="input" placeholder="Last Name">
+        </form>
+        <form class="sign-up-form" id="email">
+            <input type="email" v-model="email" class="input" placeholder="Email">
+        </form>
+        <form class="sign-up-form" id="phonenumber">
+            <input type="text" v-model="phoneNumber" placeholder="Phone Number">
+        </form>
+        <form class="sign-up-form" id="address">
+            <input type="text" v-model="address" placeholder="Address">
+        </form>
+        <form class="sign-up-form" id="password" >
+            <input type="password" v-model='password' placeholder="Password">
+        </form>
+        <form class="sign-up-form" id="confirmPassword">
+            <input type = "password" v-model='confirmpassword' placeholder="Confirm Password">
+        </form>
+        <b-form-select class="sign-up-form" id = "select-profession" v-model="profession" :options="options" size="sm"></b-form-select>
+        <div class="button-container">
+          <a href="/login"><p class="account-exist"><u>Already have an account?</u></p></a>
+          <b-button @click="createUser" class="sign-up-btn">Sign Up</b-button>
+        </div>
         <div>
           <b-modal id="signup-failed" title="Invalid">
           <p class="my-4">Passwords do not match.</p>
@@ -35,7 +37,9 @@
           <b-modal id="fill-all-fields" title="Invalid">
           <p class="my-4">Please fill in all the fields. </p>
           </b-modal>
-      </b-container>
+      </b-col>
+    </b-row>
+  </b-container>
 </template>
 <script>
 import { Api } from '../Api'
@@ -58,7 +62,7 @@ export default {
       confirmpassword: '',
       profession: '',
       options: [
-        { value: '', text: 'All' },
+        { value: '', text: 'No Profession' },
         { value: 'Architect', text: 'Architect' },
         { value: 'Plumber', text: 'Plumber' },
         { value: 'Electrician', text: 'Electrician' },
@@ -110,7 +114,7 @@ export default {
       align-items: center;
       display: flex;
       border: 0.5px solid grey;
-      color: black;
+      color: grey;
       margin-bottom: 20px;
   }
   .sign-up {
