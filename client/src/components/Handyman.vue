@@ -112,4 +112,13 @@ export default {
       align-items: center;
       justify-content: flex-end;
     }
+
+    .card {
+      height: 230px;
+      width: 900px;
+      border-radius: 10px;
+      margin-bottom: 10px;
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+      transition: 0.2s
+}
 </style>
