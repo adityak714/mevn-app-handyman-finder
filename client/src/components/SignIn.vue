@@ -8,7 +8,8 @@
     <form class="sign-in-form" id="password">
         <input type='password' v-model="password" placeholder='Password'>
     </form>
-    <a href='/signup'><p class="sign-up"><u>Don't have an account?</u></p></a>
+
+    <a href=''><p class="forgot-password"><u>Forgot your password?</u></p></a>
     <b-row>
       <b-col cols = "12" class = "sign-in-btn-container">
         <button class="sign-in-btn" @click="signIn">Sign In</button>
@@ -20,8 +21,11 @@
     <b-modal id="field-empty" title="Incomplete">
           <p class="my-4">Please fill in all fields</p>
     </b-modal>
-    <b-modal id="wrong-details" title="Wrong Password">
-          <p class="my-4">Invalid Username or Password.</p>
+    <b-modal id="wrong-password" title="Wrong Password">
+          <p class="my-4">Please enter the correct password.</p>
+    </b-modal>
+    <b-modal id="no-such-user" title="Invalid">
+          <p class="my-4">The account cannot be found. Please try again.</p>
     </b-modal>
 >>>>>>> develop
   </div>
@@ -29,7 +33,7 @@
 
 <script>
 import { Api } from '../Api'
-
+import { bus } from '../main'
 // eslint-disable-next-line indent
 export default {
   name: 'SignInBox',
@@ -64,11 +68,14 @@ export default {
               localStorage.setItem('token', response.data.token)
               localStorage.setItem('user', response.data)
             }
+            bus.$emit('sign-in-event', response.data)
             this.$router.push(`/account/${response.data._id}`)
           })
           .catch((err) => {
-            if (err.response.status === 401 || err.response.status === 404) {
-              this.$bvModal.show('wrong-details')
+            if (err.response.status === 401) {
+              this.$bvModal.show('wrong-password')
+            } else if (err.response.status === 404) {
+              this.$bvModal.show('no-such-user')
             } else {
               console.log(err)
             }
@@ -88,6 +95,7 @@ div#login-page {
 
 .sign-in {
     font-size: 30px;
+    font-size: 3vw;
 }
 
 .information-container {
@@ -141,6 +149,7 @@ input {
   text-align: left;
   padding-top:10px;
   padding-bottom: 10px;
+  font-size: 1.4vw;
 }
 
 .sign-in-btn-container {
@@ -148,6 +157,10 @@ input {
   justify-content: center;
   align-items: center;
   width: 100%;
+  font-size: 1.3vw;
+}
 
+.forgot-password {
+  font-size: 1.3vw;
 }
 </style>

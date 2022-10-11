@@ -6,13 +6,11 @@
     <b-row>
     <b-container fluid>
         <div class="main-container">
-          <b-row>
-            <b-col align-self="center">
-                <div class = "information-container">
-                  <SignInBox v-on:signIn='login'/>
-                </div>
-            </b-col>
-          </b-row>
+          <b-col cols="8">
+              <div class = "information-container">
+                <SignInBox v-on:signIn='login'/>
+              </div>
+          </b-col>
         </div>
     </b-container>
     </b-row>
@@ -87,5 +85,4 @@ input {
     padding-bottom: 40px;
     max-width: 700px;
 }
-
 </style>

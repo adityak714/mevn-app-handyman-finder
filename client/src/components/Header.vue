@@ -1,10 +1,22 @@
 <template>
-  <b-navbar toggleable="lg" type="dark" variant="info">
+    <header class="header">
+      <div data-v-280d9330 class = 'header-container'>
+        <nav data-v-280d9330 class = "navbar navbar-dark bg-info navbar-expand-lg">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@40,700,1,0" />
+          <b-navbar toggleable="lg" type="dark" variant="info">
+            <b-navbar-toggle target="nav-collapse" id ="collapse"></b-navbar-toggle>
+            <b-collapse id="nav-collapse" is-nav>
+              <b-navbar-nav>
+                <div class = "left-header">
+                  <b-nav-item>
+                    <img v-on:click="toHomePage" class="full-logo" src='../assets/full-logo.png'/>
+                  </b-nav-item>
+                </div>
+              </b-navbar-nav>
+            </b-collapse>
+          </b-navbar>
+        </nav>
 
-    <b-navbar-brand>
-      <img class="full-logo"/>
-    </b-navbar-brand>
-  </b-navbar>
           <!--
           <b-collapse class="nav-collapse" is-nav>
               <b-navbar-nav>
@@ -38,11 +50,11 @@
             </b-collapse>
           </b-collapse>
           -->
-
+      </div>
+    </header>
 </template>
 
 <script>
-
 export default {
   name: 'Header',
   props: ['firstName', 'lastName', 'userId'],
@@ -82,16 +94,16 @@ export default {
 }
 
 .full-logo{
+    cursor: pointer;
     display: flex;
     align-self: center;
     width: 300px;
-    height: 65px;
-    background-image: url("../assets/full-logo.png");
-    background-size: 300px 65px;
-    border: 0;
+    height: auto;
+    transform: rotate(0.8deg);
+    padding-right: 20px;
 }
 
-a.link, .header a.link p {
+.header a.link, .header a.link p {
     cursor: pointer;
     display: block;
     margin: 10px 20px 10px 20px;
@@ -136,14 +148,6 @@ span {
 
 .navbar {
   width: 100%;
-}
-
-@media only screen and (max-width: 992px) {
-  .full-logo {
-    background-image: url("../assets/handymanlogomobile.png");
-    background-size: 65px 65px;
-    background-repeat: no-repeat;
-  }
 }
 
 </style>
