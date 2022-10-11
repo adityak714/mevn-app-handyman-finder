@@ -165,6 +165,9 @@ router.get("/api/clients/:id/requests", async function (req, res) {
       if (err) {
         return res.status(400).send(err);
       }
+      if (!client) {
+        return res.status(404).send('Client was not found.')
+      }
       return res.status(200).json(client.requests);
     });
 });

@@ -5,7 +5,7 @@
     <b-row>
         <b-col col="12">
          <div class="header-container">
-            <Header :firstName="firstName" :lastName='lastName'/>
+            <Header :firstName="firstName" :lastName='lastName' v-on:findHandy="(bool) => this.isFind = bool"/>
          </div>
         </b-col>
     </b-row>

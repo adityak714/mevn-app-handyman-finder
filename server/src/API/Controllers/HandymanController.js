@@ -197,7 +197,20 @@ router.get("/api/handymen/:id/reviews", async function (req, res) {
       return res.status(200).json(handyman.reviews);
     });
 });
-
+//Gets all requests of a handyman
+router.get("/api/handymen/:id/requests", async function (req, res) {
+  HandyMan.findById(req.params.id, { requests: 1 })
+    .populate("requests")
+    .exec((err, handyman) => {
+      if (err) {
+        return res.status(400).send(err);
+      }
+      if (!handyman) {
+        return res.status(404).send('Handyman was not found.')
+      }
+      return res.status(200).json(handyman.requests);
+    });
+});
 //Retrieve specific request of specific handyman
 router.get("/api/handymen/:id/requests/:rq_id", async function (req, res) {
   HandyMan.findById(req.params.id, { requests: 1 })
