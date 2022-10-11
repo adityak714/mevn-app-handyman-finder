@@ -57,12 +57,16 @@ router.get("/api/clients/:id", function (req, res, next) {
 //Update client profile details
 router.put("/api/clients/:id", function (req, res) {
   Client.findById(req.params.id, (err, client) => {
+    if (err) {return res.status(500).send(err);}
     if (!client) {
-      return res.send('No such client exists!');
+      return res.status(404).send('Client could not be found.');
     }
   }).then((client) => {
+    const hash = new SHA3.SHA3(512);
+    hash.update(req.body.password);
     client.firstName = req.body.firstName;
     client.lastName = req.body.lastName;
+    client.password = hash.digest('hex');
     client.phoneNumber = req.body.phoneNumber;
     client.address = req.body.address;
     client.save(() => {
@@ -117,10 +121,10 @@ router.delete("/api/clients/:id", function (req, res) {
       console.log(err);
       return res.send('Client could not be deleted.');
     });
-});
+  });
 
 //Create a request for a specific client
-router.post("/api/clients/:id/requests", async function (req, res){
+router.post("/api/clients/:id/requests", async function (req, res) {
   let request = new Request({
     client: req.params.id,
     address: req.body.address,

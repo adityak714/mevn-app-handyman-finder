@@ -5,7 +5,7 @@
     <b-row>
         <b-col col="12">
          <div class="header-container">
-            <Header />
+            <Header :firstName="firstName" :lastName='lastName'/>
          </div>
         </b-col>
     </b-row>
@@ -45,6 +45,7 @@
 </b-row>
 </div>
 </template>
+
 <script>
 
 import Gmap from '../components/Gmap.vue'
@@ -106,6 +107,7 @@ export default {
   }
 }
 </script>
+
 <style scoped>
 .material-symbols-outlined {
 display: block;
@@ -126,7 +128,8 @@ display:flex;
 flex-direction: column;
 justify-content: flex-start;
 align-items: center;
-/*padding-top: 50px;*/
+margin-top: 50px;
+padding-bottom: 30px;
 background-color: white;
 height: 100%;
 padding-top: 10px;

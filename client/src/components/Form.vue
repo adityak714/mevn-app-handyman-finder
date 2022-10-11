@@ -42,7 +42,7 @@
   </b-container>
 </template>
 <script>
-import { Api } from '../Api'
+import Api from '../Api'
 
 export default {
   name: 'Form',
@@ -50,6 +50,7 @@ export default {
     header: String
   },
   components: {
+
   },
   data() {
     return {
