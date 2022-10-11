@@ -5,7 +5,7 @@
     <b-row>
         <b-col col="12">
          <div class="header-container">
-            <Header />
+            <Header :firstName="firstName" :lastName='lastName'/>
          </div>
         </b-col>
     </b-row>
@@ -26,7 +26,7 @@
                 </div>
                 <div>
                     <b-form-input class="mt-3" id="range-2" v-model="priceValue" type="range" min="0" max="500" step="10"></b-form-input>
-                    <div>{{ priceValue}}</div>
+                    <div>{{priceValue}}</div>
                 </div>
                 <div>
                     <b-button @click="showHandymen" class="button">Find</b-button>
@@ -45,6 +45,7 @@
 </b-row>
 </div>
 </template>
+
 <script>
 
 import Gmap from '../components/Gmap.vue'
@@ -59,8 +60,6 @@ export default {
       profession: '',
       area: null,
       priceValue: 0,
-      occupation: '',
-      text: '',
       options: [
         { value: '', text: 'All' },
         { value: 'Architect', text: 'Architect' },
@@ -108,6 +107,7 @@ export default {
   }
 }
 </script>
+
 <style scoped>
 .material-symbols-outlined {
 display: block;
@@ -128,7 +128,8 @@ display:flex;
 flex-direction: column;
 justify-content: flex-start;
 align-items: center;
-/*padding-top: 50px;*/
+margin-top: 50px;
+padding-bottom: 30px;
 background-color: white;
 height: 100%;
 padding-top: 10px;
@@ -143,9 +144,14 @@ width: 300px;
 }
 .title{
 font-size: 50px;
+padding-top: 30px;
 }
 .button{
     width: 100px;
+    margin-top: 20px;
     background-color: rgba(100, 0, 0, 0.4);
+}
+.range{
+  margin-top: 30px;
 }
 </style>
