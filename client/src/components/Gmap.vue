@@ -3,7 +3,7 @@
         <iframe
             width="350"
             height="350"
-            frameborder="0" style="min-width: 200px; min-height: 200px;"
+            frameborder="0"
             referrerpolicy="no-referrer-when-downgrade"
             :area='region'
             :src="src"
@@ -29,5 +29,10 @@ export default {
 </script>
 
 <style>
-
+iframe {
+  min-width: 300px;
+  min-height: 200px;
+  border-radius: 20px;
+  margin-top: 20px;
+}
 </style>

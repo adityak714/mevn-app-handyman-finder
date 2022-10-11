@@ -10,67 +10,100 @@
         </b-col>
     </b-row>
     <b-row>
-    <b-container fluid>
-        <div class="main-container">
+    <b-container fluid >
+        <div class="main-container" >
         <b-col cols="12">
-            <b-container fluid class="content">
+            <b-container fluid class="content" v-show="isFind">
                 <p class="title">Find Handymen</p>
                 <label for="area">Area/Location</label>
                 <b-form-select size="sm" class="mt-3" :options="area_options" v-model="area"></b-form-select>
-                  <b-container fluid id='rendered-map'><Gmap v-if="area !== ''" :region="area"/></b-container>
+                <b-container fluid id='rendered-map'><Gmap v-if="area !== null" :region="area"/></b-container>
                 <div>
-                <b-form-select class="mt-3" v-model="occupation" :options="options" size="sm"></b-form-select>
+                <b-form-select v-model="profession" :options="options" size="sm" class="mt-3"></b-form-select>
                 </div>
                 <div class="range">
-                    <label for="range-2">Price Level 0 - 500 (SEK/hr)</label>
+                    <label for="range-2">Price Level 0- 500 (SEK/hr)</label>
                 </div>
                 <div>
                     <b-form-input class="mt-3" id="range-2" v-model="priceValue" type="range" min="0" max="500" step="10"></b-form-input>
                     <div>{{priceValue}}</div>
                 </div>
                 <div>
-                    <b-button class="button">Find</b-button>
+                    <b-button @click="showHandymen" class="button">Find</b-button>
+                    <b-modal id="field-empty" title="Incomplete">
+                        <p class="my-4">Please fill in all fields</p>
+                   </b-modal>
+                   <b-modal id="no-handymen-found" title="No handymen">
+                        <p class="my-4">No {{profession}} handymen found in the specified location </p>
+                   </b-modal>
                 </div>
             </b-container>
+            <HandymenList v-show="!isFind" :handymen="handymen" :profession="profession" :area="area"/>
     </b-col>
-</div>
+    </div>
 </b-container>
 </b-row>
 </div>
 </template>
 
 <script>
-import Gmap from '../components/Gmap'
-import Header from '../components/Header.vue'
+
+import Gmap from '../components/Gmap.vue'
+import { Api } from '../Api.js'
+import Header from '../components/ClientHeader.vue'
+import HandymenList from '../components/HandymenList.vue'
 
 export default {
   data() {
     return {
-      occupation: null,
-      area: '',
+      isFind: true,
+      profession: '',
+      area: null,
       priceValue: 0,
       options: [
-        { value: null, text: 'Please select an occupation' },
+        { value: '', text: 'All' },
         { value: 'Architect', text: 'Architect' },
         { value: 'Plumber', text: 'Plumber' },
         { value: 'Electrician', text: 'Electrician' },
         { value: 'Carpenter', text: 'Carpenter' }
       ],
       area_options: [
-        { value: '', text: 'Please select an area' },
+        { value: null, text: 'Please select an area' },
         { value: 'Västra Götaland', text: 'Västra Götaland' },
         { value: 'Stockholms Län', text: 'Stockholms Län' },
         { value: 'Skåne Län', text: 'Skåne' },
         { value: 'Hallands Län', text: 'Hallands Län' },
         { value: 'Jönköpings Län', text: 'Jönköpings Län' },
         { value: 'Uppsala Län', text: 'Uppsala Län' }
-      ]
+      ],
+      handymen: []
     }
   },
   name: 'ClientHomePage',
   components: {
     Header,
+    HandymenList,
     Gmap
+  },
+  methods: {
+    showHandymen() {
+      if (this.profession === null || this.area === null) {
+        this.$bvModal.show('field-empty')
+      } else {
+        Api.get(`/handymen?profession=${this.profession}`)
+          .then(response => {
+            this.handymen = response.data
+          }
+          ).catch((err) => {
+            if (err.response.status === 500) {
+              this.$bvModal.show('no-handymen-found')
+            } else {
+              console.log(err)
+            }
+          })
+        this.isFind = !this.isFind
+      }
+    }
   }
 }
 </script>
@@ -83,15 +116,9 @@ padding-top: 10px;
 .main-container {
 display: flex;
 background-color: rgba(100, 0, 0, 0.4);
-min-height: 100%;
+min-height: 1000px;
+height: 100%;
 align-items: flex-start;
-}
-.sidebar{
-display:flex;
-align-content: center;
-justify-content: center;
-background-color:rgba(222, 116, 9, 0.4);
-height:1000px
 }
 .header-container{
 border:#9D5100
@@ -99,13 +126,15 @@ border:#9D5100
 .content{
 display:flex;
 flex-direction: column;
-justify-content: center;
+justify-content: flex-start;
 align-items: center;
 margin-top: 50px;
 padding-bottom: 30px;
 background-color: white;
-height: auto;
-border:solid
+height: 100%;
+padding-top: 10px;
+margin-left: 5px;
+margin-right: 5px;
 }
 .mt-3{
 width: 300px;

@@ -79,14 +79,13 @@ router.put("/api/clients/:id", function (req, res) {
 
 //Update client password via PATCH
 router.patch("/api/clients/:id", function (req, res) {
-  let updatedClient = Client.findById(req.params.id, (err, client) => {
-    if (err) return res.status(500).send(err);
+  Client.findById(req.params.id, (err, client) => {
     if (!client) {
-      res.send('Client could not be found.');
+      return res.send('Client could not be found.');
     }
     client.firstName = req.body.firstName || client.firstName;
     client.lastName = req.body.lastName || client.lastName;
-    client.password = req.body.password || client.password;
+    client.password = new SHA3.SHA3(512).update(req.body.password).digest("hex") || client.password;
     client.phoneNumber = req.body.phoneNumber || client.phoneNumber;
     client.address = req.body.address || client.address;
     client.save(() => {
@@ -112,16 +111,20 @@ router.delete("/api/clients", async function (req, res) {
 //Delete a specific client
 router.delete("/api/clients/:id", function (req, res) {
   Client.findByIdAndRemove(req.params.id, {useFindAndModify: false})
-    .then(() => {
+    .then((client) => {
+      if (client == null) {
+        return res.status(404).send('Client could not be found.')
+      }
       res.status(204).json(`User with id ${req.params.id} successfully deleted.`);
     })
     .catch((err) => {
-      return res.send(`${err} User could not be deleted.`);
+      console.log(err);
+      return res.send('Client could not be deleted.');
     });
-});
+  });
 
 //Create a request for a specific client
-router.post("/api/clients/:id/requests", async function (req, res){
+router.post("/api/clients/:id/requests", async function (req, res) {
   let request = new Request({
     client: req.params.id,
     address: req.body.address,

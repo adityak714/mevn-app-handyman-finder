@@ -4,28 +4,28 @@
     <form class="sign-in-form" id="email">
         <input type='email' v-model="email" placeholder='Email'>
     </form>
+
     <form class="sign-in-form" id="password">
         <input type='password' v-model="password" placeholder='Password'>
     </form>
-    <a href=''><p class="forgot-password"><u>Forgot your password?</u></p></a>
-    <div class = "sign-in-btn-container">
+    <a href='/signup'><p class="sign-up"><u>Don't have an account?</u></p></a>
+    <b-row>
+      <b-col cols = "12" class = "sign-in-btn-container">
         <button class="sign-in-btn" @click="signIn">Sign In</button>
-    </div>
+      </b-col>
+    </b-row>
     <b-modal id="field-empty" title="Incomplete">
           <p class="my-4">Please fill in all fields</p>
     </b-modal>
-    <b-modal id="wrong-password" title="Wrong Password">
-          <p class="my-4">Please enter the correct password.</p>
-    </b-modal>
-    <b-modal id="no-such-user" title="Invalid">
-          <p class="my-4">The account cannot be found. Please try again.</p>
+    <b-modal id="wrong-details" title="Wrong Password">
+          <p class="my-4">Invalid Username or Password.</p>
     </b-modal>
   </div>
 </template>
 
 <script>
 import { Api } from '../Api'
-import { bus } from '../main'
+
 // eslint-disable-next-line indent
 export default {
   name: 'SignInBox',
@@ -48,14 +48,11 @@ export default {
               localStorage.setItem('token', response.data.token)
               localStorage.setItem('user', response.data)
             }
-            bus.$emit('sign-in-event', response.data)
             this.$router.push(`/account/${response.data._id}`)
           })
           .catch((err) => {
-            if (err.response.status === 401) {
-              this.$bvModal.show('wrong-password')
-            } else if (err.response.status === 404) {
-              this.$bvModal.show('no-such-user')
+            if (err.response.status === 401 || err.response.status === 404) {
+              this.$bvModal.show('wrong-details')
             } else {
               console.log(err)
             }
@@ -86,12 +83,14 @@ div#login-page {
 
 .sign-in-form {
     min-height: 35px;
-    border-radius: 20px;
+    border-radius: 10px;
     margin: 10px;
+    justify-content: flex-start;
     align-items: center;
     display: flex;
-    background-color: rgba(100, 0, 0, 0.4);
+    border: 0.5px solid grey;
     color: black;
+    margin-bottom: 20px;
 }
 
 .right-container {
@@ -102,11 +101,12 @@ div#login-page {
     border-radius: 30px;
     padding-top: 10px;
     padding-bottom: 10px;
-    padding-left: 40px;
-    padding-right: 40px;
-    border: 1px solid rgba(100, 0, 0, 0.4);
+    padding-left: 30px;
+    padding-right: 30px;
+    border: 0.5px solid grey;
     color: black;
     background-color: white;
+    flex-shrink: 1;
 }
 
 .sign-in-btn:hover {
@@ -116,7 +116,21 @@ div#login-page {
     padding-left: 40px;
     padding-right: 40px;
     border: none;
-    color: white;
-    background-color:rgba(100, 0, 0, 0.4);
+    color: black;
+    background-color:rgba(247, 233, 118, 0.5);
+}
+
+input {
+  text-align: left;
+  padding-top:10px;
+  padding-bottom: 10px;
+}
+
+.sign-in-btn-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+
 }
 </style>

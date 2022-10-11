@@ -125,13 +125,17 @@ router.delete("/api/handymen", async function (req, res) {
 //Delete one handyman
 router.delete("/api/handymen/:id", function (req, res) {
   HandyMan.findByIdAndRemove(req.params.id)
-    .then(() => {
+    .then((handyman) => {
+      if (handyman == null) {
+        return res.status(404).send('Handyman not found.')
+      }
       res
         .status(204)
         .json(`User with id ${req.params.id} successfully deleted.`);
     })
     .catch((err) => {
-      res.send(`${err} User could not be deleted.`);
+      console.log(err);
+      res.send('Handyman could not be deleted.');
     });
 });
 
