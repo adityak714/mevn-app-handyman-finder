@@ -1,10 +1,6 @@
 <template>
   <div class='home-page'>
-<<<<<<< HEAD
     <Header :userId='userId' :firstName='firstName' :lastName='lastName'/>
-=======
-    <Header/>
->>>>>>> d2a68ecab94b987a8e28c34cb44cfbb4a35ce897
     <div id="body">
       <h1 class="display-3">Welcome {{ firstName }} {{ lastName }}</h1>
         <br/>
