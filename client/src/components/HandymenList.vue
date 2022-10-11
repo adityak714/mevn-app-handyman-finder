@@ -4,9 +4,9 @@
           <p class="title">List of {{profession}}s at {{area}}</p>
         </div>
         <div class="col-12 cards">
-          <div class = "card" v-for="handyman in handymen" :key="handyman._id">
+          <div v-for="handyman in handymen" :key="handyman._id">
             <Handyman :handyman="handyman" />
-            </div>
+          </div>
         </div>
         </div>
 </template>

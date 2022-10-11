@@ -134,8 +134,7 @@ router.delete("/api/handymen/:id", function (req, res) {
         .json(`User with id ${req.params.id} successfully deleted.`);
     })
     .catch((err) => {
-      console.log(err);
-      res.send('Handyman could not be deleted.');
+      res.send(`${err} User could not be deleted.`);
     });
 });
 

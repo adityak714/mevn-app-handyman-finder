@@ -4,13 +4,11 @@
     <form class="sign-in-form" id="email">
         <input type='email' v-model="email" placeholder='Email'>
     </form>
-
     <form class="sign-in-form" id="password">
         <input type='password' v-model="password" placeholder='Password'>
     </form>
-    <a href='/signup'><p class="sign-up"><u>Don't have an account?</u></p></a>
-    <b-row>
-      <b-col cols = "12" class = "sign-in-btn-container">
+    <a href=''><p class="forgot-password"><u>Forgot your password?</u></p></a>
+    <div class = "sign-in-btn-container">
         <button class="sign-in-btn" @click="signIn">Sign In</button>
       </b-col>
     </b-row>
@@ -25,7 +23,7 @@
 
 <script>
 import { Api } from '../Api'
-
+import { bus } from '../main'
 // eslint-disable-next-line indent
 export default {
   name: 'SignInBox',
@@ -83,14 +81,12 @@ div#login-page {
 
 .sign-in-form {
     min-height: 35px;
-    border-radius: 10px;
+    border-radius: 20px;
     margin: 10px;
-    justify-content: flex-start;
     align-items: center;
     display: flex;
-    border: 0.5px solid grey;
+    background-color: rgba(100, 0, 0, 0.4);
     color: black;
-    margin-bottom: 20px;
 }
 
 .right-container {
@@ -101,12 +97,11 @@ div#login-page {
     border-radius: 30px;
     padding-top: 10px;
     padding-bottom: 10px;
-    padding-left: 30px;
-    padding-right: 30px;
-    border: 0.5px solid grey;
+    padding-left: 40px;
+    padding-right: 40px;
+    border: 1px solid rgba(100, 0, 0, 0.4);
     color: black;
     background-color: white;
-    flex-shrink: 1;
 }
 
 .sign-in-btn:hover {
@@ -116,21 +111,7 @@ div#login-page {
     padding-left: 40px;
     padding-right: 40px;
     border: none;
-    color: black;
-    background-color:rgba(247, 233, 118, 0.5);
-}
-
-input {
-  text-align: left;
-  padding-top:10px;
-  padding-bottom: 10px;
-}
-
-.sign-in-btn-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-
+    color: white;
+    background-color:rgba(100, 0, 0, 0.4);
 }
 </style>

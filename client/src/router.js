@@ -15,17 +15,12 @@ export default new Router({
   base: process.env.BASE_URL,
   routes: [
     {
-      path: '/',
-      name: 'start',
-      component: LoginPage
-    },
-    {
       path: '/login',
       name: 'login',
       component: LoginPage
     },
     {
-      path: '/account/:accountId',
+      path: '/account/*',
       name: 'home',
       component: Home
     },
@@ -35,7 +30,7 @@ export default new Router({
       component: ClientSignUp
     },
     {
-      path: '/account/findhandymen/:accountId',
+      path: '/findhandymenpage',
       name: 'findhandymenpage',
       component: FindHandyMenPage
     },

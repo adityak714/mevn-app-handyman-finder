@@ -10,10 +10,10 @@
         </b-col>
     </b-row>
     <b-row>
-    <b-container fluid >
-        <div class="main-container" >
+    <b-container fluid>
+        <div class="main-container">
         <b-col cols="12">
-            <b-container fluid class="content" v-show="isFind">
+            <b-container fluid class="content">
                 <p class="title">Find Handymen</p>
                 <label for="area">Area/Location</label>
                 <b-form-select size="sm" class="mt-3" :options="area_options" v-model="area"></b-form-select>
@@ -29,18 +29,11 @@
                     <div>{{priceValue}}</div>
                 </div>
                 <div>
-                    <b-button @click="showHandymen" class="button">Find</b-button>
-                    <b-modal id="field-empty" title="Incomplete">
-                        <p class="my-4">Please fill in all fields</p>
-                   </b-modal>
-                   <b-modal id="no-handymen-found" title="No handymen">
-                        <p class="my-4">No {{profession}} handymen found in the specified location </p>
-                   </b-modal>
+                    <b-button class="button">Find</b-button>
                 </div>
             </b-container>
-            <HandymenList v-show="!isFind" :handymen="handymen" :profession="profession" :area="area"/>
     </b-col>
-    </div>
+</div>
 </b-container>
 </b-row>
 </div>
@@ -61,7 +54,7 @@ export default {
       area: null,
       priceValue: 0,
       options: [
-        { value: '', text: 'All' },
+        { value: null, text: 'Please select an occupation' },
         { value: 'Architect', text: 'Architect' },
         { value: 'Plumber', text: 'Plumber' },
         { value: 'Electrician', text: 'Electrician' },
@@ -126,7 +119,7 @@ border:#9D5100
 .content{
 display:flex;
 flex-direction: column;
-justify-content: flex-start;
+justify-content: center;
 align-items: center;
 margin-top: 50px;
 padding-bottom: 30px;

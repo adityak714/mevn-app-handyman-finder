@@ -1,11 +1,10 @@
 <template>
-  <b-navbar toggleable="lg" type="dark" variant="info">
+    <header class="header">
+      <div>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@40,700,1,0" />
+        <b-navbar>
+          <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
-    <b-navbar-brand>
-      <img class="full-logo"/>
-    </b-navbar-brand>
-  </b-navbar>
-          <!--
           <b-collapse class="nav-collapse" is-nav>
               <b-navbar-nav>
                 <img v-on:click="toHomePage" class="full-logo" src='../assets/full-logo.png'/>
@@ -37,12 +36,12 @@
               </b-navbar-nav>
             </b-collapse>
           </b-collapse>
-          -->
-
+        </b-navbar>
+      </div>
+    </header>
 </template>
 
 <script>
-
 export default {
   name: 'Header',
   props: ['firstName', 'lastName', 'userId'],
@@ -78,7 +77,6 @@ export default {
 .material-symbols-outlined {
     display: block;
     padding-top: 10px;
-    color: black;
 }
 
 .full-logo{
@@ -86,13 +84,11 @@ export default {
     align-self: center;
     width: 300px;
     height: 65px;
-    background-image: url("../assets/full-logo.png");
-    background-size: 300px 65px;
-    border: 0;
+    transform: rotate(0.8deg);
+    padding-right: 20px;
 }
 
-a.link, .header a.link p {
-    cursor: pointer;
+.header a.link, .header a.link p {
     display: block;
     margin: 10px 20px 10px 20px;
     font-size: 1.3rem;
@@ -109,41 +105,9 @@ a.link, .header a.link p {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 100%;
 }
 
 html body {
     background-color: white;
 }
-
-.bg-info {
-  background-color: white !important;
-}
-
-button#collapse {
-    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='50' height='35' viewBox='0 0 30 30'%3e%3cpath stroke='black' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
-}
-
-span {
-  color: black;
-}
-
-.left-header {
-  display: flex;
-  justify-content: flex-start;
-  width: 100%;
-}
-
-.navbar {
-  width: 100%;
-}
-
-@media only screen and (max-width: 992px) {
-  .full-logo {
-    background-image: url("../assets/handymanlogomobile.png");
-    background-size: 65px 65px;
-    background-repeat: no-repeat;
-  }
-}
-
 </style>

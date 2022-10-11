@@ -9,9 +9,9 @@
         First Name: {{firstName}} <br/>
         Last Name: {{lastName}} <br/>
         Phone Number: {{phoneNumber}} <br/>
-        Address: {{address}}
+        Address: {{address}} <br/>
+        Profession: {{profession}}
       </h3>
-      <h5 v-show="profession !== null"> Profession: {{profession}} </h5>
     </div>
   </div>
 </template>
@@ -19,19 +19,18 @@
 <script>
 // @ is an alias to /src
 import { Api } from '@/Api'
-import Header from '../components/ClientHeader.vue'
+import Header from '../components/Header.vue'
 
 export default {
   name: 'home',
   data() {
     return {
       message: 'none',
-      userId: '',
       firstName: '',
       lastName: '',
       phoneNumber: '',
       address: '',
-      profession: null
+      profession: ''
     }
   },
   components: {
@@ -58,7 +57,7 @@ export default {
     const strs = searchURL.split('/')
     const id = strs.at(-1)
     console.log(id)
-    this.userId = id
+    this.id = id
     Api.get(`/clients/${id}`)
       .then(response => {
         if (response.data === 'No such client exists!') {
@@ -95,22 +94,14 @@ div#body {
   padding-top: 50px;
   background-color: rgba(100, 0, 0, 0.4);
   height: 1000px;
-  width: 100%;
 }
 
 .display-3 {
  display: flex;
  justify-content: center;
- font-size: 4vw;
 }
 
 .profile-info {
-  font-size: 2vw;
+  font-size: 20px;
 }
-
-html {
-  width: 100%;
-  height: 100%;
-}
-
 </style>
