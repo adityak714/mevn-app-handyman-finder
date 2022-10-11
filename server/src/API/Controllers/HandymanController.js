@@ -63,15 +63,12 @@ router.put("/api/handymen/:id", function (req, res) {
   HandyMan.findById(req.params.id, (err, handyman) => {
     if (err) return res.status(500).send(err);
     if (!handyman) {
-      return res.status(404).send("Handyman could not be found.");
+      return res.status(404).send("No such handyman exists!");
     }
   })
     .then((handyman) => {
-      const hash = new SHA3.SHA3(512);
-      hash.update(req.body.password);
       handyman.firstName = req.body.firstName;
       handyman.lastName = req.body.lastName;
-      handyman.password = hash.digest("hex");
       handyman.phoneNumber = req.body.phoneNumber;
       handyman.address = req.body.address;
       handyman.profession = req.body.profession;
@@ -91,7 +88,7 @@ router.patch("/api/handymen/:id", function (req, res) {
       return res.status(500).send(err);
     }
     if (!handyman) {
-      return res.status(404).send("Handyman could not be found.");
+      return res.status(404).send("No such handyman exists!");
     }
     handyman.firstName = req.body.firstName || handyman.firstName;
     handyman.lastName = req.body.lastName || handyman.lastName;
@@ -124,13 +121,17 @@ router.delete("/api/handymen", async function (req, res) {
 //Delete one handyman
 router.delete("/api/handymen/:id", function (req, res) {
   HandyMan.findByIdAndRemove(req.params.id)
-    .then(() => {
+    .then((handyman) => {
+      if (handyman == null) {
+        return res.status(404).send('Handyman not found.')
+      }
       res
         .status(204)
         .json(`User with id ${req.params.id} successfully deleted.`);
     })
     .catch((err) => {
-      res.send(`${err} User could not be deleted.`);
+      console.log(err);
+      res.send('Handyman could not be deleted.');
     });
 });
 

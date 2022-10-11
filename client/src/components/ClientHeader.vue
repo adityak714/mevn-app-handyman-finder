@@ -1,44 +1,40 @@
 <template>
-    <header class="header">
-      <div data-v-280d9330 class = 'header-container'>
-        <nav data-v-280d9330 class = "navbar navbar-dark bg-info navbar-expand-lg">
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@40,700,1,0" />
-          <b-navbar toggleable="lg" type="dark" variant="info">
-            <b-navbar-toggle target="nav-collapse" id ="collapse"></b-navbar-toggle>
-            <b-collapse id="nav-collapse" is-nav>
-              <b-navbar-nav>
-                <div class = "left-header">
-                  <b-nav-item>
-                    <img v-on:click="toHomePage" class="full-logo" src='../assets/full-logo.png'/>
-                  </b-nav-item>
-                  <b-nav-item>
-                    <a data-v-280d9330="" v-on:click="toHomePage" aria-current="page" class="link router-link-exact-active router-link-active">
-                      <p data-v-280d9330=""><strong>Home</strong></p>
-                    </a>
-                  </b-nav-item>
-                  <b-nav-item>
-                    <a data-v-280d9330="" v-on:click="toMyRequests /*To be done*/" aria-current="page" class="link router-link-exact-active router-link-active">
-                      <p data-v-280d9330=""><strong>My Requests</strong></p>
-                    </a>
-                  </b-nav-item>
-                  <b-nav-item>
-                    <a data-v-280d9330="" v-on:click="toMyRequests /*To be done*/" aria-current="page" class="link router-link-exact-active router-link-active">
-                      <p data-v-280d9330=""><strong>My Requests</strong></p>
-                    </a>
-                  </b-nav-item>
-                </div>
-                <b-nav-item-dropdown right class = "right-header">
-                  <template #button-content>
-                      <div class="material-symbols-outlined">person</div><span v-bind:firstName='firstName' v-bind:lastName='lastName'>{{firstName}} {{lastName}}</span>
-                  </template>
-                  <b-dropdown-item v-on:click="toProfile">Profile</b-dropdown-item>
-                  <b-dropdown-item v-on:click="logout">Sign Out</b-dropdown-item>
-                </b-nav-item-dropdown>
-              </b-navbar-nav>
-            </b-collapse>
-          </b-navbar>
-        </nav>
+  <b-navbar toggleable="lg" type="dark" variant="info">
 
+    <b-navbar-brand>
+      <img v-on:click="toHomePage" class="full-logo"/>
+    </b-navbar-brand>
+
+    <b-navbar-toggle target="nav-collapse" id ="collapse"></b-navbar-toggle>
+    <b-collapse id="nav-collapse" is-nav>
+      <b-navbar-nav>
+        <b-nav-item>
+            <a data-v-280d9330="" v-on:click="toHomePage" aria-current="page" class="link router-link-exact-active router-link-active">
+              <p data-v-280d9330=""><b-icon icon="house-fill"></b-icon> <strong>Home</strong></p>
+            </a>
+          </b-nav-item>
+          <b-nav-item>
+            <a data-v-280d9330="" v-on:click="toMyRequests /*To be done*/" aria-current="page" class="link router-link-exact-active router-link-active">
+              <p data-v-280d9330=""><b-icon icon="inboxes-fill"></b-icon> <strong>My Requests</strong></p>
+            </a>
+          </b-nav-item>
+          <b-nav-item>
+            <a data-v-280d9330="" v-on:click="toFindHandyMen" aria-current="page" class="link router-link-exact-active router-link-active">
+              <p data-v-280d9330=""><b-icon icon="tools"></b-icon> <strong>Find Handymen</strong></p>
+            </a>
+          </b-nav-item>
+      </b-navbar-nav>
+      <b-navbar-nav class = "ml-auto">
+        <b-nav-item-dropdown right>
+          <template #button-content>
+              <div class="material-symbols-outlined"><b-icon icon="person-fill"></b-icon> </div><span v-bind:firstName='firstName' v-bind:lastName='lastName'>{{firstName}} {{lastName}}</span>
+          </template>
+          <b-dropdown-item v-on:click="toProfile">Profile</b-dropdown-item>
+          <b-dropdown-item v-on:click="logout">Sign Out</b-dropdown-item>
+        </b-nav-item-dropdown>
+      </b-navbar-nav>
+    </b-collapse>
+  </b-navbar>
           <!--
           <b-collapse class="nav-collapse" is-nav>
               <b-navbar-nav>
@@ -72,11 +68,11 @@
             </b-collapse>
           </b-collapse>
           -->
-      </div>
-    </header>
+
 </template>
 
 <script>
+
 export default {
   name: 'Header',
   props: ['firstName', 'lastName', 'userId'],
@@ -98,8 +94,9 @@ export default {
       this.id = this.$route.params.accountId
       this.$router.push(`/account/profile/${this.id}`)
     },
-    toMyRequests() {
-
+    toFindHandyMen() {
+      this.id = this.$route.params.accountId
+      this.$router.push(`/account/findhandymen/${this.id}`)
     },
     mounted() {
       // console.log(userId)
@@ -121,11 +118,12 @@ export default {
     align-self: center;
     width: 300px;
     height: 65px;
-    transform: rotate(0.8deg);
-    padding-right: 20px;
+    background-image: url("../assets/full-logo.png");
+    background-size: 300px 65px;
+    border: 0;
 }
 
-.header a.link, .header a.link p {
+a.link, .header a.link p {
     cursor: pointer;
     display: block;
     margin: 10px 20px 10px 20px;
@@ -170,6 +168,14 @@ span {
 
 .navbar {
   width: 100%;
+}
+
+@media only screen and (max-width: 992px) {
+  .full-logo {
+    background-image: url('../assets/handymanmobile.png');
+    background-size: 65px 65px;
+    background-repeat: no-repeat;
+  }
 }
 
 </style>
