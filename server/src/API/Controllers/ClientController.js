@@ -122,7 +122,6 @@ router.delete("/api/clients/:id", function (req, res) {
       return res.send('Client could not be deleted.');
     });
   });
-});
 
 //Create a request for a specific client
 router.post("/api/clients/:id/requests", async function (req, res) {
