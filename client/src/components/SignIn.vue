@@ -12,6 +12,7 @@
     <b-row>
       <b-col cols = "12" class = "sign-in-btn-container">
         <button class="sign-in-btn" @click="signIn">Sign In</button>
+<<<<<<< HEAD
       </b-col>
     </b-row>
     <b-modal id="field-empty" title="Incomplete">
@@ -20,6 +21,9 @@
     <b-modal id="wrong-details" title="Wrong Password">
           <p class="my-4">Invalid Username or Password.</p>
     </b-modal>
+=======
+    </div>
+>>>>>>> d2a68ecab94b987a8e28c34cb44cfbb4a35ce897
   </div>
 </template>
 
@@ -38,6 +42,7 @@ export default {
   methods: {
     signIn() {
       // eslint-disable-next-line no-unused-vars
+<<<<<<< HEAD
       if (this.email === '' || this.password === '') {
         this.$bvModal.show('field-empty')
       } else {
@@ -58,6 +63,18 @@ export default {
             }
           })
       }
+=======
+      const auth = { email: this.email, password: this.password }
+      Api.post('/auth/signin', auth)
+        .then(response => {
+          bus.$emit('sign-in-event', response.data)
+          const id = response.data._id
+          this.$router.push(`/account/${id}`)
+        })
+        .catch(error => {
+          console.log(error)
+        })
+>>>>>>> d2a68ecab94b987a8e28c34cb44cfbb4a35ce897
     }
   }
 }

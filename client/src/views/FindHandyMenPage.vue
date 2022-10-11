@@ -15,6 +15,7 @@
         <b-col cols="12">
             <b-container fluid class="content" v-show="isFind">
                 <p class="title">Find Handymen</p>
+<<<<<<< HEAD
                 <label for="area">Area/Location</label>
                 <b-form-select size="sm" class="mt-3" :options="area_options" v-model="area"></b-form-select>
                 <b-container fluid id='rendered-map'><Gmap v-if="area !== null" :region="area"/></b-container>
@@ -22,11 +23,21 @@
                 <b-form-select v-model="profession" :options="options" size="sm" class="mt-3"></b-form-select>
                 </div>
                 <div class="range">
+=======
+                <div>
+                    <label for="area">Area/Location</label>
+                </div>
+                <b-form-input size="sm" class="area-location" v-model="text" placeholder="Enter the location"></b-form-input>
+                <div>
+                <b-form-select v-model="selected" :options="options" size="sm" class="mt-3"></b-form-select>
+                </div>
+                <div>
+>>>>>>> d2a68ecab94b987a8e28c34cb44cfbb4a35ce897
                     <label for="range-2">Price Level 0- 500 (SEK/hr)</label>
                 </div>
                 <div>
                     <b-form-input class="mt-3" id="range-2" v-model="priceValue" type="range" min="0" max="500" step="10"></b-form-input>
-                    <div>{{priceValue}}</div>
+                    <div>{{ priceValue}}</div>
                 </div>
                 <div>
                     <b-button @click="showHandymen" class="button">Find</b-button>
@@ -46,6 +57,7 @@
 </div>
 </template>
 <script>
+<<<<<<< HEAD
 
 import Gmap from '../components/Gmap.vue'
 import { Api } from '../Api.js'
@@ -58,11 +70,21 @@ export default {
       isFind: true,
       profession: '',
       area: null,
+=======
+import Header from '../components/Header.vue'
+export default {
+  data() {
+    return {
+      selected: null,
+>>>>>>> d2a68ecab94b987a8e28c34cb44cfbb4a35ce897
       priceValue: 0,
+      occupation: '',
+      text: '',
       options: [
         { value: '', text: 'All' },
         { value: 'Architect', text: 'Architect' },
         { value: 'Plumber', text: 'Plumber' },
+<<<<<<< HEAD
         { value: 'Electrician', text: 'Electrician' },
         { value: 'Carpenter', text: 'Carpenter' }
       ],
@@ -76,10 +98,15 @@ export default {
         { value: 'Uppsala Län', text: 'Uppsala Län' }
       ],
       handymen: []
+=======
+        { value: 'Electrician', text: 'Electrician' }
+      ]
+>>>>>>> d2a68ecab94b987a8e28c34cb44cfbb4a35ce897
     }
   },
   name: 'ClientHomePage',
   components: {
+<<<<<<< HEAD
     Header,
     HandymenList,
     Gmap
@@ -103,6 +130,9 @@ export default {
         this.isFind = !this.isFind
       }
     }
+=======
+    Header
+>>>>>>> d2a68ecab94b987a8e28c34cb44cfbb4a35ce897
   }
 }
 </script>
@@ -114,9 +144,14 @@ padding-top: 10px;
 .main-container {
 display: flex;
 background-color: rgba(100, 0, 0, 0.4);
+<<<<<<< HEAD
 min-height: 1000px;
 height: 100%;
 align-items: flex-start;
+=======
+height: 1000px;
+align-items: center;
+>>>>>>> d2a68ecab94b987a8e28c34cb44cfbb4a35ce897
 }
 .header-container{
 border:#9D5100
@@ -128,10 +163,15 @@ justify-content: flex-start;
 align-items: center;
 /*padding-top: 50px;*/
 background-color: white;
+<<<<<<< HEAD
 height: 100%;
 padding-top: 10px;
 margin-left: 5px;
 margin-right: 5px;
+=======
+height: 480px;
+border:solid
+>>>>>>> d2a68ecab94b987a8e28c34cb44cfbb4a35ce897
 }
 .mt-3{
 width: 300px;
@@ -141,14 +181,9 @@ width: 300px;
 }
 .title{
 font-size: 50px;
-padding-top: 30px;
 }
 .button{
     width: 100px;
-    margin-top: 20px;
     background-color: rgba(100, 0, 0, 0.4);
-}
-.range{
-  margin-top: 30px;
 }
 </style>

@@ -1,57 +1,65 @@
 var express = require("express");
 const { Mongoose } = require("mongoose");
 const router = express.Router();
-var SHA3 = require('sha3');
+var Client = require("../../Infrastructure/models/ClientSchema");
+const Request = require("../../Infrastructure/models/RequestSchema")
+
+var  SHA3  = require('sha3');
 const jwt = require('jsonwebtoken');
 var encryptionJWTKey = require('../../Domain/Constants.js');
 
-const Client = require("../../Infrastructure/models/ClientSchema");
-const Request = require("../../Infrastructure/models/RequestSchema");
-const HandyMan = require("../../Infrastructure/models/HandyManSchema");
-
-//Sign Up Client
-router.post('/api/clients', async function (req, res) {
+//Sign up client
+router.post("/api/clients", function (req, res, next) {
+  
   const hash = new SHA3.SHA3(512);
   hash.update(req.body.password);
-  const newClient = new Client({
-      firstName: req.body.firstName,
-      lastName: req.body.lastName,
-      email: req.body.email,
-      phoneNumber: req.body.phoneNumber,
-      address: req.body.address,
-      password: hash.digest('hex'),
-      accessToken: jwt.sign({ data: "123" }, encryptionJWTKey)
-  })
-  newClient.save(function (err, client) {
-      if (err) {
-          return res.status(400).send('Details are not filled correctly.')
-      }
-      return res.status(201).json(client);
-  });    
-})
+  
+  req.body.password = hash.digest('hex');
+
+  req.body.accessToken = jwt.sign({
+    data: '123'
+  }, encryptionJWTKey);
+  
+  var client = new Client(req.body);
+  client.save(function (err, client) {
+    if (err) {
+      res.status(400).send(err);
+    }
+    res.status(201).json(client);
+  });
+});
 
 //Get all clients
 router.get("/api/clients", function (req, res, next) {
   Client.find({}, function (err, clients) {
     if (err) {
-      return next(err);
+      res.send(err);
     }
     res.status(200).json({ clients: clients });
   });
 });
+//Get all requests for a client(Client must exist and verified)
+router.get("/api/clients/:id/requests", async function (req, res) {
+  Client.findById(req.params.id, { requests: 1 })
+    .populate("requests")
+    .exec((err, client) => {
+      if (err) {
+        return res.status(400).send(err);
+      }
+      return res.status(200).json(client.requests);
+    });
+});
 
 //Get a specific client
 router.get("/api/clients/:id", function (req, res, next) {
-  Client.findById(req.params.id).populate("requests")
-  .then((clientFound) => {
-    if (clientFound) {
-      res.status(200).json(clientFound);
-    } else {
-      res.send("No such client exists!");
-    }})
-  .catch((err) => {
-    return res.send(err);
-  });
+  Client.findById(req.params.id)
+    .then((clientFound) => {
+      if (clientFound) {
+        res.status(200).json(clientFound);
+      } else {
+        res.send("No such client exists!");
+      }
+    });
 });
 
 //Update client profile details
@@ -68,9 +76,6 @@ router.put("/api/clients/:id", function (req, res) {
     client.save(() => {
       return res.status(200).json(client);
     });
-  }).catch((err) => {
-    return res.status(500).send(err);
-  })
 });
 
 //Update client password via PATCH
@@ -87,8 +92,6 @@ router.patch("/api/clients/:id", function (req, res) {
     client.save(() => {
       return res.status(200).json(client);
     });
-  }).catch((err) => {
-    return res.status(500).send(err);
   });
 });
 
@@ -97,7 +100,7 @@ router.delete("/api/clients", async function (req, res) {
   await Client.collection
     .deleteMany({})
     .then(() => {
-      res.status(204).send("All clients deleted successfully.");
+      res.status(202).send("All clients deleted successfully.");
     })
     .catch((err) => {
       res.send(err);
@@ -117,10 +120,11 @@ router.delete("/api/clients/:id", function (req, res) {
       console.log(err);
       return res.send('Client could not be deleted.');
     });
+  });
 });
 
 //Create a request for a specific client
-router.post("/api/clients/:id/requests", async function (req, res){
+router.post("/api/clients/:id/requests", async function (req, res) {
   let request = new Request({
     client: req.params.id,
     address: req.body.address,
@@ -150,31 +154,6 @@ router.post("/api/clients/:id/requests", async function (req, res){
         res.status(201).json(new_request);
       })
     });
-  })
-});
-
-//Get all requests that a client has made (Client must exist and verified)
-router.get("/api/clients/:id/requests", async function (req, res) {
-  Client.findById(req.params.id, { requests: 1 })
-    .populate("requests")
-    .exec((err, client) => {
-      if (err) {
-        return res.status(400).send(err);
-      }
-      return res.status(200).json(client.requests);
-    });
-});
-
-//Get a specific request of a specific client
-router.get("/api/clients/:id/requests/:rq_id", function (req, res) {
-  Client.find({_id: req.params.id}, {requests: req.params.rq_id}, {_id: 0, requests: 1})
-  .populate("requests")
-  .exec((err, client) => {
-    let result = client[0].requests;
-    if (err) {
-      return res.send(err);
-    }
-    return res.status(200).json(result[0]);
   });
 });
 

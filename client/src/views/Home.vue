@@ -1,6 +1,10 @@
 <template>
   <div class='home-page'>
+<<<<<<< HEAD
     <Header :userId='userId' :firstName='firstName' :lastName='lastName'/>
+=======
+    <Header/>
+>>>>>>> d2a68ecab94b987a8e28c34cb44cfbb4a35ce897
     <div id="body">
       <h1 class="display-3">Welcome {{ firstName }} {{ lastName }}</h1>
         <br/>
@@ -49,11 +53,6 @@ export default {
     }
   },
   created() {
-    if (localStorage.getItem('token') === null || localStorage.getItem('user') === null) {
-      this.$router.push('/login')
-    }
-  },
-  mounted() {
     const searchURL = new URL(window.location).pathname
     const strs = searchURL.split('/')
     const id = strs.at(-1)
