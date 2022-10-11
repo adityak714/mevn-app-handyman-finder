@@ -5,7 +5,6 @@ import LoginPage from './views/LoginPage.vue'
 // import ProfilePage from './views/ProfilePage.vue'
 import ClientSignUp from './views/ClientSignUp.vue'
 import FindHandyMenPage from './views/FindHandyMenPage.vue'
-import ClientProfilePage from './views/ClientProfilePage.vue'
 
 Vue.use(Router)
 
@@ -14,17 +13,12 @@ export default new Router({
   base: process.env.BASE_URL,
   routes: [
     {
-      path: '/',
-      name: 'start',
-      component: LoginPage
-    },
-    {
       path: '/login',
       name: 'login',
       component: LoginPage
     },
     {
-      path: '/account/:accountId',
+      path: '/account/*',
       name: 'home',
       component: Home
     },
@@ -34,15 +28,9 @@ export default new Router({
       component: ClientSignUp
     },
     {
-      path: '/account/findhandymen/:accountId',
+      path: '/findhandymenpage',
       name: 'findhandymenpage',
       component: FindHandyMenPage
-    },
-    {
-      path: '/account/profile/:accountId',
-      name: 'clientprofilepage',
-      component: ClientProfilePage
     }
-
   ]
 })
