@@ -1,6 +1,6 @@
 <template>
   <div class='home-page'>
-    <Header/>
+    <Header :userId='userId' :firstName='firstName' :lastName='lastName'/>
     <div id="body">
       <h1 class="display-3">Welcome {{ firstName }} {{ lastName }}</h1>
         <br/>
@@ -9,9 +9,9 @@
         First Name: {{firstName}} <br/>
         Last Name: {{lastName}} <br/>
         Phone Number: {{phoneNumber}} <br/>
-        Address: {{address}} <br/>
-        Profession: {{profession}}
+        Address: {{address}}
       </h3>
+      <h5 v-show="profession !== null"> Profession: {{profession}} </h5>
     </div>
   </div>
 </template>
@@ -19,18 +19,19 @@
 <script>
 // @ is an alias to /src
 import { Api } from '@/Api'
-import Header from '../components/Header.vue'
+import Header from '../components/ClientHeader.vue'
 
 export default {
   name: 'home',
   data() {
     return {
       message: 'none',
+      userId: '',
       firstName: '',
       lastName: '',
       phoneNumber: '',
       address: '',
-      profession: ''
+      profession: null
     }
   },
   components: {
@@ -52,7 +53,7 @@ export default {
     const strs = searchURL.split('/')
     const id = strs.at(-1)
     console.log(id)
-    this.id = id
+    this.userId = id
     Api.get(`/clients/${id}`)
       .then(response => {
         if (response.data === 'No such client exists!') {
@@ -89,14 +90,22 @@ div#body {
   padding-top: 50px;
   background-color: rgba(100, 0, 0, 0.4);
   height: 1000px;
+  width: 100%;
 }
 
 .display-3 {
  display: flex;
  justify-content: center;
+ font-size: 4vw;
 }
 
 .profile-info {
-  font-size: 20px;
+  font-size: 2vw;
 }
+
+html {
+  width: 100%;
+  height: 100%;
+}
+
 </style>

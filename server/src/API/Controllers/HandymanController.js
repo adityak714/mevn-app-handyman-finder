@@ -7,6 +7,7 @@ const Request = require("../../Infrastructure/models/RequestSchema");
 var  SHA3  = require('sha3');
 const jwt = require('jsonwebtoken');
 var encryptionJWTKey = require('../../Domain/Constants.js');
+
 //Sign up handyman
 router.post("/api/handymen", function (req, res, next) {
   
@@ -82,11 +83,21 @@ router.get("/api/handymen/:id/reviews", async function (req, res) {
 
 //Update handyman profile details
 router.put("/api/handymen/:id", function (req, res) {
-  HandyMan.findByIdAndUpdate(req.params.id, req.body)
-    .then((updatedHandyman) => {
-      if (updatedHandyman) {
-        return res.status(200).json(req.body);
-      }
+  HandyMan.findById(req.params.id, (err, handyman) => {
+    if (err) return res.status(500).send(err);
+    if (!handyman) {
+      return res.status(404).send("No such handyman exists!");
+    }
+  })
+    .then((handyman) => {
+      handyman.firstName = req.body.firstName;
+      handyman.lastName = req.body.lastName;
+      handyman.phoneNumber = req.body.phoneNumber;
+      handyman.address = req.body.address;
+      handyman.profession = req.body.profession;
+      handyman.save(() => {
+        return res.status(200).json(handyman);
+      });
     })
     .catch((err) => {
       return res.status(404).send(err);
@@ -95,18 +106,28 @@ router.put("/api/handymen/:id", function (req, res) {
 
 //Patch handyman password
 router.patch("/api/handymen/:id", function (req, res) {
-  let updatedHandyman = HandyMan.findById(req.params.id, { password: 1 });
-  updatedHandyman
-    .then((handyman) => {
-      if (req.body.password) {
-        handyman.password = req.body.password;
-      }
-      handyman.save;
+  HandyMan.findById(req.params.id, (err, handyman) => {
+    if (err) {
+      return res.status(500).send(err);
+    }
+    if (!handyman) {
+      return res.status(404).send("No such handyman exists!");
+    }
+    handyman.firstName = req.body.firstName || handyman.firstName;
+    handyman.lastName = req.body.lastName || handyman.lastName;
+    handyman.password =
+      new SHA3.SHA3(512).update(req.body.password).digest("hex") ||
+      handyman.password;
+    handyman.phoneNumber = req.body.phoneNumber || handyman.phoneNumber;
+    handyman.address = req.body.address || handyman.address;
+    handyman.profession = req.body.profession || handyman.profession;
+    handyman.save(() => {
       return res.status(200).json(handyman);
     })
     .catch((handymanNotFound) => {
       return res.send(handymanNotFound);
     });
+  });
 });
 
 //Delete all handymen
@@ -124,11 +145,17 @@ router.delete("/api/handymen", async function (req, res) {
 //Delete one handyman
 router.delete("/api/handymen/:id", function (req, res) {
   HandyMan.findByIdAndRemove(req.params.id)
-    .then(() => {
-      res.status(204).json(`User with id ${req.params.id} successfully deleted.`);
+    .then((handyman) => {
+      if (handyman == null) {
+        return res.status(404).send('Handyman not found.')
+      }
+      res
+        .status(204)
+        .json(`User with id ${req.params.id} successfully deleted.`);
     })
     .catch((err) => {
-      res.send(`${err} User could not be deleted.`);
+      console.log(err);
+      res.send('Handyman could not be deleted.');
     });
 });
 

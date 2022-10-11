@@ -1,3 +1,4 @@
+<!--To be likely deleted -->
 <template>
   <div>
     <h1>Hello {{ firstname }} {{id}}</h1>
@@ -7,7 +8,6 @@
 
 <script>
 import { Api } from '../Api'
-// import { bus } from '../main'
 
 export default {
   name: 'ProfilePage',
