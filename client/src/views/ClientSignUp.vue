@@ -1,12 +1,9 @@
 <template>
-    <div>
-      <b-row>
-        <Header />
-      </b-row>
-      <b-row>
-          <b-col cols = "12" class = "main-container">
-            <Form />
-          </b-col>
+    <div class = "web-container">
+      <b-row class = "container">
+        <b-col cols = "12" class="left-container">
+          <Form />
+        </b-col>
       </b-row>
     </div>
 </template>
@@ -15,13 +12,11 @@
 // @ is an alias to /src
 import { Api } from '@/Api'
 import Form from '@/components/Form.vue'
-import Header from '@/components/Header.vue'
 
 export default {
   name: 'clientSignUp',
   components: {
-    Form,
-    Header
+    Form
   },
   data() {
     return {
@@ -52,7 +47,13 @@ export default {
     width: 100%;
     height: 100%;
   }
-
+  .web-container{
+      background-color: #EFEFEF52;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+  }
   .container {
       min-height: 600px;
   }

@@ -1,12 +1,9 @@
 <template>
-    <b-button class="sign-up-btn">{{text}}</b-button>
+    <b-button class="sign-up-btn">Sign Up</b-button>
 </template>
 <script>
 export default {
-  name: 'Button',
-  props: {
-    text: String
-  }
+  name: 'Button'
 }
 </script>
 <style scoped>
