@@ -2,36 +2,13 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const clientSchema = new Schema({
-  accessToken: {
-    type: String
-  },
-  firstName: { 
-    type: String, 
-    required: true 
-  },
-  lastName: {
-    type: String, 
-    required: true 
-  },
-  password : {
-    type: String, 
-    required: true,
-    minLength: 6
-  },
-  email: { 
-    type: String, 
-    lowercase: true,
-    required: true,
-    unique: true 
-  },
-  phoneNumber: { 
-    type: Number, 
-    required: true
-  },
-  address: { 
-    type: String, 
-    required: true 
-  },
+  accessToken: {type: String},
+  firstName: { type: String, required: true },
+  lastName: { type: String, required: true },
+  password : {type: String, required: true},
+  email: { type: String, required: true },
+  phoneNumber: { type: Number, required: true },
+  address: { type: String, required: true },
   requests: [{
     type: Schema.Types.ObjectId,
     ref: "Request"
