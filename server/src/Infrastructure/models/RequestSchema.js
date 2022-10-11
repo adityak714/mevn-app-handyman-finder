@@ -1,44 +1,27 @@
 var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
+
 var requestSchema = new Schema( {
-    client: {
-        type: Schema.Types.ObjectId,
-        ref: "Client",
-        required: true
-    },
-    address: {
+    address: {type: String, required: true},
+    status : {
         type: String,
-        required: true
-    },    
-    handyman: {
-        type: Schema.Types.ObjectId,
-        ref: "Handyman",
-        required: true
+        default : "PENDING"
     },
-    priceRange: {
-        type: String
-    },
-    date: {
-        type: Date,
-        required: true
-    },
-    job: {
-        type: String, 
-        required: true
-    },
-    creationDate: {
+    datetime: {
         type: Date,
         default: () => Date.now()
+     },
+    location: {type: String, required : true},
+    description: {type: String, required : true},    
+    job: {type: String, required: true},
+    client: {
+        type: Schema.Types.ObjectId,
+        ref: "Client"
     },
-    description: {
-        type: String,
-        maxLength: 1000
-    },
-    status: {
-        type: String,
-        enum: ['Accepted', 'Pending', 'Rejected'],
-        default: 'Pending'
+    handyman: {
+        type: Schema.Types.ObjectId,
+        ref: "Handyman"
     }
 });
 
