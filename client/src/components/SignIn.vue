@@ -10,7 +10,14 @@
     <a href=''><p class="forgot-password"><u>Forgot your password?</u></p></a>
     <div class = "sign-in-btn-container">
         <button class="sign-in-btn" @click="signIn">Sign In</button>
-    </div>
+      </b-col>
+    </b-row>
+    <b-modal id="field-empty" title="Incomplete">
+          <p class="my-4">Please fill in all fields</p>
+    </b-modal>
+    <b-modal id="wrong-details" title="Wrong Password">
+          <p class="my-4">Invalid Username or Password.</p>
+    </b-modal>
   </div>
 </template>
 
@@ -29,16 +36,26 @@ export default {
   methods: {
     signIn() {
       // eslint-disable-next-line no-unused-vars
-      const auth = { email: this.email, password: this.password }
-      Api.post('/auth/signin', auth)
-        .then(response => {
-          bus.$emit('sign-in-event', response.data)
-          const id = response.data._id
-          this.$router.push(`/account/${id}`)
-        })
-        .catch(error => {
-          console.log(error)
-        })
+      if (this.email === '' || this.password === '') {
+        this.$bvModal.show('field-empty')
+      } else {
+        const auth = { email: this.email, password: this.password }
+        Api.post('/auth/signin', auth)
+          .then(response => {
+            if (response.status === 200) {
+              localStorage.setItem('token', response.data.token)
+              localStorage.setItem('user', response.data)
+            }
+            this.$router.push(`/account/${response.data._id}`)
+          })
+          .catch((err) => {
+            if (err.response.status === 401 || err.response.status === 404) {
+              this.$bvModal.show('wrong-details')
+            } else {
+              console.log(err)
+            }
+          })
+      }
     }
   }
 }
