@@ -28,12 +28,6 @@ export default {
     profession: String,
     area: String
   },
-  created() {
-    const searchURL = new URL(window.location).pathname
-    const strs = searchURL.split('/')
-    const id = strs.at(-1)
-    this.id = id
-  },
   components: {
     Handyman
   // Button

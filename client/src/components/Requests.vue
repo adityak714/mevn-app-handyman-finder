@@ -6,11 +6,11 @@
         <div class="col-12 no-requests" v-if="requests.length === 0">
             <p class="message">No requests found</p>
         </div>
-        <div class="col-12 cards" v-if="requests.length !== 0">
-            <div class = "card" v-for="request in requests" :key="request._id">
-                <Request :request="request" />
-            </div>
-        </div>
+      <b-col cols = "12" cards v-if="requests.length !== 0">
+        <b-row class = "card-row" v-for="request in requests" :key="request._id">
+          <Request :request="request" />
+        </b-row>
+      </b-col>
     </div>
 </template>
 <script>
@@ -41,9 +41,7 @@ background-color: white;
 min-height: 1000px;
 height: 100%;
 }
-.area-location{
-width: 300px;
-}
+
 .title{
 font-size: 50px;
 }
@@ -111,5 +109,9 @@ font-size: 50px;
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+.card-row {
+  display: flex;
+  justify-content: center;
 }
 </style>
