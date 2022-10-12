@@ -19,8 +19,9 @@ router.post("/api/handymen", function (req, res, next) {
   handyMan.save(function (err, handyman) {
     if (err) {
       res.status(400).send(err);
+    } else {
+      res.status(201).json(handyman);
     }
-    res.status(201).json(handyman);
   });
 });
 
@@ -28,11 +29,20 @@ router.post("/api/handymen", function (req, res, next) {
 router.get("/api/handymen", function (req, res, next) {
   if (req.query.profession) {
     HandyMan.find({ profession: { $all: [req.query.profession] } }).exec(
-      (err, handyman) => {
+      (err, handymen) => {
         if (err) {
           return res.status(500).send(err);
         }
-        return res.status(200).json(handyman);
+        return res.status(200).json(handymen);
+      }
+    );
+  } else if (req.query.area) {
+    HandyMan.find({ area: {$all: [req.query.area]}}).exec(
+      (err, handymen) => {
+        if (err) {
+          return res.status(500).send(err);
+        }
+        return res.status(200).json(handymen)
       }
     );
   } else {
