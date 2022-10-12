@@ -5,7 +5,7 @@
     <b-row>
         <b-col col="12">
          <div class="header-container">
-            <Header :firstName="firstName" :lastName='lastName'/>
+            <Header :firstName="firstName" :lastName='lastName' v-on:findHandy="(bool) => this.isFind = bool"/>
          </div>
         </b-col>
     </b-row>
@@ -20,13 +20,6 @@
                 <b-container fluid id='rendered-map'><Gmap v-if="area !== null" :region="area"/></b-container>
                 <div>
                 <b-form-select v-model="profession" :options="options" size="sm" class="mt-3"></b-form-select>
-                </div>
-                <div class="range">
-                    <label for="range-2">Price Level 0- 500 (SEK/hr)</label>
-                </div>
-                <div>
-                    <b-form-input class="mt-3" id="range-2" v-model="priceValue" type="range" min="0" max="500" step="10"></b-form-input>
-                    <div>{{priceValue}}</div>
                 </div>
                 <div>
                     <b-button @click="showHandymen" class="button">Find</b-button>
@@ -59,16 +52,15 @@ export default {
       isFind: true,
       profession: '',
       area: null,
-      priceValue: 0,
       options: [
-        { value: '', text: 'All' },
+        { value: '', text: '- All Categories -' },
         { value: 'Architect', text: 'Architect' },
         { value: 'Plumber', text: 'Plumber' },
         { value: 'Electrician', text: 'Electrician' },
         { value: 'Carpenter', text: 'Carpenter' }
       ],
       area_options: [
-        { value: null, text: 'Please select an area' },
+        { value: null, text: '- Filter Area -' },
         { value: 'Västra Götaland', text: 'Västra Götaland' },
         { value: 'Stockholms Län', text: 'Stockholms Län' },
         { value: 'Skåne Län', text: 'Skåne' },

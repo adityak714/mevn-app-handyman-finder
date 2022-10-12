@@ -6,6 +6,7 @@ import LoginPage from './views/LoginPage.vue'
 import ClientSignUp from './views/ClientSignUp.vue'
 import FindHandyMenPage from './views/FindHandyMenPage.vue'
 import ClientProfilePage from './views/ClientProfilePage.vue'
+import MyRequests from './views/MyRequests.vue'
 
 Vue.use(Router)
 
@@ -42,7 +43,11 @@ export default new Router({
       path: '/account/profile/:accountId',
       name: 'clientprofilepage',
       component: ClientProfilePage
+    },
+    {
+      path: '/account/requests/:accountId',
+      name: 'myrequests',
+      component: MyRequests
     }
-
   ]
 })

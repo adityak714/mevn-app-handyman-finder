@@ -14,7 +14,7 @@
             </a>
           </b-nav-item>
           <b-nav-item>
-            <a data-v-280d9330="" v-on:click="toMyRequests /*To be done*/" aria-current="page" class="link router-link-exact-active router-link-active">
+            <a data-v-280d9330="" v-on:click="toMyRequests" aria-current="page" class="link router-link-exact-active router-link-active">
               <p data-v-280d9330=""><b-icon icon="inboxes-fill"></b-icon> <strong>My Requests</strong></p>
             </a>
           </b-nav-item>
@@ -90,12 +90,17 @@ export default {
       this.id = this.$route.params.accountId
       this.$router.push(`/account/${this.id}`)
     },
+    toMyRequests() {
+      this.id = this.$route.params.accountId
+      this.$router.push(`/account/requests/${this.id}`)
+    },
     toProfile() {
       this.id = this.$route.params.accountId
       this.$router.push(`/account/profile/${this.id}`)
     },
     toFindHandyMen() {
       this.id = this.$route.params.accountId
+      this.$emit('findHandy', true)
       this.$router.push(`/account/findhandymen/${this.id}`)
     },
     mounted() {

@@ -1,7 +1,11 @@
 <template>
       <div class="content" >
         <div class = "col-12 title-container">
-          <p class="title">List of {{profession}}s at {{area}}</p>
+          <p class="title" v-if="this.profession !== ''">All {{profession}}s at {{area}}</p>
+          <p class="title" v-else>All handymen in {{area}}</p>
+        </div>
+        <div class="col-12 message-container" v-if="handymen.length === 0">
+          <p class="message">No handymen found</p>
         </div>
         <b-col cols = "12" cards>
           <b-row class = "card-row" v-for="handyman in handymen" :key="handyman._id">
@@ -15,6 +19,7 @@ import Handyman from '../components/Handyman.vue'
 export default {
   data() {
     return {
+      id: ''
     }
   },
   name: 'HandymanList',
@@ -22,6 +27,12 @@ export default {
     handymen: Array,
     profession: String,
     area: String
+  },
+  created() {
+    const searchURL = new URL(window.location).pathname
+    const strs = searchURL.split('/')
+    const id = strs.at(-1)
+    this.id = id
   },
   components: {
     Handyman
