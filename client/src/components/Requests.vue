@@ -33,8 +33,9 @@ padding-top: 10px;
 .content{
 display:flex;
 flex-direction: column;
-justify-content: center;
-align-items:center;
+  padding-top: 30px;
+justify-content: flex-start;
+align-items: center;
 /*padding-top: 50px;*/
 background-color: white;
 min-height: 1000px;

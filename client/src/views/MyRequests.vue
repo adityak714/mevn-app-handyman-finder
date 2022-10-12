@@ -83,6 +83,9 @@ export default {
 }
 </script>
 <style scoped>
+.home-page {
+  align-self: start;
+}
 .main-container {
 display: flex;
 background-color: rgba(100, 0, 0, 0.4);
