@@ -9,7 +9,7 @@
         </div>
         <b-col cols = "12" cards>
           <b-row class = "card-row" v-for="handyman in handymen" :key="handyman._id">
-              <Handyman :handyman="handyman" :clientId="this.id" />
+              <Handyman :handyman="handyman" />
           </b-row>
         </b-col>
       </div>
@@ -27,12 +27,6 @@ export default {
     handymen: Array,
     profession: String,
     area: String
-  },
-  created() {
-    const searchURL = new URL(window.location).pathname
-    const strs = searchURL.split('/')
-    const id = strs.at(-1)
-    this.id = id
   },
   components: {
     Handyman

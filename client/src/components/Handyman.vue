@@ -98,21 +98,23 @@ export default {
     }
   },
   props: {
-    handyman: Object,
-    clientId: String
+    handyman: Object
   },
   methods: {
     createRequest() {
+      const searchURL = new URL(window.location).pathname
+      const strs = searchURL.split('/')
+      const id = strs.at(-1)
       const createdRequest = {
-        client: this.clientId,
         address: this.address,
         date: this.date,
         handyman: this.handyman._id,
         job: this.job,
         description: this.description
       }
-      Api.post(`/clients/${this.clientId}/requests`, createdRequest).then(response => {
+      Api.post(`/clients/${id}/requests`, createdRequest).then(response => {
         console.log(response.data)
+        this.$bvModal.hide(this.handyman._id)
       }).catch(err => {
         this.message = err
         this.$bvToast.show('toast-message')
