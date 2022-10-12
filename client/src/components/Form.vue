@@ -3,6 +3,10 @@
     <b-row>
       <b-col cols = "12">
         <p class="sign-up">Create Your Account</p>
+
+        <b-row>
+
+        </b-row>
         <form class="sign-up-form" id="first-name">
           <input v-model="firstName"  placeholder="First Name">
         </form>
