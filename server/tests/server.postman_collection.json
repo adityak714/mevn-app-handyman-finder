@@ -164,7 +164,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"firstName\": \"{{$randomFirstName}}\",\n    \"lastName\": \"{{$randomLastName}}\",\n    \"email\": \"{{$randomExampleEmail}}\",\n    \"phoneNumber\": 132334452,\n    \"area\": \"Gothenburg\",\n    \"password\": \"password\",\n    \"profession\": \"Electrician\"\n}",
+							"raw": "{\n    \"firstName\": \"{{$randomFirstName}}\",\n    \"lastName\": \"{{$randomLastName}}\",\n    \"email\": \"{{$randomExampleEmail}}\",\n    \"phoneNumber\": 132334452,\n    \"area\": \"Uppsala Län\",\n    \"password\": \"password\",\n    \"profession\": \"Plumber\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -299,14 +299,14 @@
 							}
 						},
 						"url": {
-							"raw": "{{localhost}}/api/handymen/{{createdHandymanID}}/requests",
+							"raw": "{{localhost}}/api/clients/{{createdClientID}}/requests",
 							"host": [
 								"{{localhost}}"
 							],
 							"path": [
 								"api",
-								"handymen",
-								"{{createdHandymanID}}",
+								"clients",
+								"{{createdClientID}}",
 								"requests"
 							]
 						}
@@ -376,7 +376,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"firstName\": \"{{$randomFirstName}}\",\n    \"lastName\": \"{{$randomLastName}}\",\n    \"email\": \"croissant@gmail.com\",\n    \"phoneNumber\": 123456,\n    \"area\": \"Gothenburg\",\n    \"password\": \"password\",\n    \"profession\": \"Electrician\"\n}",
+							"raw": "{\n    \"firstName\": \"{{$randomFirstName}}\",\n    \"lastName\": \"{{$randomLastName}}\",\n    \"email\": \"croissant@gmail.com\",\n    \"phoneNumber\": 12345687,\n    \"area\": \"Uppsala Län\",\n    \"password\": \"password\",\n    \"profession\": \"Electrician\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -504,7 +504,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"firstName\": \"{{$randomFirstName}}\",\r\n    \"lastName\": \"{{$randomLastName}}\",\r\n    \"email\": \"test2@gmail.com\",\r\n    \"password\": \"password\",\r\n    \"phoneNumber\": 1234567,\r\n    \"address\": \"Hisingen\",\r\n    \"profession\": \"Electrician\"\r\n}",
+							"raw": "{\r\n    \"firstName\": \"{{$randomFirstName}}\",\r\n    \"lastName\": \"{{$randomLastName}}\",\r\n    \"email\": \"test2@gmail.com\",\r\n    \"phoneNumber\": 12345678,\r\n    \"area\": \"Västra Götaland\",\r\n    \"password\": \"password\",\r\n    \"profession\": \"Electrician\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -512,13 +512,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{localhost}}/api/clients",
+							"raw": "{{localhost}}/api/handymen",
 							"host": [
 								"{{localhost}}"
 							],
 							"path": [
 								"api",
-								"clients"
+								"handymen"
 							]
 						}
 					},
@@ -536,7 +536,7 @@
 									"});\r",
 									"\r",
 									"pm.test(\"Is Client\", function () {\r",
-									"    pm.response.json().hasOwnProperty('Profession');\r",
+									"    !pm.response.json().hasOwnProperty('profession');\r",
 									"});"
 								],
 								"type": "text/javascript"
@@ -581,7 +581,7 @@
 									"});\r",
 									"\r",
 									"pm.test(\"Is Handyman\", function () {\r",
-									"    !pm.response.json().hasOwnProperty('Profession');\r",
+									"    pm.response.json().hasOwnProperty('profession');\r",
 									"});"
 								],
 								"type": "text/javascript"
@@ -619,6 +619,56 @@
 		{
 			"name": "GET",
 			"item": [
+				{
+					"name": "* FILTERING all handymen from 'Uppsala Län'",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"All are from Uppsala Län\", function () {\r",
+									"    for (var i = 0; i < data.length; i++) {\r",
+									"        pm.expect(data[i].area) === 'Uppsala Län'\r",
+									"    }\r",
+									"})"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{localhost}}/api/handymen?area=Uppsala Län",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"api",
+								"handymen"
+							],
+							"query": [
+								{
+									"key": "area",
+									"value": "Uppsala Län"
+								}
+							]
+						}
+					},
+					"response": []
+				},
 				{
 					"name": "* FILTERING 'Electricians' out of all handymen",
 					"event": [
@@ -1007,7 +1057,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"firstName\": \"Kwabena\",\r\n    \"lastName\": \"Asare\",\r\n    \"password\": \"kwabena\",\r\n    \"phoneNumber\": 120,\r\n    \"address\": \"Calle San Martin 23\"\r\n}",
+							"raw": "{\r\n    \"firstName\": \"Aditya\",\r\n    \"lastName\": \"Khadkikar\",\r\n    \"password\": \"password\",\r\n    \"phoneNumber\": 12123434,\r\n    \"address\": \"Calle San Martin 23\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"

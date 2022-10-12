@@ -31,18 +31,17 @@ var handymenSchema = new Schema({
   },
   area: {
     type: String,
-    required: true,
+    enum: [
+      "Västra Götaland",
+      "Stockholms Län",
+      "Skåne Län",
+      "Hallands Län",
+      "Jönköpings Län",
+      "Uppsala Län",
+    ]
   },
   profession: {
     type: String,
-    enum: [
-      "Carpenter",
-      "Mason",
-      "Electrician",
-      "Painter",
-      "Plumber",
-      "Window Repair",
-    ],
     required: true,
   },
   reviews: [
