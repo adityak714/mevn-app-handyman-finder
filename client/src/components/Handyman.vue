@@ -1,4 +1,68 @@
 <template>
+  <div>
+    <div>
+      <b-card no-body class="overflow-hidden card">
+        <b-row no-gutters class = "card-container">
+          <b-col cols = "1" class = "left-card">
+            <b-card-img src="https://picsum.photos/400/400/?image=20" alt="Image" class="rounded-0 card-image"></b-card-img>
+          </b-col>
+          <b-col cols = "11" class = "right-card">
+            <b-col cols = "6" class = "handyman-information">
+              <b-card-title>{{ handyman.firstName }} {{ handyman.lastName}}</b-card-title>
+              <b-card-text>{{handyman.profession}}</b-card-text>
+            </b-col>
+            <b-col cols = "6" class =  "create-request-button">
+              <b-button v-b-modal="this.handyman._id" variant="outline-primary">Create request</b-button>
+            </b-col>
+          </b-col>
+        </b-row>
+      </b-card>
+    </div>
+    <div>
+      <b-modal :id="this.handyman._id" size="lg" title="Create a Request">
+        <b-container fluid>
+          <b-row>
+            <b-col cols="6">
+              <div>
+                <label>Address For Job</label>
+                <b-form-input type="text" v-model="address" placeholder="Enter your address"></b-form-input>
+              </div>
+              <div>
+                <label>Date</label>
+                <b-form-input type="date" v-model="date" placeholder="Date"></b-form-input>
+              </div>
+              <div>
+                <label>Location</label>
+                <b-form-input type="text" v-model="location" placeholder="Location(e.g Gothenburg)"></b-form-input>
+              </div>
+            </b-col>
+            <b-col cols="6">
+              <div>
+                <label>Name of Job</label>
+                <b-form-input type="text" v-model="job" placeholder="e.g Architect"></b-form-input>
+              </div>
+              <div>
+                <label>Job description</label>
+                <b-form-textarea
+                  id="textarea-rows"
+                  placeholder="Give your job description"
+                  rows="6"
+                  type="text"
+                  v-model="description"
+                >
+                </b-form-textarea>
+              </div>
+            </b-col>
+          </b-row>
+          <b-row>
+            <div>
+              <b-button @click="createRequest">Send request</b-button>
+            </div>
+          </b-row>
+        </b-container>
+      </b-modal>
+    </div>
+  </div>
     <!--
     <div class = "row card-content">
       <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
@@ -18,62 +82,6 @@
           <b-button variant="outline-primary" v-b-modal="this.handyman._id">Create request</b-button>
         </div>
         -->
-
-  <b-card no-body class="overflow-hidden card">
-    <b-row no-gutters class = "card-container">
-      <b-col cols = "1" class = "left-card">
-        <b-card-img src="https://picsum.photos/400/400/?image=20" alt="Image" class="rounded-0 card-image"></b-card-img>
-      </b-col>
-      <b-col cols = "11" class = "right-card">
-          <b-col cols = "6" class = "handyman-information">
-            <b-card-title>Oscar Reina</b-card-title>
-            <b-card-text>Electrician</b-card-text>
-          </b-col>
-          <b-col cols = "6" class =  "create-request-button">
-            <b-button v-b-modal.modal-1 variant="outline-primary">Create request</b-button>
-              <b-modal id="modal-1" size="lg" title="Create a Request">
-                  <b-container fluid>
-                      <b-row>
-                          <b-col cols="6">
-                              <div>
-                                  <label>Address For Job</label>
-                                  <b-form-input type="text" v-model="text" placeholder="Enter your address"></b-form-input>
-                              </div>
-                              <div>
-                                  <label>Date</label>
-                                  <b-form-input type="date" v-model="text" placeholder="Date"></b-form-input>
-                              </div>
-                              <div>
-                                  <label>Location</label>
-                                  <b-form-input type="text" v-model="text" placeholder="Location(e.g Gothenburg)"></b-form-input>
-                              </div>
-                          </b-col>
-                          <b-col cols="6">
-                              <div>
-                                  <label>Name of Job</label>
-                                  <b-form-input type="text" v-model="text" placeholder="e.g Architect"></b-form-input>
-                              </div>
-                              <div>
-                                  <label>Job description</label>
-                                  <b-form-textarea
-                                      id="textarea-rows"
-                                      placeholder="Give your job description"
-                                      rows="6">
-                                  </b-form-textarea>
-                                  </div>
-                          </b-col>
-                      </b-row>
-                      <b-row>
-                          <div>
-                              <b-button>Send request</b-button>
-                          </div>
-                      </b-row>
-                  </b-container>
-              </b-modal>
-          </b-col>
-      </b-col>
-    </b-row>
-  </b-card>
 </template>
 <script>
 import { Api } from '../Api.js'
