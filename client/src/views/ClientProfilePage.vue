@@ -307,6 +307,7 @@ font-size: 50px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
+  word-break:break-all;
 }
 .delete-account-button {
   align-self: flex-end;

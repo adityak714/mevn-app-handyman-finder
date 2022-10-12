@@ -73,7 +73,7 @@ router.put("/api/clients/:id", function (req, res) {
       return res.status(200).json(client);
     });
   }).catch((err) => {
-    return res.status(500).send(err);
+    return res.status(500).send('Please fill in all the fields.');
   })
 });
 
@@ -143,16 +143,8 @@ router.post("/api/clients/:id/requests", async function (req, res) {
       client.requests.push(new_request._id);
       client.save()
       .then(() => {
-        res.status(201).json(new_request);
-      })
-    });
-    HandyMan.findById(new_request.handyman, (err, handyman) => {
-      if (!handyman) return res.send('Handyman not found.')
-      handyman.requests.push(new_request._id);
-      handyman.save()
-      .then(() => {
-        res.status(201).json(new_request);
-      })
+        return res.status(201).json(new_request);
+      });
     });
   })
 });
