@@ -10,6 +10,7 @@
             <b-col align-self="center">
                 <div class = "information-container">
                   <SignInBox v-on:signIn='login'/>
+
                 </div>
             </b-col>
           </b-row>
