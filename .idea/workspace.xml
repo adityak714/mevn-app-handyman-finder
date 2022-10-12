@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="1b8ec0d1-37c9-43bb-be64-ba4a1cc42eff" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/client/src/components/Handyman.vue" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/Handyman.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/HandymenList.vue" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/HandymenList.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/Request.vue" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/Request.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/Requests.vue" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/Requests.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/views/FindHandyMenPage.vue" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/views/FindHandyMenPage.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/API/Controllers/HandymanController.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/API/Controllers/HandymanController.js" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2G2BFFYIbkzycuzxaJt7iqic34G" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "C:/Users/KOBBY/OneDrive/Documents/GitHub/group-10-web",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.lookFeel",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="1b8ec0d1-37c9-43bb-be64-ba4a1cc42eff" name="Changes" comment="" />
+      <created>1665576692940</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1665576692940</updated>
+      <workItem from="1665576699058" duration="277000" />
+      <workItem from="1665577010575" duration="4904000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>

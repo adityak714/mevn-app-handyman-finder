@@ -6,16 +6,15 @@
             </div>
         <div class = "col-10 right-card">
             <div class = "col-6 request-information">
-                <div class = "handyman-name">
-                    <strong>Created by: {{request.client}}</strong>
-                    <strong>Date: {{request.date}}</strong>
-                    <strong>To: {{request.handyman}}</strong>
-                </div>
-                <div class = "handyman-profession">
-                    <strong>Address: {{request.address}}</strong>
-                    <strong>Price Range: {{request.priceRange}}</strong>
-                    <strong>{{request.description}}</strong>
-                </div>
+              <div class = "handyman-name">
+                <strong>Date: {{request.date}}</strong>
+              </div>
+              <div class = "handyman-profession">
+                <strong>Address: {{request.address}}</strong>
+              </div>
+              <div class = "handyman-profession">
+                <strong>Description: {{request.description}}</strong>
+              </div>
             </div>
             <div class = "col-6 create-request-button">
                 <b-button  variant="outline-primary">Edit request</b-button>
@@ -44,10 +43,15 @@ export default {
     justify-content: flex-start;
 }
 .request-information {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    font-family: "Open Sans", sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  font-family: "Open Sans", sans-serif;
+}
+.card-image {
+  height: 80px;
+  width: 80px;
+  border-radius: 30px;
 }
 .card-content {
     height: 100%;

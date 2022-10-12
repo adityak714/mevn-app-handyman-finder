@@ -1,14 +1,55 @@
 <template>
       <div class="content" >
         <div class = "col-12 title-container">
-          <p class="title">List of {{profession}}s at {{area}}</p>
+          <p class="title" v-if="this.profession !== ''">All {{profession}}s at {{area}}</p>
+          <p class="title" v-else>All handymen in {{area}}</p>
         </div>
-        <div class="col-12 cards">
+        <div class="col-12 message-container" v-if="handymen.length === 0">
+          <p class="message">No handymen found</p>
+        </div>
           <div class = "card" v-for="handyman in handymen" :key="handyman._id">
             <Handyman :handyman="handyman" />
             </div>
-        </div>
-        </div>
+        <b-modal id="modal-1" size="lg" title="Create a Request">
+          <b-container fluid>
+            <b-row>
+              <b-col cols="6">
+                <div>
+                  <label>Address For Job</label>
+                  <b-form-input type="text" v-model="text" placeholder="Enter your address"></b-form-input>
+                </div>
+                <div>
+                  <label>Date</label>
+                  <b-form-input type="date" v-model="text" placeholder="Date"></b-form-input>
+                </div>
+                <div>
+                  <label>Location</label>
+                  <b-form-input type="text" v-model="text" placeholder="Location(e.g Gothenburg)"></b-form-input>
+                </div>
+              </b-col>
+              <b-col cols="6">
+                <div>
+                  <label>Name of Job</label>
+                  <b-form-input type="text" v-model="text" placeholder="e.g Architect"></b-form-input>
+                </div>
+                <div>
+                  <label>Job description</label>
+                  <b-form-textarea
+                    id="textarea-rows"
+                    placeholder="Give your job description"
+                    rows="6">
+                  </b-form-textarea>
+                </div>
+              </b-col>
+            </b-row>
+            <b-row>
+              <div>
+                <b-button>Send request</b-button>
+              </div>
+            </b-row>
+          </b-container>
+        </b-modal>
+      </div>
 </template>
 <script>
 import Handyman from '../components/Handyman.vue'

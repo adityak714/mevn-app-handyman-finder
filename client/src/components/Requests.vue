@@ -47,7 +47,7 @@ width: 300px;
 font-size: 50px;
 }
 .card {
-  height: 230px;
+  height: 300px;
   width: 900px;
   border-radius: 10px;
   margin-bottom: 10px;
