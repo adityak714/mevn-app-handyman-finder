@@ -176,5 +176,9 @@ export default {
       align-items: center;
       justify-content: space-evenly;
       min-height: 400px;
-  }
+    }
+
+    #select-profession {
+      text-align: center;
+    }
 </style>
