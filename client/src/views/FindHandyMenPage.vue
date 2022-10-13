@@ -51,6 +51,9 @@ export default {
     return {
       isFind: true,
       profession: '',
+      userId: '',
+      firstName: '',
+      lastName: '',
       area: null,
       options: [
         { value: '', text: '- All Categories -' },
@@ -96,6 +99,31 @@ export default {
         this.isFind = !this.isFind
       }
     }
+  },
+  mounted() {
+    const searchURL = new URL(window.location).pathname
+    const strs = searchURL.split('/')
+    const id = strs.at(-1)
+    console.log(id)
+    this.userId = id
+    Api.get(`/clients/${id}`)
+      .then(response => {
+        if (response.data === 'No such client exists!') {
+          Api.get(`/handymen/${id}`)
+            .then(response => {
+              this.firstName = response.data.firstName
+              this.lastName = response.data.lastName
+            })
+            .catch(error => {
+              this.firstname = error
+            })
+        }
+        this.firstName = response.data.firstName
+        this.lastName = response.data.lastName
+      })
+      .catch(error => {
+        this.firstname = error
+      })
   }
 }
 </script>

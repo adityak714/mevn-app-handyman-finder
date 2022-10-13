@@ -1,4 +1,37 @@
 <template>
+  <div>
+    <b-card no-body class="overflow-hidden">
+      <b-col cols="12" class = "card">
+        <b-row no-gutters class = "card-container">
+
+          <b-row class="first-row">
+            <b-col cols="6" class="date-request">
+              <div class = "handyman-name">
+                <strong>Date: {{request.date}}</strong>
+              </div>
+            </b-col>
+            <b-col cols="6" class="job-request">
+              <div class = "handyman-name">
+                <strong>Job: {{request.job}}</strong>
+              </div>
+            </b-col>
+          </b-row>
+          <b-row class="second-row">
+            <b-col cols="12" class="description-request">
+              <div class = "handyman-name">
+                <strong>Description: {{request.description}}</strong>
+              </div>
+            </b-col>
+          </b-row>
+          <b-row class="third-row">
+            <b-col cols="12" class="description-request">
+            </b-col>
+          </b-row>
+        </b-row>
+      </b-col>
+    </b-card>
+  </div>
+  <!----
     <div class = "row card-content">
         <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
         <div class = "col-2 left-card">
@@ -21,6 +54,7 @@
             </div>
         </div>
     </div>
+    ---->
 </template>
 <script>
 export default {
@@ -36,6 +70,9 @@ export default {
     flex-direction: row;
     align-items: center;
     justify-content: center;
+}
+.card-container {
+  width: 100%;
 }
 .right-card {
     display: flex;
@@ -55,5 +92,18 @@ export default {
 }
 .card-content {
     height: 100%;
+}
+
+.card {
+  min-height: 100px;
+  height: 100%;
+  margin-bottom: 30px;
+  margin-left: 20px;
+  margin-right: 20px;
+  width: 100%;
+  max-width: 900px;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
 }
 </style>
