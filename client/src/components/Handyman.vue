@@ -184,7 +184,7 @@ export default {
         comment: this.comment,
         sender: this.clientid
       }
-      Api.post(`/handyman/${this.handyman._id}/reviews`, createdReview).then(response => {
+      Api.post(`/handymen/${this.handyman._id}/reviews`, createdReview).then(response => {
         console.log(response.data)
         this.$bvToast.toast('Review added successfully')
         this.clear()
