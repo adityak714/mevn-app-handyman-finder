@@ -19,7 +19,7 @@
             </a>
           </b-nav-item>
           <b-nav-item>
-            <a data-v-280d9330="" v-on:click="toFindHandyMen" aria-current="page" class="link router-link-exact-active router-link-active">
+            <a data-v-280d9330="" v-if="this.isHandyman === false" v-on:click="toFindHandyMen" aria-current="page" class="link router-link-exact-active router-link-active" >
               <p data-v-280d9330=""><b-icon icon="tools"></b-icon> <strong>Find Handymen</strong></p>
             </a>
           </b-nav-item>
@@ -72,14 +72,18 @@
 </template>
 
 <script>
+import { Api } from '../Api'
 
 export default {
   name: 'Header',
-  props: ['firstName', 'lastName', 'userId'],
+  props: ['firstName', 'lastName', 'userId', 'isHandyman'],
   data() {
     return {
-      id: ''
+      checkIfHandy: this.isHandyman
     }
+  },
+  created() {
+    this.checkIfHandy = this.isHandyman
   },
   methods: {
     logout() {
@@ -103,8 +107,20 @@ export default {
       this.$emit('findHandy', true)
       this.$router.push(`/account/findhandymen/${this.id}`)
     },
-    mounted() {
-      // console.log(userId)
+    isHandy() {
+      Api.get(`/clients/${this.userId}`).then((response) => {
+        if (response.data !== 200) {
+          Api.get(`/handymen/${this.userId}`).then((response) => {
+            if (response.status === 200) {
+              console.log('True!')
+              this.check = true
+            }
+          })
+        } else {
+          console.log('False!')
+          this.check = false
+        }
+      })
     }
   }
 }

@@ -1,5 +1,13 @@
 <template>
   <b-container fluid class = "information-container">
+    <b-col cols = "12" class = "sign-up-form">
+      <b-tabs content-class="mt-3" align="center" >
+        <b-tab title="Customer" active><p>I'm the first tab</p></b-tab>
+        <b-tab title="Handyman"><p>I'm the second tab</p></b-tab>
+      </b-tabs>
+    </b-col>
+
+    <!--
     <b-row>
       <b-col cols = "12">
         <p class="sign-up">Create Your Account</p>
@@ -43,6 +51,7 @@
           </b-modal>
       </b-col>
     </b-row>
+    -->
   </b-container>
 </template>
 <script>

@@ -5,7 +5,7 @@
     <b-row>
         <b-col col="12">
          <div class="header-container">
-            <Header :firstName="firstName" :lastName='lastName'/>
+            <Header :firstName="firstName" :lastName='lastName' :isHandyman="isHandy"/>
          </div>
         </b-col>
     </b-row>
@@ -52,6 +52,7 @@ export default {
   data() {
     return {
       requests: [],
+      isHandy: Boolean,
       message: ''
     }
   },
@@ -64,11 +65,13 @@ export default {
       if (response.data === 'Client was not found') {
         Api.get(`/handymen/${id}/requests`).then(response => {
           this.requests = response.data
+          this.isHandy = true
         }).catch(err => {
           this.message = err
         })
       }
       this.requests = response.data
+      this.isHandy = false
     }).catch(err => {
       if (err.response.status === 500) {
         this.message = err

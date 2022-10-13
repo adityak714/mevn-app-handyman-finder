@@ -5,7 +5,7 @@
     <b-row>
         <b-col col="12">
          <div class="header-container">
-            <ClientHeader :userId="id" :firstName="fn" :lastName="ln"/>
+            <ClientHeader :userId="id" :firstName="fn" :lastName="ln" :isHandyman="isHandy"/>
          </div>
         </b-col>
     </b-row>
@@ -98,6 +98,7 @@ export default {
       phoneNumber: '',
       profession: null,
       updatedProfession: '',
+      isHandy: Boolean,
       currPassHash: '',
       prof_options: [
         { value: '', text: '- Change Occupation -' },
@@ -169,6 +170,7 @@ export default {
                 this.address = res.data.address
                 this.profession = res.data.profession
                 this.currPassHash = res.data.password
+                this.$emit('isHandy', true)
               })
               .catch(error => {
                 console.log(error)
@@ -180,6 +182,7 @@ export default {
             this.email = response.data.email
             this.address = response.data.address
             this.currPassHash = response.data.password
+            this.$emit('isHandy', false)
           }
         })
         .catch(error => {
