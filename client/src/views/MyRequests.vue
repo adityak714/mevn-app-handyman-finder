@@ -5,7 +5,7 @@
     <b-row>
         <b-col col="12">
          <div class="header-container">
-            <Header :firstName="firstName" :lastName='lastName'/>
+            <Header :userId='userId' :firstName='firstName' :lastName='lastName'/>
          </div>
         </b-col>
     </b-row>
@@ -52,7 +52,10 @@ export default {
   data() {
     return {
       requests: [],
-      message: ''
+      message: '',
+      userId: '',
+      firstName: '',
+      lastName: ''
     }
   },
   created() {
@@ -75,6 +78,31 @@ export default {
         console.log(err)
       }
     })
+  },
+  mounted() {
+    const searchURL = new URL(window.location).pathname
+    const strs = searchURL.split('/')
+    const id = strs.at(-1)
+    console.log(id)
+    this.userId = id
+    Api.get(`/clients/${id}`)
+      .then(response => {
+        if (response.data === 'No such client exists!') {
+          Api.get(`/handymen/${id}`)
+            .then(response => {
+              this.firstName = response.data.firstName
+              this.lastName = response.data.lastName
+            })
+            .catch(error => {
+              this.firstname = error
+            })
+        }
+        this.firstName = response.data.firstName
+        this.lastName = response.data.lastName
+      })
+      .catch(error => {
+        this.firstname = error
+      })
   },
   components: {
     Requests,
