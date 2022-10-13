@@ -175,29 +175,45 @@ export default {
       this.comment = ''
     },
     createReview() {
-      const searchURL = new URL(window.location).pathname
-      const strs = searchURL.split('/')
-      const id = strs.at(-1)
-      this.clientid = id
-      const createdReview = {
-        rating: this.rating,
-        comment: this.comment,
-        sender: this.clientid
-      }
-      Api.post(`/handymen/${this.handyman._id}/reviews`, createdReview).then(response => {
-        console.log(response.data)
-        this.$bvToast.toast('Review added successfully')
-        this.clear()
-      }).catch(err => {
-        if (err.response.status === 404) {
-          this.message = err
-          this.$bvToast.toast('Handyman not found')
-        }
-        console.log({
-          error: err,
-          reason: 'Invalid Credentials'
+      if (this.rating === '' || this.comment === '') {
+        this.$bvToast.toast('Please fill all fields', {
+          title: 'Error Message',
+          variant: 'danger',
+          solid: true
         })
-      })
+      } else {
+        const searchURL = new URL(window.location).pathname
+        const strs = searchURL.split('/')
+        const id = strs.at(-1)
+        this.clientid = id
+        const createdReview = {
+          rating: this.rating,
+          comment: this.comment,
+          sender: this.clientid
+        }
+        Api.post(`/handymen/${this.handyman._id}/reviews`, createdReview).then(response => {
+          console.log(response.data)
+          this.$bvToast.toast('Review added successfully', {
+            title: 'Success Message',
+            variant: 'success',
+            solid: true
+          })
+          this.clear()
+        }).catch(err => {
+          if (err.response.status === 404) {
+            this.message = err
+            this.$bvToast.toast('Handyman not found', {
+              title: 'Error Message',
+              variant: 'warning',
+              solid: true
+            })
+          }
+          console.log({
+            error: err,
+            reason: 'Invalid Credentials'
+          })
+        })
+      }
     }
   }
 }

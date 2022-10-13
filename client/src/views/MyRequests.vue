@@ -77,6 +77,13 @@ export default {
         this.message = err
         console.log(err)
       }
+      if (err.response.status === 404) {
+        Api.get(`/handymen/${id}/requests`).then(response => {
+          this.requests = response.data
+        }).catch(err => {
+          this.message = err
+        })
+      }
     })
   },
   mounted() {
