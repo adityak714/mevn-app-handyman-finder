@@ -26,7 +26,6 @@
 <script>
 import { Api } from '../Api'
 
-// eslint-disable-next-line indent
 export default {
   name: 'SignInBox',
   data() {
@@ -37,7 +36,6 @@ export default {
   },
   methods: {
     signIn() {
-      // eslint-disable-next-line no-unused-vars
       if (this.email === '' || this.password === '') {
         this.$bvModal.show('field-empty')
       } else {

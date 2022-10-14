@@ -8,10 +8,12 @@
         <div class="main-container">
           <b-row>
             <b-col align-self="center">
-                <div class = "information-container">
-                  <SignInBox v-on:signIn='login'/>
-
-                </div>
+              <b-alert dismissible v-model="signedUp" variant="success">
+                  <p> Account created. Please Log in. </p>
+              </b-alert>
+              <div class = "information-container">
+                <SignInBox/>
+              </div>
             </b-col>
           </b-row>
         </div>
@@ -29,16 +31,19 @@ export default {
   name: 'login',
   data() {
     return {
-      loggedIn: false
+      signedUp: false
     }
   },
   components: {
     SignInBox,
     Header
   },
-  created() {
-    this.loggedIn = true
-    // this.$router.push('/account')
+  methods: {
+    signInPrompt() {
+      this.signedUp = true
+      setTimeout(() => { this.signedUp = false }, 3000)
+      // Need to show this as confirmation that acc is created, and request user to log in.
+    }
   }
 }
 </script>

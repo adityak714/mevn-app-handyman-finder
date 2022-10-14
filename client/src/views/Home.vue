@@ -1,6 +1,6 @@
 <template>
   <div class='home-page'>
-    <Header :userId='userId' :firstName='firstName' :lastName='lastName'/>
+    <Header :userId='userId' :firstName='firstName' :lastName='lastName' :isHandyman='isHandy'/>
     <div id="body">
       <h1 class="display-3">Welcome {{ firstName }} {{ lastName }}</h1>
         <br/>
@@ -31,6 +31,7 @@ export default {
       lastName: '',
       phoneNumber: '',
       address: '',
+      isHandy: Boolean,
       profession: null
     }
   },
@@ -69,6 +70,7 @@ export default {
               this.phoneNumber = response.data.phoneNumber
               this.address = response.data.address
               this.profession = response.data.profession
+              this.isHandy = true
             })
             .catch(error => {
               this.firstname = error
@@ -78,6 +80,7 @@ export default {
         this.lastName = response.data.lastName
         this.phoneNumber = response.data.phoneNumber
         this.address = response.data.address
+        this.isHandy = false
       })
       .catch(error => {
         this.firstname = error
