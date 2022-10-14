@@ -4,8 +4,9 @@
     <div id="body">
       <h1 class="display-3">Welcome {{ firstName }} {{ lastName }}</h1>
         <br/>
-      <h2>Profile Page</h2>
+      <h2>Profile Page </h2>
       <h3 class="profile-info">
+        <hr style="width: 50%; border-width: 5px;">
         First Name: {{firstName}} <br/>
         Last Name: {{lastName}} <br/>
         Phone Number: {{phoneNumber}} <br/>
