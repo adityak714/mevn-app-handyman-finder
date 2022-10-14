@@ -20,20 +20,20 @@
     </div>
     <div>
       <b-modal :id="this.handyman._id" size="lg" scrollable :title="this.handyman.firstName + ' ' +  this.handyman.lastName" hide-footer>
-        <b-row>
           <b-col cols="12">
             <div class="title-container">
             <p class="title">All Reviews</p>
           </div>
           </b-col>
-        </b-row>
-        <div class="col-12 no-requests" v-if="this.reviews.length === 0">
-          <p class="message">No requests found</p>
-        </div>
+          <b-col cols="12">
+            <div class="title-container" v-if="this.reviews.length === 0">
+              <p class="message">No reviews found</p>
+            </div>
+          </b-col>
         <b-container fluid class="make-container" v-if="this.reviews.length !== 0">
           <b-col cols = "12" cards >
             <b-row class = "card-row" v-for="review in reviews" :key="review._id">
-              <Review :review="review" />
+              <Review :review="review" :clientName="clientName" />
             </b-row>
           </b-col>
         </b-container>
@@ -148,6 +148,7 @@ export default {
   data() {
     return {
       reviews: [],
+      clientName: '',
       clientid: '',
       rating: 0,
       comment: '',
@@ -216,6 +217,10 @@ export default {
             title: 'Success Message',
             variant: 'success',
             solid: true
+          })
+          Api.get(`/clients/${this.clientid}`).then(response => {
+            console.log(response.data.firstName + ' ' + response.data.lastName)
+            this.clientName = response.data.firstName + ' ' + response.data.lastName
           })
           this.clear()
         }).catch(err => {
@@ -334,6 +339,9 @@ export default {
   align-items: center;
   margin-bottom: 10px;
   margin-top: 10px
+}
+.message{
+  font-weight: bold;
 }
 .card-row {
   display: flex;
