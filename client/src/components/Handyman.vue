@@ -1,22 +1,27 @@
 <template>
   <div>
     <div>
-      <b-card no-body class="overflow-hidden card">
-        <b-row no-gutters class = "card-container">
-          <b-col cols = "1" class = "left-card">
-            <b-card-img src="https://picsum.photos/400/400/?image=20" alt="Image" class="rounded-0 card-image"></b-card-img>
-          </b-col>
-          <b-col cols = "11" class = "right-card">
-            <b-col cols = "6" class = "handyman-information">
-              <b-card-title>{{ handyman.firstName }} {{ handyman.lastName}}</b-card-title>
-              <b-card-text>{{handyman.profession}}</b-card-text>
+      <b-container no-body class="overflow-hidden card">
+          <b-row class = "card-container">
+            <b-col cols = "2" class = "left-card">
+              <b-card-img src="https://picsum.photos/400/400/?image=20" alt="Image" class="rounded-0 card-image"></b-card-img>
             </b-col>
-            <b-col cols = "6" class =  "create-request-button">
-              <b-button v-b-modal="this.handyman._id" variant="outline-primary">Create request</b-button>
+            <b-col cols = "10" class = "medium-card">
+              <b-col cols = "9" class = "handyman-information">
+                <b-col cols = "12">
+                  {{ handyman.firstName }} {{ handyman.lastName }}
+                </b-col>
+                <b-col cols = "12">
+                  {{ handyman.profession }}
+                </b-col>
+              </b-col>
+              <b-col cols = "3">
+                <b-button v-b-modal="this.handyman._id" variant="outline-primary" class = "create-request-button">Create request</b-button>
+              </b-col>
+
             </b-col>
-          </b-col>
-        </b-row>
-      </b-card>
+          </b-row>
+      </b-container>
     </div>
     <div>
       <b-modal :id="this.handyman._id" size="lg" scrollable :title="this.handyman.firstName + ' ' +  this.handyman.lastName" hide-footer>
@@ -224,8 +229,6 @@ export default {
   min-height: 100px;
   height: 100%;
   margin-bottom: 30px;
-  margin-left: 20px;
-  margin-right: 20px;
   width: 100%;
   max-width: 900px;
   display: flex;
@@ -233,10 +236,22 @@ export default {
   flex-direction: row;
 }
 
+.medium-card {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding-left: 25px;
+}
+
+.create-request-button {
+  justify-content: flex-end;
+  display: flex;
+}
+
 .handyman-information {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  text-align: left;
 }
 
 .modal-button {
@@ -248,7 +263,7 @@ export default {
 .card-image {
   height: 70px;
   width: 70px;
-  margin-left: 10px;
+  margin-left: 0px;
 }
 
 .left-card {
@@ -279,6 +294,8 @@ export default {
 
 .card-container {
   width: 100%;
+  display: flex;
+  justify-content: center;
 }
 .make-container{
   background-color: #C8C8C8;
@@ -304,5 +321,9 @@ export default {
   align-items: center;
   margin-bottom: 10px;
   margin-top: 10px
+}
+
+.create-request-button {
+  font-size: 13px;
 }
 </style>
