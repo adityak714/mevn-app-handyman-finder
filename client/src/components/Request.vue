@@ -4,17 +4,17 @@
       <b-row no-gutters class = "card-container">
           <b-row class = "card-content">
             <b-col cols = "12" class="first-row card-row">
-              <strong>Date: oscar</strong>
+              <strong>Date: {{request.date}}</strong>
             </b-col>
           </b-row>
           <b-row>
             <b-col cols = "12" class="first-row card-row">
-              <strong>Description: oscar}</strong>
+              <strong>Description: {{request.description}}</strong>
             </b-col>
           </b-row>
           <b-row>
             <b-col cols = "12" class="first-row card-row">
-              <strong>Status: oscar</strong>
+              <strong>Status: {{request.status}}</strong>
             </b-col>
           </b-row>
       </b-row>
