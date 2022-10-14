@@ -40,9 +40,10 @@
                       </div>
                       <div class="row mt-3">
                           <div class="col-md-12 input"><label class="labels">Email</label><input type="text" class="form-control" :placeholder="email" readonly></div>
-                          <div class="col-md-12 input"><label class="labels">Address</label><input type="text" class="form-control" v-model.lazy="updatedAddress" :placeholder="address" value=""></div>
-                          <div class="col-md-12 input"><label class="labels">Phone Number</label><input type="text" class="form-control" v-model.lazy="updatedPhoneNumber" :placeholder="phoneNumber" value=""></div>
-                          <div class="col-md-12 input" v-show="profession !== null"><b-form-select class="mt-3 form-control" :options="prof_options" v-model="updatedProfession"></b-form-select></div>
+                          <div class="col-md-12 input"><label class="labels">Phone Number</label><input type="text" class="form-control" v-model="updatedPhoneNumber" :placeholder="phoneNumber" value=""></div>
+                          <div class="col-md-12 input" v-if="area !== ''"><label class="labels">Profession</label><input type="text" class="form-control" v-model="updatedProfession" :placeholder="profession" value=""></div>
+                          <div class="col-md-12 input" v-if="area !== ''"><b-form-select class="mt-3 form-control" :options="area_options" v-model="updatedArea"></b-form-select></div>
+                          <div class="col-md-12 input" v-else><label class="labels">Address</label><input type="text" class="form-control" v-model="updatedAddress" :placeholder="address" value=""></div>
                       </div>
                       <div class="mt-5 text-center"><button class="btn btn-primary profile-button" @click="updateUser" type="button">Save Profile</button></div>
                     </div>
@@ -85,8 +86,9 @@ export default {
       id: '',
       fn: '',
       ln: '',
-      updatedfirstName: '',
-      updatedlastName: '',
+      updatedFirstName: '',
+      updatedLastName: '',
+      updatedArea: '',
       oldPassword: '',
       newPassword: '',
       confirmPass: '',
@@ -94,18 +96,21 @@ export default {
       updatedAddress: '',
       updatedPhoneNumber: '',
       email: '',
+      area: '',
       address: '',
       phoneNumber: '',
-      profession: null,
+      profession: '',
       updatedProfession: '',
       isHandy: Boolean,
       currPassHash: '',
-      prof_options: [
-        { value: '', text: '- Change Occupation -' },
-        { value: 'Architect', text: 'Architect' },
-        { value: 'Plumber', text: 'Plumber' },
-        { value: 'Electrician', text: 'Electrician' },
-        { value: 'Carpenter', text: 'Carpenter' }
+      area_options: [
+        { value: '', text: 'Preferred Area of Work' },
+        { value: 'Västra Götaland', text: 'Västra Götaland' },
+        { value: 'Stockholms Län', text: 'Stockholms Län' },
+        { value: 'Skåne Län', text: 'Skåne Län' },
+        { value: 'Hallands Län', text: 'Hallands Län' },
+        { value: 'Jönköpings Län', text: 'Jönköpings Län' },
+        { value: 'Uppsala Län', text: 'Uppsala Län' }
       ]
     }
   },
@@ -167,7 +172,7 @@ export default {
                 this.ln = res.data.lastName
                 this.phoneNumber = res.data.phoneNumber
                 this.email = res.data.email
-                this.address = res.data.address
+                this.area = res.data.area
                 this.profession = res.data.profession
                 this.currPassHash = res.data.password
                 this.$emit('isHandy', true)
@@ -212,32 +217,31 @@ export default {
       const searchURL = new URL(window.location).pathname
       const strs = searchURL.split('/')
       const id = strs.at(-1)
-
+      console.log(id)
       Api.put(`/clients/${id}`, {
         firstName: this.updatedFirstName || this.fn,
         lastName: this.updatedLastName || this.ln,
         phoneNumber: this.updatedPhoneNumber || this.phoneNumber,
-        email: this.email,
         address: this.updatedAddress || this.address
       }).then(response => {
-        if (response.data === 'No such client exists!') {
-          Api.put(`/handymen/${id}`, {
-            firstName: this.updatedFirstName || this.fn,
-            lastName: this.updatedLastName || this.ln,
-            phoneNumber: this.updatedPhoneNumber || this.phoneNumber,
-            email: this.email,
-            address: this.updatedAddress || this.address,
-            profession: this.updatedProfession || this.profession
-          }).then(response => {
-            console.log(response.data)
-          }).catch(error => {
-            this.firstname = error
-          })
-        }
         console.log(response.data)
         this.$router.push(`/account/${id}`)
       })
         .catch(error => {
+          if (error.response.status === 404) {
+            Api.put(`/handymen/${id}`, {
+              firstName: this.updatedFirstName || this.fn,
+              lastName: this.updatedLastName || this.ln,
+              phoneNumber: this.updatedPhoneNumber || this.phoneNumber,
+              area: this.updatedArea || this.area,
+              profession: this.updatedProfession || this.profession
+            }).then(response => {
+              console.log(response.data)
+              this.$router.push(`/account/${id}`)
+            }).catch(error => {
+              console.log(error)
+            })
+          }
           console.log(error.response.status)
         })
     }

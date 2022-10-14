@@ -62,11 +62,8 @@ router.put("/api/clients/:id", function (req, res) {
       return res.status(404).send('Client could not be found.');
     }
   }).then((client) => {
-    const hash = new SHA3.SHA3(512);
-    hash.update(req.body.password);
     client.firstName = req.body.firstName;
     client.lastName = req.body.lastName;
-    client.password = hash.digest('hex');
     client.phoneNumber = req.body.phoneNumber;
     client.address = req.body.address;
     client.save(() => {
