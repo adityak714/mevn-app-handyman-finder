@@ -9,9 +9,9 @@
         First Name: {{firstName}} <br/>
         Last Name: {{lastName}} <br/>
         Phone Number: {{phoneNumber}} <br/>
-        Address: {{address}}
+        {{isHandy ? 'Area:' : 'Address:'}} {{ isHandy ? area : address }}
+        <h3 class="profile-info" v-if="isHandy"> Profession: {{profession}} </h3>
       </h3>
-      <h5 v-show="profession !== null"> Profession: {{profession}} </h5>
     </div>
   </div>
 </template>
@@ -31,6 +31,7 @@ export default {
       lastName: '',
       phoneNumber: '',
       address: '',
+      area: '',
       isHandy: Boolean,
       profession: null
     }
@@ -68,7 +69,7 @@ export default {
               this.firstName = response.data.firstName
               this.lastName = response.data.lastName
               this.phoneNumber = response.data.phoneNumber
-              this.address = response.data.address
+              this.area = response.data.area
               this.profession = response.data.profession
               this.isHandy = true
             })

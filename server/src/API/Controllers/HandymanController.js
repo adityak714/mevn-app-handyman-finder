@@ -78,13 +78,10 @@ router.put("/api/handymen/:id", function (req, res) {
     }
   })
     .then((handyman) => {
-      const hash = new SHA3.SHA3(512);
-      hash.update(req.body.password);
       handyman.firstName = req.body.firstName;
       handyman.lastName = req.body.lastName;
-      handyman.password = hash.digest("hex");
       handyman.phoneNumber = req.body.phoneNumber;
-      handyman.address = req.body.address;
+      handyman.area = req.body.area;
       handyman.profession = req.body.profession;
       handyman.save(() => {
         return res.status(200).json(handyman);
@@ -110,7 +107,7 @@ router.patch("/api/handymen/:id", function (req, res) {
       new SHA3.SHA3(512).update(req.body.password).digest("hex") ||
       handyman.password;
     handyman.phoneNumber = req.body.phoneNumber || handyman.phoneNumber;
-    handyman.address = req.body.address || handyman.address;
+    handyman.area = req.body.area || handyman.area;
     handyman.profession = req.body.profession || handyman.profession;
     handyman.save(() => {
       return res.status(200).json(handyman);
