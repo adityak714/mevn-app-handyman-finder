@@ -5,7 +5,7 @@
     <b-row>
         <b-col col="12">
          <div class="header-container">
-            <Header :firstName="firstName" :lastName='lastName' v-on:findHandy="(bool) => this.isFind = bool"/>
+            <Header :firstName="firstName" :lastName='lastName' :isHandyman="isHandy" v-on:findHandy="(bool) => this.isFind = bool"/>
          </div>
         </b-col>
     </b-row>
@@ -50,6 +50,7 @@ export default {
   data() {
     return {
       isFind: true,
+      isHandy: Boolean,
       profession: '',
       userId: '',
       firstName: '',
@@ -79,6 +80,11 @@ export default {
     Header,
     HandymenList,
     Gmap
+  },
+  created() {
+    if (localStorage.getItem('token') === null && localStorage.getItem('user') === null) {
+      this.$router.push('/login')
+    }
   },
   methods: {
     showHandymen() {
@@ -113,6 +119,7 @@ export default {
             .then(response => {
               this.firstName = response.data.firstName
               this.lastName = response.data.lastName
+              this.isHandy = true
             })
             .catch(error => {
               this.firstname = error
@@ -120,6 +127,7 @@ export default {
         }
         this.firstName = response.data.firstName
         this.lastName = response.data.lastName
+        this.isHandy = false
       })
       .catch(error => {
         this.firstname = error

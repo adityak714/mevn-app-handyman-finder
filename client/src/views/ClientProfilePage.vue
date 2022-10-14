@@ -175,6 +175,7 @@ export default {
                 this.area = res.data.area
                 this.profession = res.data.profession
                 this.currPassHash = res.data.password
+                this.isHandy = true
                 this.$emit('isHandy', true)
               })
               .catch(error => {
@@ -187,6 +188,7 @@ export default {
             this.email = response.data.email
             this.address = response.data.address
             this.currPassHash = response.data.password
+            this.isHandy = false
             this.$emit('isHandy', false)
           }
         })

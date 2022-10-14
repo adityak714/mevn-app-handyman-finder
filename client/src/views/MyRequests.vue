@@ -5,7 +5,7 @@
     <b-row>
         <b-col col="12">
          <div class="header-container">
-            <Header :userId='userId' :firstName='firstName' :lastName='lastName'/>
+            <Header :userId="userId" :firstName='firstName' :lastName='lastName' :isHandyman="isHandy"/>
          </div>
         </b-col>
     </b-row>
@@ -55,7 +55,8 @@ export default {
       message: '',
       userId: '',
       firstName: '',
-      lastName: ''
+      lastName: '',
+      isHandy: Boolean
     }
   },
   created() {
@@ -66,25 +67,24 @@ export default {
     Api.get(`/clients/${id}/requests`).then(response => {
       if (response.data === 'Client was not found') {
         Api.get(`/handymen/${id}/requests`).then(response => {
+          this.firstName = response.data.firstName
+          this.lastName = response.data.lastName
+          this.userId = response.data._id
           this.requests = response.data
           this.isHandy = true
         }).catch(err => {
           this.message = err
         })
       }
+      this.firstName = response.data.firstName
+      this.lastName = response.data.lastName
+      this.userId = response.data._id
       this.requests = response.data
       this.isHandy = false
     }).catch(err => {
       if (err.response.status === 500) {
         this.message = err
         console.log(err)
-      }
-      if (err.response.status === 404) {
-        Api.get(`/handymen/${id}/requests`).then(response => {
-          this.requests = response.data
-        }).catch(err => {
-          this.message = err
-        })
       }
     })
   },
