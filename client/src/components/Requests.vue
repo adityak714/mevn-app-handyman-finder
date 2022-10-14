@@ -6,7 +6,7 @@
         <div class="col-12 no-requests" v-if="requests.length === 0">
             <p class="message">No requests found</p>
         </div>
-      <b-col cols = "12" cards v-if="requests.length !== 0">
+      <b-col cols = "12" class = "cards" v-if="requests.length !== 0">
         <b-row class = "card-row" v-for="request in requests" :key="request._id">
           <Request :request="request" />
         </b-row>
@@ -70,19 +70,6 @@ font-size: 50px;
   height: 100px;
 }
 
-.left-card {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-}
-
-.right-card {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-}
-
 .card-image {
   height: 80px;
   width: 80px;
@@ -91,12 +78,6 @@ font-size: 50px;
 
 .card-content {
   height: 100%;
-}
-
-.handyman-information {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
 }
 
 .create-request-button {
@@ -113,5 +94,8 @@ font-size: 50px;
 .card-row {
   display: flex;
   justify-content: center;
+  margin-bottom: 20px;
+  height: 100%;
+  width: 100%;
 }
 </style>
