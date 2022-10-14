@@ -2,7 +2,8 @@
   <b-navbar toggleable="lg" type="dark" variant="info">
 
     <b-navbar-brand>
-      <img class="full-logo"/>
+      <img src="../assets/full-logo.png" class="full-logo"/>
+      <img src="../assets/handymanlogomobile.png" class="full-logo-mobile"/>
     </b-navbar-brand>
   </b-navbar>
           <!--
@@ -81,14 +82,21 @@ export default {
     color: black;
 }
 
-.full-logo{
+.full-logo, .full-logo-mobile{
     display: flex;
     align-self: center;
     width: 300px;
     height: 65px;
     background-image: url("../assets/full-logo.png");
     background-size: 300px 65px;
-    border: 0;
+    transform: rotate(0.65deg);
+}
+
+.full-logo-mobile {
+  display: none;
+  width: 70px;
+  height: 65px;
+  margin-left: 10px;
 }
 
 a.link, .header a.link p {
@@ -103,6 +111,10 @@ a.link, .header a.link p {
     display: flex;
     align-items: center;
     justify-content: space-between;
+}
+
+span {
+  width: 100%;
 }
 
 .header-right{
@@ -121,11 +133,7 @@ html body {
 }
 
 button#collapse {
-    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='50' height='35' viewBox='0 0 30 30'%3e%3cpath stroke='black' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
-}
-
-span {
-  color: black;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='50' height='35' viewBox='0 0 30 30'%3e%3cpath stroke='black' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
 }
 
 .left-header {
@@ -138,11 +146,14 @@ span {
   width: 100%;
 }
 
-@media only screen and (max-width: 992px) {
+@media only screen and (max-width: 500px) {
+  .full-logo-mobile {
+    display: flex;
+    transform: rotate(-0.3deg)
+  }
+
   .full-logo {
-    background-image: url("../assets/handymanlogomobile.png");
-    background-size: 65px 65px;
-    background-repeat: no-repeat;
+    display: none
   }
 }
 

@@ -67,11 +67,13 @@ export default {
       if (response.data === 'Client was not found') {
         Api.get(`/handymen/${id}/requests`).then(response => {
           this.requests = response.data
+          this.isHandy = true
         }).catch(err => {
           this.message = err
         })
       }
       this.requests = response.data
+      this.isHandy = false
     }).catch(err => {
       if (err.response.status === 500) {
         this.message = err
