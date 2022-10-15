@@ -107,11 +107,21 @@ div#body {
 .display-3 {
  display: flex;
  justify-content: center;
- font-size: 4vw;
+ font-size: 3vw;
 }
 
-.profile-info {
+h2, .profile-info {
   font-size: 2vw;
+}
+
+@media only screen and (max-width: 650px) {
+  .display-3 {
+    font-size: 6vw;
+  }
+
+  h2, .profile-info {
+    font-size: 3vw;
+  }
 }
 
 html {

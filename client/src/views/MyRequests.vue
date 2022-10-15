@@ -126,7 +126,7 @@ export default {
 }
 .main-container {
 display: flex;
-background-image: linear-gradient(to bottom left, rgba(120, 89, 79, 0.722), rgb(202, 89, 57));
+background-image: linear-gradient(to bottom left, rgba(162, 91, 68, 0.722), rgb(202, 89, 57));
 min-height: 1000px;
 padding-top: 70px;
 padding-left: 5px;
