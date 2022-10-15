@@ -1,5 +1,30 @@
 <template>
-  <div>
+  <b-container fluid >
+    <b-row>
+      <b-col cols="3">
+          <label>Rating: </label>
+      </b-col>
+      <b-col cols="5">
+        <b-form-rating readonly v-model="finalRating" variant="warning"></b-form-rating>
+      </b-col>
+    </b-row>
+    <b-row>
+      <b-col cols="3">
+        <label>Description: </label>
+      </b-col>
+      <b-col cols="9">
+        <p>{{review.comment}}</p>
+      </b-col>
+    </b-row>
+    <b-row>
+      <b-col cols="3">
+        <label>Reviewer: </label>
+      </b-col>
+      <b-col cols="5">
+        <p>{{review.sender}}</p>
+      </b-col>
+    </b-row>
+    <!----
     <b-card no-body class="overflow-hidden">
       <b-col cols="12" class = "card">
         <b-row no-gutters class = "card-container">
@@ -20,7 +45,8 @@
         </b-row>
       </b-col>
     </b-card>
-  </div>
+     ------->
+  </b-container>
   <!----
     <div class = "row card-content">
         <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
@@ -52,11 +78,13 @@ export default {
   name: 'Review',
   data() {
     return {
-      finalRating: this.review.rating
+      finalRating: this.review.rating,
+      reviewer: ''
     }
   },
   props: {
-    review: Object
+    review: Object,
+    clientName: String
   }
 }
 </script>
