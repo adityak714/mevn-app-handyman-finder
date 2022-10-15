@@ -1,10 +1,10 @@
 <template>
   <b-container fluid >
     <b-row>
-      <b-col cols="3">
+      <b-col sm="3" md="3">
           <label>Rating: </label>
       </b-col>
-      <b-col cols="5">
+      <b-col sm="6" md="9">
         <b-form-rating readonly v-model="finalRating" variant="warning"></b-form-rating>
       </b-col>
     </b-row>
