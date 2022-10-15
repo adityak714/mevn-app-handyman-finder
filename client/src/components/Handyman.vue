@@ -4,7 +4,7 @@
       <b-container no-body class="overflow-hidden card">
           <b-row class = "card-container">
             <b-col cols = "2" class = "left-card">
-              <b-card-img src="https://picsum.photos/400/400/?image=20" alt="Image" class="rounded-0 card-image"></b-card-img>
+              <img src="../assets/UserIcon.png" class="rounded-0 card-image">
             </b-col>
             <b-col cols = "10" class = "medium-card">
               <b-col cols = "9" class = "handyman-information">
@@ -269,6 +269,11 @@ export default {
   display: flex;
   align-items: center;
   flex-direction: row;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  border-radius: 30px;
+}
+.card:hover{
+  border: #F7E976;
 }
 
 .medium-card {
@@ -296,8 +301,8 @@ export default {
 }
 
 .card-image {
-  height: 70px;
-  width: 70px;
+  height: 40px;
+  width: 40px;
   margin-left: 0px;
 }
 
@@ -330,8 +335,9 @@ export default {
 .card-container {
   width: 100%;
   display: flex;
-  justify-content: center;
+  justify-content: center
 }
+
 .make-container{
   background-color: #C8C8C8;
   border-radius: 20px;
