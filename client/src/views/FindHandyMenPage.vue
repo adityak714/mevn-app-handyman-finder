@@ -143,7 +143,7 @@ padding-top: 10px;
 }
 .main-container {
 display: flex;
-background-color: rgba(100, 0, 0, 0.4);
+background-image: url('../../assets/electricianpic.jpg');
 min-height: 1000px;
 height: 100%;
 align-items: flex-start;
@@ -161,8 +161,8 @@ padding-bottom: 30px;
 background-color: white;
 height: 100%;
 padding-top: 10px;
-margin-left: 5px;
-margin-right: 5px;
+margin-left: 10px;
+margin-right: 10px;
 }
 .mt-3{
 width: 300px;

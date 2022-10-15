@@ -119,17 +119,22 @@ export default {
   }
 }
 </script>
+
 <style scoped>
 .home-page {
   align-self: start;
 }
 .main-container {
 display: flex;
-background-color: rgba(100, 0, 0, 0.4);
+background-image: linear-gradient(to bottom left, rgba(120, 89, 79, 0.722), rgb(202, 89, 57));
 min-height: 1000px;
+padding-top: 70px;
+padding-left: 5px;
+padding-right: 5px;
 height: 100%;
 align-items: flex-start;
 }
+
 .title{
 font-size: 50px;
 }

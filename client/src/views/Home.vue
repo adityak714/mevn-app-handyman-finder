@@ -98,7 +98,8 @@ export default {
 
 div#body {
   padding-top: 50px;
-  background-color: rgba(100, 0, 0, 0.4);
+  background-image: url('../../assets/electricianpic.jpg');
+  background-size: cover;
   height: 1000px;
   width: 100%;
 }

@@ -56,7 +56,7 @@ html{
 }
 
 .main-container {
-  background-color: rgba(100, 0, 0, 0.4);
+  background-image: linear-gradient(to bottom right, rgba(222, 46, 23, 0.5), rgba(159, 16, 8, 0.7));
   min-height: 1000px;
   display: flex;
   padding-top: 20px;
@@ -92,6 +92,8 @@ input {
     padding-right: 40px;
     padding-bottom: 40px;
     max-width: 700px;
+    box-shadow: inset 0 -3em 3em rgba(0, 0, 0, 0.1), 0 0 0 2px rgb(0, 0, 0, 0.1),
+    0.3em 0.3em 1em rgba(0, 0, 0, 0.3);
 }
 
 </style>
