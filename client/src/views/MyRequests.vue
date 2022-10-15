@@ -12,7 +12,7 @@
                 <b-container fluid >
                     <div class="main-container" >
                         <b-col cols="12">
-                            <Requests :requests="this.requests" :isClient="this.isClient"/>
+                            <Requests :requests="this.requests" :isHandy="isHandy"/>
                         </b-col>
                     </div>
                 </b-container>
@@ -33,7 +33,7 @@ export default {
       userId: '',
       firstName: '',
       lastName: '',
-      isClient: true
+      isHandy: ''
     }
   },
   created() {
@@ -42,15 +42,8 @@ export default {
     const id = strs.at(-1)
     console.log(id)
     Api.get(`/clients/${id}/requests`).then(response => {
-      if (response.data === 'Client was not found') {
-        Api.get(`/handymen/${id}/requests`).then(response => {
-          this.requests = response.data
-          this.isClient = false
-        }).catch(err => {
-          this.message = err
-        })
-      }
       this.requests = response.data
+      this.isHandy = false
     }).catch(err => {
       if (err.response.status === 500) {
         this.message = err
@@ -59,6 +52,7 @@ export default {
       if (err.response.status === 404) {
         Api.get(`/handymen/${id}/requests`).then(response => {
           this.requests = response.data
+          this.isHandy = true
         }).catch(err => {
           this.message = err
         })

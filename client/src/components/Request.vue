@@ -1,7 +1,7 @@
 <template>
   <div>
     <div>
-      <b-container no-body class="overflow-hidden card" v-if="isClient === true">
+      <b-container no-body class="overflow-hidden card">
         <b-row class = "card-container">
           <b-col cols = "12" class = "medium-card">
             <b-col cols = "9" class = "handyman-information">
@@ -14,47 +14,22 @@
               <b-col cols = "12">
                 Desc: {{ request.description }}
               </b-col>
+              <b-col cols="12" v-if="isHandy === true">
+                  Change Status: <b-form-select v-model="statusSelected" :options="status_options" size="sm" class="mt-3"></b-form-select>
+              </b-col>
             </b-col>
             <b-col cols = "3">
               <b-row>
-                <b-col cols="12" style="display: flex; justify-content: center; margin-bottom: 5px">Status: {{ request.status}}</b-col>
-                <b-col cols="12" style="display: flex; justify-content: center; margin-bottom: 5px" >
-                  <b-button  variant="outline-primary" @click="deleteRequest">Delete request</b-button>
+                <b-col cols="12" style="display: flex; justify-content: center; margin-bottom: 5px">Status: {{statusSelected === '' ? request.status : statusSelected }}</b-col>
+                <b-col cols="12" style="display: flex; justify-content: center; margin-bottom: 5px" v-if="isHandy === true"><b-button @click="saveChanges" variant="outline-primary">Save Changes</b-button></b-col>
+                <b-col cols="12" style="display: flex; justify-content: center; margin-bottom: 5px" v-else>
+                  <b-button variant="outline-primary" @click="deleteRequest">Delete request</b-button>
                 </b-col>
               </b-row>
             </b-col>
-
           </b-col>
         </b-row>
       </b-container>
-        <b-container no-body class="overflow-hidden card" v-if="isClient === false">
-          <b-row class = "card-container">
-            <b-col cols = "12" class = "medium-card">
-              <b-col cols = "9" class = "handyman-information">
-                <b-col cols = "12">
-                  Date: {{ request.date }}
-                </b-col>
-                <b-col cols = "12">
-                  Job: {{request.job}}
-                </b-col>
-                <b-col cols = "12">
-                  Desc: {{ request.description }}
-                </b-col>
-                <b-col cols="12">
-                  Change Status: <b-form-select v-model="statusSelected" :options="status_options" size="sm" class="mt-3"></b-form-select>
-                </b-col>
-              </b-col>
-              <b-col cols = "3">
-                <b-row>
-                  <b-col cols="12" style="display: flex; justify-content: center; margin-bottom: 5px" >
-                    <b-button  variant="outline-primary" >Save Changes</b-button>
-                  </b-col>
-                </b-row>
-              </b-col>
-
-            </b-col>
-          </b-row>
-        </b-container>
     </div>
   </div>
   <!--
@@ -112,7 +87,7 @@ export default {
     return {
       statusSelected: '',
       status_options: [
-        { value: '', text: 'Please change the status' },
+        { value: '', text: 'Change the status' },
         { value: 'Accepted', text: 'Accepted' },
         { value: 'Rejected', text: 'Rejected' }
       ]
@@ -120,7 +95,7 @@ export default {
   },
   props: {
     request: Object,
-    isClient: Boolean
+    isHandy: Boolean
   },
   methods: {
     deleteRequest() {
@@ -180,9 +155,6 @@ export default {
   flex-direction: row;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   border-radius: 30px;
-}
-.card:hover{
-  border: #F7E976;
 }
 
 .medium-card {

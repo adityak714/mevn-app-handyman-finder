@@ -9,7 +9,7 @@
       <b-col cols = "12" class = "cards">
         <b-row class = "card-row" v-for="request in requests" :key="request._id">
           <b-col cols = "12">
-            <Request :request="request" :isClient="isClient"/>
+            <Request :request="request" :isHandy="isHandy"/>
           </b-col>
         </b-row>
       </b-col>
@@ -21,7 +21,7 @@ export default {
   name: 'Requests',
   props: {
     requests: Array,
-    isClient: Boolean
+    isHandy: Boolean
   },
   components: {
     Request
