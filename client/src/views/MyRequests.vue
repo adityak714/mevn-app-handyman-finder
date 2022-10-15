@@ -12,9 +12,13 @@
     <b-row>
     <b-container fluid >
         <div class="main-container" >
-        <b-col cols="12">
-            <Requests :requests="this.requests" />
-    </b-col>
+        <b-col cols = "12" class = "cards">
+          <b-row class = "card-row" v-for="handyman in handymen" :key="handyman._id">
+              <b-col cols = "12">
+                <Requests :handyman="handyman" />
+              </b-col>
+          </b-row>
+        </b-col>
     </div>
 </b-container>
 </b-row>
