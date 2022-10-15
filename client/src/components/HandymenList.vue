@@ -7,9 +7,11 @@
         <div class="col-12 message-container" v-if="handymen.length === 0">
           <p class="message">No handymen found</p>
         </div>
-        <b-col cols = "12" cards>
+        <b-col cols = "12" class = "cards">
           <b-row class = "card-row" v-for="handyman in handymen" :key="handyman._id">
-              <Handyman :handyman="handyman" />
+              <b-col cols = "12">
+                <Handyman :handyman="handyman" />
+              </b-col>
           </b-row>
         </b-col>
       </div>
@@ -63,10 +65,14 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
+  width: 100%;
+  max-width: 900px;
 }
 
 .card-row {
   display: flex;
   justify-content: center;
+  width: 100%;
 }
 </style>

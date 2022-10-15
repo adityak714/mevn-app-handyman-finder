@@ -1,26 +1,49 @@
 <template>
   <div>
+    <div>
+      <b-container no-body class="overflow-hidden card">
+          <b-row class = "card-container">
+            <b-col cols = "12">
+              <b-row class = "first-row row">
+                <strong>Date: {{ request.date }}</strong>
+              </b-row>
+              <b-row class = "first-row row">
+                <strong>Description: {{ request.description }}</strong>
+              </b-row>
+              <b-row class = "first-row row">
+                <b-col cols = "12" class="first-row card-row">
+                  <strong>Status: {{ request.status }}</strong>
+                </b-col>
+              </b-row>
+            </b-col>
+          </b-row>
+      </b-container>
+    </div>
+  </div>
+
+  <!--
+  <div>
     <b-card no-body class="overflow-hidden card">
       <b-row no-gutters class = "card-container">
           <b-row class = "card-content">
             <b-col cols = "12" class="first-row card-row">
-              <strong>Date: {{request.date}}</strong>
+              <strong>Date: {{ request.date }}</strong>
             </b-col>
           </b-row>
           <b-row>
             <b-col cols = "12" class="first-row card-row">
-              <strong>Description: {{request.description}}</strong>
+              <strong>Description: {{ request.description }}</strong>
             </b-col>
           </b-row>
           <b-row>
             <b-col cols = "12" class="first-row card-row">
-              <strong>Status: {{request.status}}</strong>
+              <strong>Status: {{ request.status }}</strong>
             </b-col>
           </b-row>
       </b-row>
     </b-card>
   </div>
-  <!----
+
     <div class = "row card-content">
         <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
         <div class = "col-2 left-card">
@@ -54,78 +77,42 @@ export default {
 }
 </script>
 <style scoped>
-.card {
-  min-height: 100px;
+.material-symbols-outlined {
+  display: block;
+  padding-top: 10px;
+}
+
+.content{
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items:center;
+  /*padding-top: 50px;*/
+  background-color: white;
+  min-height: 1000px;
   height: 100%;
-  margin-bottom: 30px;
-  margin-left: 20px;
-  margin-right: 20px;
-  width: 100%;
-  max-width: 900px;
+}
+
+.area-location{
+  width: 300px;
+}
+
+.title{
+  font-size: 50px;
+}
+
+.cards {
   display: flex;
   align-items: center;
-  flex-direction: row;
-}
-
-.handyman-information {
-  display: flex;
+  justify-content: center;
   flex-direction: column;
-  align-items: flex-start;
-}
-
-.card-content {
   width: 100%;
-}
-
-.modal-button {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-end;
+  max-width: 900px;
 }
 
 .card-row {
-  max-height: 50px;
-  margin-bottom: 10px;
   display: flex;
-  justify-content: left;
-}
-
-.card-image {
-  height: 70px;
-  width: 70px;
-  margin-left: 10px;
-}
-
-.left-card {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  width: 100%;
-}
-.title-container {
-  display: flex;
-  justify-content: flex-start;
-  align-content: center;
-}
-
-.right-card {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
   justify-content: center;
   width: 100%;
-}
-.title{
-  font-size: 30px;
-}
-#job {
-  width: 100%
-}
-
-.card-container {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
 }
 </style>

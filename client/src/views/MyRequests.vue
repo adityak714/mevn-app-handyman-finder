@@ -1,27 +1,4 @@
 <template>
-    <!----- Header -->
-<div class="home-page">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@40,700,1,0" />
-    <b-row>
-        <b-col col="12">
-         <div class="header-container">
-            <Header :userId="userId" :firstName='firstName' :lastName='lastName' :isHandyman="isHandy"/>
-         </div>
-        </b-col>
-    </b-row>
-    <b-row>
-    <b-container fluid >
-        <div class="main-container" >
-        <b-col cols="12">
-            <Requests :requests="this.requests" />
-    </b-col>
-    </div>
-</b-container>
-</b-row>
-</div>
-</template>
-<!-------
-<template>
     <div class="home-page">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@40,700,1,0" />
         <b-row>
@@ -30,7 +7,8 @@
                     <Header :firstName="firstName" :lastName='lastName'/>
                 </div>
             </b-col>
-            <b-row>
+        </b-row>
+      <b-row>
                 <b-container fluid >
                     <div class="main-container" >
                         <b-col cols="12">
@@ -39,10 +17,9 @@
                     </div>
                 </b-container>
             </b-row>
-        </b-row>
     </div>
 </template>
----->
+
 <script>
 import { Api } from '../Api'
 import Requests from '../components/Requests.vue'

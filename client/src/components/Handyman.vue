@@ -1,39 +1,44 @@
 <template>
   <div>
     <div>
-      <b-card no-body class="overflow-hidden card">
-        <b-row no-gutters class = "card-container">
-          <b-col cols = "1" class = "left-card">
-            <b-card-img src="https://picsum.photos/400/400/?image=20" alt="Image" class="rounded-0 card-image"></b-card-img>
-          </b-col>
-          <b-col cols = "11" class = "right-card">
-            <b-col cols = "6" class = "handyman-information">
-              <b-card-title>{{ handyman.firstName }} {{ handyman.lastName}}</b-card-title>
-              <b-card-text>{{handyman.profession}}</b-card-text>
+      <b-container no-body class="overflow-hidden card">
+          <b-row class = "card-container">
+            <b-col cols = "2" class = "left-card">
+              <img src="../assets/UserIcon.png" class="rounded-0 card-image">
             </b-col>
-            <b-col cols = "6" class =  "create-request-button">
-              <b-button v-b-modal="this.handyman._id" @click="showReviews" variant="outline-primary">Create request</b-button>
+            <b-col cols = "10" class = "medium-card">
+              <b-col cols = "9" class = "handyman-information">
+                <b-col cols = "12">
+                  {{ handyman.firstName }} {{ handyman.lastName }}
+                </b-col>
+                <b-col cols = "12">
+                  {{ handyman.profession }}
+                </b-col>
+              </b-col>
+              <b-col cols = "3">
+                <b-button v-b-modal="this.handyman._id" @click="showReviews" variant="outline-primary" class = "create-request-button">Create request</b-button>
+              </b-col>
+
             </b-col>
-          </b-col>
-        </b-row>
-      </b-card>
+          </b-row>
+      </b-container>
     </div>
     <div>
       <b-modal :id="this.handyman._id" size="lg" scrollable :title="this.handyman.firstName + ' ' +  this.handyman.lastName" hide-footer>
-        <b-row>
           <b-col cols="12">
             <div class="title-container">
             <p class="title">All Reviews</p>
           </div>
           </b-col>
-        </b-row>
-        <div class="col-12 no-requests" v-if="this.reviews.length === 0">
-          <p class="message">No requests found</p>
-        </div>
+          <b-col cols="12">
+            <div class="title-container" v-if="this.reviews.length === 0">
+              <p class="message">No reviews found</p>
+            </div>
+          </b-col>
         <b-container fluid class="make-container" v-if="this.reviews.length !== 0">
           <b-col cols = "12" cards >
             <b-row class = "card-row" v-for="review in reviews" :key="review._id">
-              <Review :review="review" />
+              <Review :review="review" :clientName="clientName" />
             </b-row>
           </b-col>
         </b-container>
@@ -148,6 +153,7 @@ export default {
   data() {
     return {
       reviews: [],
+      clientName: '',
       clientid: '',
       rating: 0,
       comment: '',
@@ -217,6 +223,10 @@ export default {
             variant: 'success',
             solid: true
           })
+          Api.get(`/clients/${this.clientid}`).then(response => {
+            console.log(response.data.firstName + ' ' + response.data.lastName)
+            this.clientName = response.data.firstName + ' ' + response.data.lastName
+          })
           this.clear()
         }).catch(err => {
           if (err.response.status === 404) {
@@ -254,19 +264,34 @@ export default {
   min-height: 100px;
   height: 100%;
   margin-bottom: 30px;
-  margin-left: 20px;
-  margin-right: 20px;
   width: 100%;
   max-width: 900px;
   display: flex;
   align-items: center;
   flex-direction: row;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  border-radius: 30px;
+}
+.card:hover{
+  border: #F7E976;
+}
+
+.medium-card {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding-left: 25px;
+}
+
+.create-request-button {
+  justify-content: flex-end;
+  display: flex;
 }
 
 .handyman-information {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  text-align: left;
 }
 
 .modal-button {
@@ -276,9 +301,9 @@ export default {
 }
 
 .card-image {
-  height: 70px;
-  width: 70px;
-  margin-left: 10px;
+  height: 40px;
+  width: 40px;
+  margin-left: 0px;
 }
 
 .left-card {
@@ -309,7 +334,10 @@ export default {
 
 .card-container {
   width: 100%;
+  display: flex;
+  justify-content: center
 }
+
 .make-container{
   background-color: #C8C8C8;
   border-radius: 20px;
@@ -334,6 +362,9 @@ export default {
   align-items: center;
   margin-bottom: 10px;
   margin-top: 10px
+}
+.message{
+  font-weight: bold;
 }
 .card-row {
   display: flex;
