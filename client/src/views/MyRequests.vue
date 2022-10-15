@@ -12,7 +12,7 @@
                 <b-container fluid >
                     <div class="main-container" >
                         <b-col cols="12">
-                            <Requests :requests="this.requests" />
+                            <Requests :requests="this.requests" :isClient="this.isClient"/>
                         </b-col>
                     </div>
                 </b-container>
@@ -32,7 +32,8 @@ export default {
       message: '',
       userId: '',
       firstName: '',
-      lastName: ''
+      lastName: '',
+      isClient: true
     }
   },
   created() {
@@ -44,13 +45,12 @@ export default {
       if (response.data === 'Client was not found') {
         Api.get(`/handymen/${id}/requests`).then(response => {
           this.requests = response.data
-          this.isHandy = true
+          this.isClient = false
         }).catch(err => {
           this.message = err
         })
       }
       this.requests = response.data
-      this.isHandy = false
     }).catch(err => {
       if (err.response.status === 500) {
         this.message = err

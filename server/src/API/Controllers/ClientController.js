@@ -174,4 +174,22 @@ router.get("/api/clients/:id/requests/:rq_id", function (req, res) {
   });
 });
 
+//Delete specific request in specific handyman
+router.delete("/api/clients/:id/requests/:rq_id", function (req, res) {
+  Client.findById(req.params.id, (err, client) => {
+    if (err) return res.status(500).send(err);
+    if (!client) return res.status(404).send("Client does not exist.");
+    Request.findByIdAndRemove(
+        req.params.rq_id,
+        { useFindAndModify: false },
+        (err, request) => {
+          if (err) return res.status(500).send(err);
+          if (!request) return res.status(404).send("Request does not exist.");
+          res.status(204).json(`Request deleted of client ${req.params.id}`);
+        }
+    );
+  });
+});
+
+
 module.exports = router;

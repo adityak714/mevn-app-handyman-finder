@@ -6,9 +6,11 @@
         <div class="col-12 no-requests" v-if="requests.length === 0">
             <p class="message">No requests found</p>
         </div>
-      <b-col cols = "12" class = "cards" v-if="requests.length !== 0">
+      <b-col cols = "12" class = "cards">
         <b-row class = "card-row" v-for="request in requests" :key="request._id">
-          <Request :request="request" />
+          <b-col cols = "12">
+            <Request :request="request" :isClient="isClient"/>
+          </b-col>
         </b-row>
       </b-col>
     </div>
@@ -18,7 +20,8 @@ import Request from '../components/Request.vue'
 export default {
   name: 'Requests',
   props: {
-    requests: Array
+    requests: Array,
+    isClient: Boolean
   },
   components: {
     Request
@@ -45,57 +48,19 @@ height: 100%;
 .title{
 font-size: 50px;
 }
-.card {
-  height: 300px;
-  width: 900px;
-  border-radius: 10px;
-  margin-bottom: 10px;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-  transition: 0.2s
-}
-.card:hover{
-  cursor: pointer;
-  border: 2px rgba(157, 81, 0, 1)
-}
-.text {
-  display:flex;
-}
-.class-text-button{
-  display:flex;
-  justify-content:flex-start;
-  width:100%
-}
-
-.card {
-  height: 100px;
-}
-
-.card-image {
-  height: 80px;
-  width: 80px;
-  border-radius: 30px;
-}
-
-.card-content {
-  height: 100%;
-}
-
-.create-request-button {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-}
 
 .cards {
   display: flex;
-  flex-direction: column;
   align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 100%;
+  max-width: 900px;
 }
+
 .card-row {
   display: flex;
   justify-content: center;
-  margin-bottom: 20px;
-  height: 100%;
   width: 100%;
 }
 </style>
