@@ -175,6 +175,7 @@ export default {
                 this.area = res.data.area
                 this.profession = res.data.profession
                 this.currPassHash = res.data.password
+                this.isHandy = true
                 this.$emit('isHandy', true)
               })
               .catch(error => {
@@ -187,6 +188,7 @@ export default {
             this.email = response.data.email
             this.address = response.data.address
             this.currPassHash = response.data.password
+            this.isHandy = false
             this.$emit('isHandy', false)
           }
         })
@@ -260,7 +262,7 @@ export default {
 .main-container {
 padding-top: 20px;
 display: flex;
-background-color: rgba(100, 0, 0, 0.4);
+background-image: linear-gradient(to bottom right, rgba(222, 46, 23, 0.5), rgba(159, 16, 8, 0.7));
 min-height: 1000px;
 align-items: flex-start;
 justify-content: center;
