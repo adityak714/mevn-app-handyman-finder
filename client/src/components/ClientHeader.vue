@@ -2,7 +2,8 @@
   <b-navbar toggleable="lg" type="dark" variant="info">
 
     <b-navbar-brand>
-      <img v-on:click="toHomePage" class="full-logo"/>
+      <img src="../assets/full-logo.png" v-on:click="toHomePage" class="full-logo"/>
+      <img src="../assets/handymanlogomobile.png" v-on:click="toHomePage" class="full-logo-mobile"/>
     </b-navbar-brand>
 
     <b-navbar-toggle target="nav-collapse" id ="collapse"></b-navbar-toggle>
@@ -133,15 +134,23 @@ export default {
     color: black;
 }
 
-.full-logo{
+.full-logo, .full-logo-mobile {
     cursor: pointer;
     display: flex;
+    padding-bottom: 10px;
     align-self: center;
-    width: 300px;
-    height: 65px;
-    background-image: url("../assets/full-logo.png");
-    background-size: 300px 65px;
+    width: 220px;
+    height: 60px;
     border: 0;
+    transform: rotate(0.75deg)
+}
+
+.full-logo-mobile {
+  padding-bottom: 6px;
+  display: none;
+  width: 60px;
+  height: 60px;
+  margin-left: 10px;
 }
 
 a.link, .header a.link p {
@@ -192,10 +201,13 @@ span {
 }
 
 @media only screen and (max-width: 992px) {
+  .full-logo-mobile {
+    display: flex;
+    transform: rotate(-0.3deg)
+  }
+
   .full-logo {
-    background-image: url('../assets/handymanmobile.png');
-    background-size: 65px 65px;
-    background-repeat: no-repeat;
+    display: none
   }
 }
 

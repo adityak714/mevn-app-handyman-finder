@@ -33,7 +33,7 @@ export default {
       userId: '',
       firstName: '',
       lastName: '',
-      isHandy: ''
+      isHandy: Boolean
     }
   },
   created() {
@@ -42,6 +42,20 @@ export default {
     const id = strs.at(-1)
     console.log(id)
     Api.get(`/clients/${id}/requests`).then(response => {
+      if (response.data === 'Client was not found') {
+        Api.get(`/handymen/${id}/requests`).then(response => {
+          this.firstName = response.data.firstName
+          this.lastName = response.data.lastName
+          this.userId = response.data._id
+          this.requests = response.data
+          this.isHandy = true
+        }).catch(err => {
+          this.message = err
+        })
+      }
+      this.firstName = response.data.firstName
+      this.lastName = response.data.lastName
+      this.userId = response.data._id
       this.requests = response.data
       this.isHandy = false
     }).catch(err => {
@@ -90,17 +104,22 @@ export default {
   }
 }
 </script>
+
 <style scoped>
 .home-page {
   align-self: start;
 }
 .main-container {
 display: flex;
-background-color: rgba(100, 0, 0, 0.4);
+background-image: linear-gradient(to bottom left, rgba(162, 91, 68, 0.722), rgb(202, 89, 57));
 min-height: 1000px;
+padding-top: 70px;
+padding-left: 5px;
+padding-right: 5px;
 height: 100%;
 align-items: flex-start;
 }
+
 .title{
 font-size: 50px;
 }
