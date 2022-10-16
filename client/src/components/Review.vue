@@ -1,28 +1,30 @@
 <template>
   <b-container fluid >
     <b-row>
+      <b-col sm="3" md="3" lg="3">
+        <label><b-icon icon="person-fill"></b-icon> <strong>Reviewer: </strong></label>
+      </b-col>
+      <b-col sm="6" md="9" lg="9">
+        <p>{{this.reviewer}}</p>
+      </b-col>
+    </b-row>
+    <b-row>
       <b-col sm="3" md="3">
-          <label>Rating: </label>
+          <label><strong>Rating: </strong></label>
       </b-col>
       <b-col sm="6" md="9">
-        <b-form-rating readonly v-model="finalRating" variant="warning"></b-form-rating>
+        <b-form-rating readonly v-model="finalRating" variant="warning" b></b-form-rating>
       </b-col>
     </b-row>
+    <br>
     <b-row>
-      <b-col cols="5">
-        <label>Description: </label>
+      <b-col sm="3" md="3">
+        <label><strong>Description: </strong></label>
       </b-col>
-      <b-col cols="7">
+      <b-col sm="6" md="9">
         <p>{{review.comment}}</p>
       </b-col>
-    </b-row>
-    <b-row>
-      <b-col cols="3">
-        <label>Reviewer: </label>
-      </b-col>
-      <b-col cols="5">
-        <p>{{review.sender}}</p>
-      </b-col>
+      <hr style="width: 80%; border-width: 3px;">
     </b-row>
     <!----
     <b-card no-body class="overflow-hidden">
@@ -74,6 +76,8 @@
 </template>
 
 <script>
+import { Api } from '../Api'
+
 export default {
   name: 'Review',
   data() {
@@ -85,6 +89,13 @@ export default {
   props: {
     review: Object,
     clientName: String
+  },
+  created() {
+    Api.get(`/clients/${this.review.sender}`).then((response) => {
+      this.reviewer = `${response.data.firstName} ${response.data.lastName}`
+    }).catch((err) => {
+      console.log(err)
+    })
   }
 }
 </script>
@@ -117,7 +128,9 @@ export default {
 .card-content {
   height: 100%;
 }
-
+.make-container .container-fluid {
+  padding-top: 20px;
+}
 .card {
   min-height: 100px;
   height: 100%;

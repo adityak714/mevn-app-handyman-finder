@@ -12,7 +12,7 @@
                 <b-container fluid >
                     <div class="main-container" >
                         <b-col cols="12">
-                            <Requests :requests="this.requests" />
+                            <Requests :requests="this.requests" :isHandy="isHandy"/>
                         </b-col>
                     </div>
                 </b-container>
@@ -62,6 +62,14 @@ export default {
       if (err.response.status === 500) {
         this.message = err
         console.log(err)
+      }
+      if (err.response.status === 404) {
+        Api.get(`/handymen/${id}/requests`).then(response => {
+          this.requests = response.data
+          this.isHandy = true
+        }).catch(err => {
+          this.message = err
+        })
       }
     })
   },

@@ -58,8 +58,7 @@ router.get("/api/handymen", function (req, res, next) {
 //Get specific handyman
 router.get("/api/handymen/:id", function (req, res, next) {
   HandyMan.findById(req.params.id)
-  .populate("reviews")
-  .populate("requests")
+  .populate("reviews", "requests")
   .then((handyman) => {
     if (handyman) {
       return res.status(200).json(handyman);
@@ -156,16 +155,23 @@ router.post("/api/handymen/:id/requests", async function (req, res) {
     date: req.body.date,
     description: req.body.description,
   });
-  request.save(function (err, new_req) {
+  request.save(function (err, new_request) {
     if (err) {
       return res.status(500).send(err);
     }
-    HandyMan.findById(new_req.handyman, (err, handyman) => {
+    Client.findById(new_request.client, (err, client) => {
       if (err) return res.status(500).send(err);
-      if (handyman == null) return res.status(404).send("Handyman not found.");
-      handyman.requests.push(new_req.handyman);
-      handyman.save().then(() => {
-        res.status(201).json(new_req);
+      if (!client) return res.status(400).send("Client does not exist.");
+      client.requests.push(new_request._id);
+      client.save().then(() => {    
+        HandyMan.findById(new_request.handyman, (err, handyman) => {
+          if (err) return res.status(500).send(err);
+          if (!handyman) return res.status(400).send("Handyman does not exist.");
+          handyman.requests.push(new_request._id);
+          handyman.save().then(() => {
+            res.status(201).json(new_request);
+          });
+        });
       });
     });
   });
