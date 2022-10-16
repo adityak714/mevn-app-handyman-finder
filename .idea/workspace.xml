@@ -2,11 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1b8ec0d1-37c9-43bb-be64-ba4a1cc42eff" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/client/src/assets/UserIcon.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/client/src/components/Handyman.vue" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/Handyman.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/Request.vue" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/Request.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/Requests.vue" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/Requests.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/components/Review.vue" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/Review.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/client/src/views/MyRequests.vue" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/views/MyRequests.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/server/src/API/Controllers/ClientController.js" beforeDir="false" afterPath="$PROJECT_DIR$/server/src/API/Controllers/ClientController.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -64,7 +65,7 @@
       <workItem from="1665678482301" duration="1607000" />
       <workItem from="1665700611091" duration="6140000" />
       <workItem from="1665740935066" duration="9489000" />
-      <workItem from="1665832906572" duration="1160000" />
+      <workItem from="1665832906572" duration="12600000" />
     </task>
     <servers />
   </component>

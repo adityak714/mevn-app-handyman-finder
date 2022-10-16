@@ -190,9 +190,10 @@ export default {
         Api.post(`/clients/${id}/requests`, createdRequest).then(response => {
           console.log(response.data)
           this.$bvModal.hide(this.handyman._id)
+          this.$bvToast.toast('Request added successfully')
         }).catch(err => {
           this.message = err
-          this.$bvToast.toast('Request added successfully')
+          this.$bvToast.toast('There was an error in making the request.')
           console.log({
             error: err,
             reason: 'Invalid Credentials'
