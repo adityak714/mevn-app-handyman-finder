@@ -136,11 +136,18 @@ router.post("/api/clients/:id/requests", async function (req, res) {
       return res.send(err);
     }
     Client.findById(new_request.client, (err, client) => {
-      if (!client) return res.send('Client not found.')
+      if (err) return res.status(500).send(err);
+      if (!client) return res.status(400).send("Client does not exist.");
       client.requests.push(new_request._id);
-      client.save()
-      .then(() => {
-        return res.status(201).json(new_request);
+      client.save().then(() => {    
+        HandyMan.findById(new_request.handyman, (err, handyman) => {
+          if (err) return res.status(500).send(err);
+          if (!handyman) return res.status(400).send("Handyman does not exist.");
+          handyman.requests.push(new_request._id);
+          handyman.save().then(() => {
+            res.status(201).json(new_request);
+          });
+        });
       });
     });
   })
@@ -173,5 +180,23 @@ router.get("/api/clients/:id/requests/:rq_id", function (req, res) {
     return res.status(200).json(result[0]);
   });
 });
+
+//Delete specific request in specific handyman
+router.delete("/api/clients/:id/requests/:rq_id", function (req, res) {
+  Client.findById(req.params.id, (err, client) => {
+    if (err) return res.status(500).send(err);
+    if (!client) return res.status(404).send("Client does not exist.");
+    Request.findByIdAndRemove(
+        req.params.rq_id,
+        { useFindAndModify: false },
+        (err, request) => {
+          if (err) return res.status(500).send(err);
+          if (!request) return res.status(404).send("Request does not exist.");
+          res.status(204).json(`Request deleted of client ${req.params.id}`);
+        }
+    );
+  });
+});
+
 
 module.exports = router;

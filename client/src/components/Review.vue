@@ -9,10 +9,10 @@
       </b-col>
     </b-row>
     <b-row>
-      <b-col cols="5">
+      <b-col sm="5" md="3">
         <label>Description: </label>
       </b-col>
-      <b-col cols="7">
+      <b-col sm="7" md="9">
         <p>{{review.comment}}</p>
       </b-col>
     </b-row>
