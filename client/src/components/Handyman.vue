@@ -27,7 +27,7 @@
       <b-modal :id="this.handyman._id" size="lg" scrollable :title="this.handyman.firstName + ' ' +  this.handyman.lastName" hide-footer>
           <b-col cols="12">
             <div class="title-container">
-            <p class="title">All Reviews</p>
+            <p class="title" style="padding-top: 5px;">All Reviews</p>
           </div>
           </b-col>
           <b-col cols="12">
@@ -56,10 +56,8 @@
                   <b-form-rating v-model="rating" variant="warning" class="mb-2" show-value></b-form-rating>
                 </div>
               </b-col>
-              <b-col sm="2">
+              <b-col cols="12">
                 <label for="textarea-small"><strong>Comment:</strong></label>
-              </b-col>
-              <b-col sm="10">
                 <b-form-textarea
                   id="textarea-small"
                   size="sm"
@@ -86,22 +84,28 @@
           <b-container fluid class="make-container">
             <b-row>
               <b-col cols="6">
-                <div>
+                <div style="padding-right: 25px;">
                   <label>Address For Job</label>
                   <b-form-input type="text" v-model="address" placeholder="Enter your address"></b-form-input>
                 </div>
-                <div>
+              </b-col>
+              <b-col cols="6">
+                <div style="padding-right: 27px;">
                   <label>Date</label>
                   <b-form-input type="date" v-model="date" placeholder="Date"></b-form-input>
                 </div>
               </b-col>
+            </b-row>
+            <b-row>
               <b-col cols="6">
                 <div>
-                  <label>Name of Job</label>
-                  <b-form-input id="job" type="text" v-model="job" placeholder="Architect"></b-form-input>
+                  <label><br>Name of Job</label>
+                  <b-form-input id="job" type="text" v-model="job" placeholder="Install Lighting System"></b-form-input>
                 </div>
+              </b-col>
+              <b-col cols="6">
                 <div>
-                  <label>Job description</label>
+                  <label><br>Job description</label>
                   <b-form-textarea
                     id="textarea-rows"
                     placeholder="Give your job description"
@@ -113,6 +117,7 @@
                 </div>
               </b-col>
             </b-row>
+            <hr>
             <b-row>
               <b-col cols="12">
                 <div class="make-button">
@@ -328,9 +333,10 @@ export default {
 }
 .title{
   font-size: 30px;
+  padding-top: 20px;
 }
 #job {
-  width: 100%
+  width: 93%;
 }
 
 .card-container {
@@ -341,6 +347,8 @@ export default {
 
 .make-container{
   background-color: #C8C8C8;
+  box-shadow: inset 0 -3em 3em rgba(0, 0, 0, 0.1), 0 0 0 2px rgb(0, 0, 0, 0.1),
+    0.3em 0.3em 1em rgba(0, 0, 0, 0.3);
   border-radius: 20px;
   padding-top: 10px;
   padding-bottom: 10px;
@@ -363,6 +371,9 @@ export default {
   align-items: center;
   margin-bottom: 10px;
   margin-top: 10px
+}
+#textarea-rows {
+  width: 100%;
 }
 .message{
   font-weight: bold;
