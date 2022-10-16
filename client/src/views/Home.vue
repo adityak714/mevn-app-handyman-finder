@@ -2,17 +2,14 @@
   <div class='home-page'>
     <Header :userId='userId' :firstName='firstName' :lastName='lastName' :isHandyman='isHandy'/>
     <div id="body">
-      <h1 class="display-3">Welcome {{ firstName }} {{ lastName }}</h1>
-        <br/>
-      <h2>Profile Page </h2>
-      <h3 class="profile-info">
-        <hr style="width: 50%; border-width: 5px;">
-        First Name: {{firstName}} <br/>
-        Last Name: {{lastName}} <br/>
-        Phone Number: {{phoneNumber}} <br/>
-        {{isHandy ? 'Area:' : 'Address:'}} {{ isHandy ? area : address }}
-        <h3 class="profile-info" v-if="isHandy"> Profession: {{profession}} </h3>
-      </h3>
+      <b-row>
+        <b-col cols = "12" class = "container">
+          <b-container fluid class="content">
+              <p class="title">Welcome {{ firstName }}</p>
+              <PieChart />
+          </b-container>
+        </b-col>
+      </b-row>
     </div>
   </div>
 </template>
@@ -21,6 +18,7 @@
 // @ is an alias to /src
 import { Api } from '@/Api'
 import Header from '../components/ClientHeader.vue'
+import PieChart from '../components/Pie.vue'
 
 export default {
   name: 'home',
@@ -38,7 +36,8 @@ export default {
     }
   },
   components: {
-    Header
+    Header,
+    PieChart
   },
   methods: {
     getMessage() {
@@ -92,8 +91,21 @@ export default {
 </script>
 
 <style scoped>
-.btn_message {
-  margin-bottom: 1em;
+.content{
+display:flex;
+flex-direction: column;
+justify-content: flex-start;
+align-items: center;
+margin-top: 50px;
+padding-bottom: 30px;
+background-color: white;
+height: 100%;
+padding-top: 10px;
+margin-left: 10px;
+margin-right: 10px;
+max-width: 800px;
+max-height: 600px;
+border-radius: 20px;
 }
 
 div#body {
@@ -104,29 +116,13 @@ div#body {
   width: 100%;
 }
 
-.display-3 {
- display: flex;
- justify-content: center;
- font-size: 3vw;
+.container {
+  display: flex;
+  justify-content: center;
 }
 
-h2, .profile-info {
-  font-size: 2vw;
+.title {
+  font-size: 30px;
+  padding-top: 30px;
 }
-
-@media only screen and (max-width: 650px) {
-  .display-3 {
-    font-size: 6vw;
-  }
-
-  h2, .profile-info {
-    font-size: 3vw;
-  }
-}
-
-html {
-  width: 100%;
-  height: 100%;
-}
-
 </style>

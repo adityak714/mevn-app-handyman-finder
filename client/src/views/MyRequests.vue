@@ -4,7 +4,7 @@
         <b-row>
             <b-col col="12">
                 <div class="header-container">
-                    <Header :firstName="firstName" :lastName='lastName'/>
+                    <Header :firstName="firstName" :lastName='lastName' :isHandyman="isHandy"/>
                 </div>
             </b-col>
         </b-row>
