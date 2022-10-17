@@ -41,8 +41,7 @@ export default {
   },
   props: {
     userId: {
-      type: String,
-      default: '2'
+      type: String
     },
     isHandyman: {
       default: false
@@ -97,10 +96,10 @@ export default {
     }
   },
   created() {
+    console.log(this.isHandyman)
     console.log(this.userId)
-    const id = this.userId
     if (!this.isHandyman) {
-      Api.get(`/clients/${id}/requests`)
+      Api.get(`/clients/${this.userId}/requests`)
         .then((response) => {
           accepted = 0
           pending = 0
@@ -117,7 +116,7 @@ export default {
           })
         })
     } else {
-      Api.get(`/handymen/${id}/requests`)
+      Api.get(`/handymen/${this.userId}/requests`)
         .then((response) => {
           accepted = 0
           pending = 0
