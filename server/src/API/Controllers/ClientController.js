@@ -13,21 +13,28 @@ const HandyMan = require("../../Infrastructure/models/HandyManSchema");
 router.post('/api/clients', async function (req, res) {
   const hash = new SHA3.SHA3(512);
   hash.update(req.body.password);
-  const newClient = new Client({
-      firstName: req.body.firstName,
-      lastName: req.body.lastName,
-      email: req.body.email,
-      phoneNumber: req.body.phoneNumber,
-      address: req.body.address,
-      password: hash.digest('hex'),
-      accessToken: jwt.sign({ data: "123" }, encryptionJWTKey)
-  })
-  newClient.save(function (err, client) {
-      if (err) {
-          return res.status(400).send('Details are not filled correctly.')
-      }
-      return res.status(201).json(client);
-  });
+  await Client.findOne({email: req.body.email}, (err, client) => {
+    if (err) return res.status(500).send(err);
+    if (client === null) {
+      const newClient = new Client({
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        email: req.body.email,
+        phoneNumber: req.body.phoneNumber,
+        address: req.body.address,
+        password: hash.digest('hex'),
+        accessToken: jwt.sign({ data: "123" }, encryptionJWTKey)
+      })
+      newClient.save(function (err, client) {
+        if (err) {
+            return res.status(400).send('Details are not filled correctly.');
+        }
+        return res.status(201).json(client);
+      });
+    } else {
+      return res.status(400).send('A client with that email already exists.');
+    }
+  })    
 })
 
 //Get all clients

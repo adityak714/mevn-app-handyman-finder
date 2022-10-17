@@ -15,8 +15,7 @@ const clientSchema = new Schema({
   },
   password : {
     type: String, 
-    required: true,
-    minLength: 6
+    required: true
   },
   email: { 
     type: String, 
@@ -25,7 +24,7 @@ const clientSchema = new Schema({
     unique: true 
   },
   phoneNumber: { 
-    type: Number, 
+    type: String, 
     required: true
   },
   address: { 

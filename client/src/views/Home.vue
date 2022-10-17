@@ -73,7 +73,7 @@ export default {
               this.isHandy = true
             })
             .catch(error => {
-              this.firstname = error
+              console.log(error)
             })
         }
         this.firstName = response.data.firstName
@@ -83,7 +83,7 @@ export default {
         this.isHandy = false
       })
       .catch(error => {
-        this.firstname = error
+        console.log(error)
       })
   }
 }
