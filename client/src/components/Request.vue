@@ -14,6 +14,9 @@
               <b-col cols = "12">
                 Desc: {{ request.description }}
               </b-col>
+              <b-col cols = "12" v-if="request.status === 'Accepted'">
+                Phone Number: {{ request.handyman }}
+              </b-col>
               <b-col cols="12" v-if="isHandy === true">
                   Change Status: <b-form-select v-model="statusSelected" :options="status_options" size="sm" class="mt-3"></b-form-select>
               </b-col>
@@ -110,6 +113,7 @@ export default {
             variant: 'success',
             solid: true
           })
+          setTimeout(() => window.location.reload(), 1000)
         }
       }).catch(err => {
         console.log(err)
@@ -129,6 +133,7 @@ export default {
             variant: 'success',
             solid: true
           })
+          setTimeout(() => window.location.reload(), 1000)
         }
       }).catch(err => {
         console.log(err)

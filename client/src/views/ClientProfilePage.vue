@@ -262,7 +262,7 @@ export default {
 .main-container {
 padding-top: 20px;
 display: flex;
-background-image: linear-gradient(to bottom right, rgba(222, 46, 23, 0.5), rgba(159, 16, 8, 0.7));
+background-image: linear-gradient(to bottom right, rgba(222, 46, 23, 0.5), rgba(159, 16, 8, 0.85));
 min-height: 1000px;
 align-items: flex-start;
 justify-content: center;

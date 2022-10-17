@@ -10,19 +10,26 @@ const Request = require("../../Infrastructure/models/RequestSchema");
 const Client = require("../../Infrastructure/models/ClientSchema");
 
 //Sign up handyman
-router.post("/api/handymen", function (req, res, next) {
+router.post("/api/handymen", async function (req, res, next) {
   const hash = new SHA3.SHA3(512);
   hash.update(req.body.password);
   req.body.password = hash.digest("hex");
   req.body.accessToken = jwt.sign({ data: "123" }, encryptionJWTKey);
-  var handyMan = new HandyMan(req.body);
-  handyMan.save(function (err, handyman) {
-    if (err) {
-      res.status(400).send(err);
+  await HandyMan.findOne({email: req.body.email}, (err, handyman) => {
+    if (err) return res.status(500).send(err);
+    if (handyman === null) {
+      var handyMan = new HandyMan(req.body);
+      handyMan.save(function (err, handyman) {
+        if (err) {
+          res.status(400).send(err);
+        } else {
+          res.status(201).json(handyman);
+        }
+      });
     } else {
-      res.status(201).json(handyman);
+      return res.status(400).send('A handyman with that email already exists.');
     }
-  });
+  })
 });
 
 //Get all handymen
@@ -239,23 +246,6 @@ router.get("/api/handymen/:id/requests/:rq_id", async function (req, res) {
       );
       return res.status(200).json(desiredReq);
     });
-});
-
-//Delete specific request in specific handyman
-router.delete("/api/handymen/:id/requests/:rq_id", function (req, res) {
-  HandyMan.findById(req.params.id, (err, handyman) => {
-    if (err) return res.status(500).send(err);
-    if (!handyman) return res.status(404).send("Handyman does not exist.");
-    Request.findByIdAndRemove(
-      req.params.rq_id,
-      { useFindAndModify: false },
-      (err, request) => {
-        if (err) return res.status(500).send(err);
-        if (!request) return res.status(404).send("Request does not exist.");
-        res.status(204).json(`Request deleted of client ${req.params.id}`);
-      }
-    );
-  });
 });
 
 module.exports = router;

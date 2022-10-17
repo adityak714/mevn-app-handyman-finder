@@ -20,14 +20,11 @@ var handymenSchema = new Schema({
   },
   password: {
     type: String,
-    required: true,
-    minLength: 6,
+    required: true
   },
   phoneNumber: {
-    type: Number,
-    required: true,
-    minLength: 7,
-    maxLength: 11,
+    type: String,
+    required: true
   },
   area: {
     type: String,

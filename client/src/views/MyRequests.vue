@@ -4,7 +4,7 @@
         <b-row>
             <b-col col="12">
                 <div class="header-container">
-                    <Header :firstName="firstName" :lastName='lastName'/>
+                    <Header :firstName="firstName" :lastName='lastName' :isHandyman="isHandy"/>
                 </div>
             </b-col>
         </b-row>
@@ -42,17 +42,6 @@ export default {
     const id = strs.at(-1)
     console.log(id)
     Api.get(`/clients/${id}/requests`).then(response => {
-      if (response.data === 'Client was not found') {
-        Api.get(`/handymen/${id}/requests`).then(response => {
-          this.firstName = response.data.firstName
-          this.lastName = response.data.lastName
-          this.userId = response.data._id
-          this.requests = response.data
-          this.isHandy = true
-        }).catch(err => {
-          this.message = err
-        })
-      }
       this.firstName = response.data.firstName
       this.lastName = response.data.lastName
       this.userId = response.data._id
@@ -111,7 +100,7 @@ export default {
 }
 .main-container {
 display: flex;
-background-image: linear-gradient(to bottom left, rgba(162, 91, 68, 0.722), rgb(202, 89, 57));
+background-image: linear-gradient(to bottom right, rgba(222, 46, 23, 0.5), rgba(159, 16, 8, 0.85));
 min-height: 1000px;
 padding-top: 70px;
 padding-left: 5px;

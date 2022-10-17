@@ -16,9 +16,6 @@ var requestSchema = new Schema( {
         ref: "Handyman",
         required: true
     },
-    priceRange: {
-        type: String
-    },
     date: {
         type: Date,
         required: true
