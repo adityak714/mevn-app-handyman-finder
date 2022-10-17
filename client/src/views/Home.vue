@@ -2,17 +2,14 @@
   <div class='home-page'>
     <Header :userId='userId' :firstName='firstName' :lastName='lastName' :isHandyman='isHandy'/>
     <div id="body">
-      <h1 class="display-3">Welcome {{ firstName }} {{ lastName }}</h1>
-        <br/>
-      <h2>Profile Page </h2>
-      <h3 class="profile-info">
-        <hr style="width: 50%; border-width: 5px;">
-        First Name: {{firstName}} <br/>
-        Last Name: {{lastName}} <br/>
-        Phone Number: {{phoneNumber}} <br/>
-        {{isHandy ? 'Area:' : 'Address:'}} {{ isHandy ? area : address }}
-        <h3 class="profile-info" v-if="isHandy"> Profession: {{profession}} </h3>
-      </h3>
+      <b-row>
+        <b-col cols = "12" class = "container">
+          <b-container fluid class="content">
+              <p class="title">Welcome {{ firstName }}</p>
+              <PieChart v-if="dataloaded" :userId='userId' :isHandyman='isHandy' />
+          </b-container>
+        </b-col>
+      </b-row>
     </div>
   </div>
 </template>
@@ -21,11 +18,13 @@
 // @ is an alias to /src
 import { Api } from '@/Api'
 import Header from '../components/ClientHeader.vue'
+import PieChart from '../components/Pie.vue'
 
 export default {
   name: 'home',
   data() {
     return {
+      dataloaded: false,
       message: 'none',
       userId: '',
       firstName: '',
@@ -33,12 +32,13 @@ export default {
       phoneNumber: '',
       address: '',
       area: '',
-      isHandy: Boolean,
+      isHandy: false,
       profession: null
     }
   },
   components: {
-    Header
+    Header,
+    PieChart
   },
   methods: {
     getMessage() {
@@ -55,17 +55,14 @@ export default {
     if (localStorage.getItem('token') === null || localStorage.getItem('user') === null) {
       this.$router.push('/login')
     }
-  },
-  mounted() {
     const searchURL = new URL(window.location).pathname
     const strs = searchURL.split('/')
     const id = strs.at(-1)
-    console.log(id)
     this.userId = id
-    Api.get(`/clients/${id}`)
+    Api.get(`/clients/${this.userId}`)
       .then(response => {
         if (response.data === 'No such client exists!') {
-          Api.get(`/handymen/${id}`)
+          Api.get(`/handymen/${this.userId}`)
             .then(response => {
               this.firstName = response.data.firstName
               this.lastName = response.data.lastName
@@ -73,16 +70,19 @@ export default {
               this.area = response.data.area
               this.profession = response.data.profession
               this.isHandy = true
+              this.dataloaded = true
             })
             .catch(error => {
               console.log(error)
             })
+        } else {
+          this.firstName = response.data.firstName
+          this.lastName = response.data.lastName
+          this.phoneNumber = response.data.phoneNumber
+          this.address = response.data.address
+          this.isHandy = false
+          this.dataloaded = true
         }
-        this.firstName = response.data.firstName
-        this.lastName = response.data.lastName
-        this.phoneNumber = response.data.phoneNumber
-        this.address = response.data.address
-        this.isHandy = false
       })
       .catch(error => {
         console.log(error)
@@ -92,8 +92,21 @@ export default {
 </script>
 
 <style scoped>
-.btn_message {
-  margin-bottom: 1em;
+.content{
+display:flex;
+flex-direction: column;
+justify-content: flex-start;
+align-items: center;
+margin-top: 50px;
+padding-bottom: 30px;
+background-color: white;
+height: 100%;
+padding-top: 10px;
+margin-left: 10px;
+margin-right: 10px;
+max-width: 800px;
+max-height: 600px;
+border-radius: 20px;
 }
 
 div#body {
@@ -104,29 +117,13 @@ div#body {
   width: 100%;
 }
 
-.display-3 {
- display: flex;
- justify-content: center;
- font-size: 3vw;
+.container {
+  display: flex;
+  justify-content: center;
 }
 
-h2, .profile-info {
-  font-size: 2vw;
+.title {
+  font-size: 30px;
+  padding-top: 30px;
 }
-
-@media only screen and (max-width: 650px) {
-  .display-3 {
-    font-size: 6vw;
-  }
-
-  h2, .profile-info {
-    font-size: 3vw;
-  }
-}
-
-html {
-  width: 100%;
-  height: 100%;
-}
-
 </style>

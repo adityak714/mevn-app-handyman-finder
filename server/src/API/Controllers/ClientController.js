@@ -134,8 +134,8 @@ router.post("/api/clients/:id/requests", async function (req, res) {
     address: req.body.address,
     priceRange: req.body.priceRange,
     date: req.body.date,
-    handyman: req.body.handyman, 
-    job: req.body.job, 
+    handyman: req.body.handyman,
+    job: req.body.job,
     description: req.body.description
   });
   request.save(function (err, new_request) {
