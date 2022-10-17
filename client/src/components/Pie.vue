@@ -1,6 +1,7 @@
 <template>
   <div>
     <Pie
+      v-if="dataloaded"
       :chart-options="chartOptions"
       :chart-data="chartData"
       :chart-id="chartId"
@@ -11,7 +12,6 @@
       :width="width"
       :height="height"
     />
-    <button>Hola</button>
   </div>
 </template>
 
@@ -77,8 +77,9 @@ export default {
   },
   data() {
     return {
+      dataloaded: false,
       chartData: {
-        labels: ['Accepted', 'Pending', 'Rejected'],
+        labels: ['Accepted', 'Rejected', 'Pending'],
         datasets: [
           {
             backgroundColor: ['#41B883', '#E46651', '#00D8FF'],
@@ -96,11 +97,16 @@ export default {
     }
   },
   created() {
-    console.log(this.isHandyman)
+    console.log('Hola')
+    console.log('Hola ' + this.isHandyman)
     console.log(this.userId)
     if (!this.isHandyman) {
       Api.get(`/clients/${this.userId}/requests`)
         .then((response) => {
+          console.log(response)
+          if (response.data.length === 0) {
+            return
+          }
           accepted = 0
           pending = 0
           rejected = 0
@@ -114,10 +120,16 @@ export default {
               accepted++
             }
           })
+          this.chartData.datasets[0].data = [accepted, pending, rejected]
+          this.dataloaded = true
         })
     } else {
       Api.get(`/handymen/${this.userId}/requests`)
         .then((response) => {
+          console.log(response)
+          if (response.data.length === 0) {
+            return
+          }
           accepted = 0
           pending = 0
           rejected = 0
@@ -131,6 +143,8 @@ export default {
               accepted++
             }
           })
+          this.chartData.datasets[0].data = [accepted, pending, rejected]
+          this.dataloaded = true
         })
     }
   }

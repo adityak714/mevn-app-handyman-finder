@@ -6,7 +6,7 @@
         <b-col cols = "12" class = "container">
           <b-container fluid class="content">
               <p class="title">Welcome {{ firstName }}</p>
-              <PieChart :userId='userId' :isHandyman='isHandy' />
+              <PieChart v-if="dataloaded" :userId='userId' :isHandyman='isHandy' />
           </b-container>
         </b-col>
       </b-row>
@@ -24,6 +24,7 @@ export default {
   name: 'home',
   data() {
     return {
+      dataloaded: false,
       message: 'none',
       userId: '',
       firstName: '',
@@ -31,7 +32,7 @@ export default {
       phoneNumber: '',
       address: '',
       area: '',
-      isHandy: Boolean,
+      isHandy: false,
       profession: null
     }
   },
@@ -54,16 +55,14 @@ export default {
     if (localStorage.getItem('token') === null || localStorage.getItem('user') === null) {
       this.$router.push('/login')
     }
-  },
-  mounted() {
     const searchURL = new URL(window.location).pathname
     const strs = searchURL.split('/')
     const id = strs.at(-1)
     this.userId = id
-    Api.get(`/clients/${id}`)
+    Api.get(`/clients/${this.userId}`)
       .then(response => {
         if (response.data === 'No such client exists!') {
-          Api.get(`/handymen/${id}`)
+          Api.get(`/handymen/${this.userId}`)
             .then(response => {
               this.firstName = response.data.firstName
               this.lastName = response.data.lastName
@@ -71,16 +70,19 @@ export default {
               this.area = response.data.area
               this.profession = response.data.profession
               this.isHandy = true
+              this.dataloaded = true
             })
             .catch(error => {
               console.log(error)
             })
+        } else {
+          this.firstName = response.data.firstName
+          this.lastName = response.data.lastName
+          this.phoneNumber = response.data.phoneNumber
+          this.address = response.data.address
+          this.isHandy = false
+          this.dataloaded = true
         }
-        this.firstName = response.data.firstName
-        this.lastName = response.data.lastName
-        this.phoneNumber = response.data.phoneNumber
-        this.address = response.data.address
-        this.isHandy = false
       })
       .catch(error => {
         console.log(error)
