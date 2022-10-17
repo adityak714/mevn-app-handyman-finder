@@ -1,15 +1,18 @@
 <template>
-  <Pie
-    :chart-options="chartOptions"
-    :chart-data="chartData"
-    :chart-id="chartId"
-    :dataset-id-key="datasetIdKey"
-    :plugins="plugins"
-    :css-classes="cssClasses"
-    :styles="styles"
-    :width="width"
-    :height="height"
-  />
+  <div>
+    <Pie
+      :chart-options="chartOptions"
+      :chart-data="chartData"
+      :chart-id="chartId"
+      :dataset-id-key="datasetIdKey"
+      :plugins="plugins"
+      :css-classes="cssClasses"
+      :styles="styles"
+      :width="width"
+      :height="height"
+    />
+    <button>Hola</button>
+  </div>
 </template>
 
 <script>
@@ -25,6 +28,10 @@ import {
   CategoryScale
 } from 'chart.js'
 
+let accepted = 0
+let pending = 0
+let rejected = 0
+
 ChartJS.register(Title, Tooltip, Legend, ArcElement, CategoryScale)
 
 export default {
@@ -33,6 +40,13 @@ export default {
     Pie
   },
   props: {
+    userId: {
+      type: String,
+      default: '2'
+    },
+    isHandyman: {
+      default: false
+    },
     chartId: {
       type: String,
       default: 'pie-chart'
@@ -69,7 +83,7 @@ export default {
         datasets: [
           {
             backgroundColor: ['#41B883', '#E46651', '#00D8FF'],
-            data: [40, 20, 80, 10]
+            data: [accepted, pending, rejected]
           }
         ]
       },
@@ -82,11 +96,44 @@ export default {
       pendingRequests: ''
     }
   },
-  mounted() {
-    Api.get('/clients/:id/requests')
-      .then(response => {
-        console.log(response)
-      })
+  created() {
+    console.log(this.userId)
+    const id = this.userId
+    if (!this.isHandyman) {
+      Api.get(`/clients/${id}/requests`)
+        .then((response) => {
+          accepted = 0
+          pending = 0
+          rejected = 0
+
+          response.data.forEach(request => {
+            if (request.status === 'Rejected') {
+              rejected++
+            } else if (request.status === 'Pending') {
+              pending++
+            } else {
+              accepted++
+            }
+          })
+        })
+    } else {
+      Api.get(`/handymen/${id}/requests`)
+        .then((response) => {
+          accepted = 0
+          pending = 0
+          rejected = 0
+
+          response.data.forEach(request => {
+            if (request.status === 'Rejected') {
+              rejected++
+            } else if (request.status === 'Pending') {
+              pending++
+            } else {
+              accepted++
+            }
+          })
+        })
+    }
   }
 }
 </script>

@@ -6,7 +6,7 @@
         <b-col cols = "12" class = "container">
           <b-container fluid class="content">
               <p class="title">Welcome {{ firstName }}</p>
-              <PieChart />
+              <PieChart :userId='userId' :isHandyman='isHandy' />
           </b-container>
         </b-col>
       </b-row>
@@ -59,7 +59,6 @@ export default {
     const searchURL = new URL(window.location).pathname
     const strs = searchURL.split('/')
     const id = strs.at(-1)
-    console.log(id)
     this.userId = id
     Api.get(`/clients/${id}`)
       .then(response => {
