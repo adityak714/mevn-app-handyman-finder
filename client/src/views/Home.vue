@@ -5,8 +5,21 @@
       <b-row>
         <b-col cols = "12" class = "container">
           <b-container fluid class="content">
-              <p class="title">Welcome {{ firstName }}</p>
-              <PieChart v-if="dataloaded" :userId='userId' :isHandyman='isHandy' />
+              <b-row class = "main-section">
+                <b-col cols = "6" class = "chart-section">
+                  <p>Current Requests Overview</p>
+                  <PieChart v-if="dataloaded" :userId='userId' :isHandyman='isHandy' />
+                </b-col>
+                <b-col cols = "6" class = "button-section">
+                  <b-col cols = "12" class = "inner-section">
+                    <p class="title">Welcome {{ firstName }}</p>
+                    <p>Welcome to HandyApp! We provide easy point of connection between handyman or clients for every type of service.
+                    </p>
+                    <p>Start now!</p>
+                    <b-button  v-if = !isHandy pill variant="primary">Get Started!</b-button>
+                  </b-col>
+                </b-col>
+              </b-row>
           </b-container>
         </b-col>
       </b-row>
@@ -124,6 +137,32 @@ div#body {
 
 .title {
   font-size: 30px;
-  padding-top: 30px;
+}
+
+.main-section {
+  height: 100%;
+  width: 100%;
+}
+
+.button-section {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.inner-section {
+  max-height: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  height: 100%;
+}
+
+.chart-section {
+  border-right: 1px solid grey;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
 }
 </style>
