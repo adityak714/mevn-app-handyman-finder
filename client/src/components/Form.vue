@@ -58,17 +58,6 @@
             <p class="account-exist"><a href="/login"><u>Already have an account?</u></a></p>
             <b-button @click="createHandyman" class="sign-up-btn">Sign Up</b-button>
           </div>
-          <div>
-            <b-modal id="signup-failed" title="Invalid">
-            <p class="my-4">Passwords do not match.</p>
-            </b-modal>
-          </div>
-          <b-modal id="fill-all-fields" title="Invalid">
-          <p class="my-4">Please fill in all the fields. </p>
-          </b-modal>
-          <b-modal id="acc-already-exists" title="Invalid">
-          <p class="my-4">An account with this email already exists.</p>
-          </b-modal>
         </b-tab>
       </b-tabs>
     </b-col>
@@ -154,10 +143,30 @@ export default {
       if (this.firstName === '' || this.lastName === '' ||
           this.email === '' || this.phoneNumber === '' || this.address === '' ||
             this.password === '' || this.confirmpassword === '') {
-        this.$bvModal.show('fill-all-fields')
+        this.$bvToast.toast('Please fill in all fields.', {
+          title: 'Application incomplete',
+          variant: 'warning',
+          solid: true
+        })
       } else {
         if (this.password !== this.confirmpassword) {
-          this.$bvModal.show('signup-failed')
+          this.$bvToast.toast('Please try again.', {
+            title: 'Passwords do not match',
+            variant: 'danger',
+            solid: true
+          })
+        } else if (this.password.length < 8) {
+          this.$bvToast.toast('Password must be at least 8 characters', {
+            title: 'Insufficient length',
+            variant: 'warning',
+            solid: true
+          })
+        } else if (this.phoneNumber.length < 9 || this.phoneNumber.length > 11) {
+          this.$bvToast.toast('The number must be between 9 to 11 digits', {
+            title: 'Incorrect Phone Number length',
+            variant: 'warning',
+            solid: true
+          })
         } else {
           const auth = {
             firstName: this.firstName,
@@ -171,18 +180,28 @@ export default {
             .then(response => {
               console.log(response.data)
               if (response.status === 201) {
-                this.$router.push('/login')
+                this.$bvToast.toast('You can log in with your newly created account.', {
+                  title: 'Account created',
+                  variant: 'success',
+                  solid: true
+                })
+                setTimeout(() => this.$router.push('/login'), 2500)
               }
             })
             .catch(error => {
-              if (error.response.status === 400) {
-                this.$bvModal.show('acc-already-exists')
+              if (error.response.data === 'A client with that email already exists.') {
+                this.$bvToast.toast('A client account already exists with this email.', {
+                  title: 'Creation unsuccessful',
+                  variant: 'warning',
+                  solid: true
+                })
                 console.log('Account exists!')
+              } else {
+                console.log({
+                  error: error,
+                  reason: 'Invalid Credentials'
+                })
               }
-              console.log({
-                error: error,
-                reason: 'Invalid Credentials'
-              })
             })
         }
       }
@@ -191,10 +210,30 @@ export default {
       if (this.firstName === '' || this.lastName === '' ||
           this.email === '' || this.phoneNumber === '' || this.area === '' ||
             this.password === '' || this.confirmpassword === '') {
-        this.$bvModal.show('fill-all-fields')
+        this.$bvToast.toast('Please fill in all fields.', {
+          title: 'Application incomplete',
+          variant: 'warning',
+          solid: true
+        })
       } else {
         if (this.password !== this.confirmpassword) {
-          this.$bvModal.show('signup-failed')
+          this.$bvToast.toast('Please try again.', {
+            title: 'Passwords do not match',
+            variant: 'danger',
+            solid: true
+          })
+        } else if (this.password.length < 8) {
+          this.$bvToast.toast('Password must be at least 8 characters', {
+            title: 'Insufficient length',
+            variant: 'warning',
+            solid: true
+          })
+        } else if (this.phoneNumber.length < 9 || this.phoneNumber.length > 11) {
+          this.$bvToast.toast('The number must be between 9 to 11 digits', {
+            title: 'Incorrect Phone Number length',
+            variant: 'warning',
+            solid: true
+          })
         } else {
           const handyAuth = {
             firstName: this.firstName,
@@ -208,17 +247,27 @@ export default {
           Api.post('/handymen', handyAuth)
             .then(response => {
               if (response.status === 201) {
-                this.$router.push('/login')
+                this.$bvToast.toast('You can log in with your newly created account.', {
+                  title: 'Account created',
+                  variant: 'success',
+                  solid: true
+                })
+                setTimeout(() => this.$router.push('/login'), 2500)
               }
             })
             .catch(error => {
-              if (error.response.status === 400) {
-                this.$bvModal.show('acc-already-exists')
+              if (error.response.data === 'A handyman with that email already exists.') {
+                this.$bvToast.toast('A handyman account already exists with this email.', {
+                  title: 'Creation unsuccessful',
+                  variant: 'warning',
+                  solid: true
+                })
+              } else {
+                console.log({
+                  error: error,
+                  reason: 'Invalid Credentials'
+                })
               }
-              console.log({
-                error: error,
-                reason: 'Invalid Credentials'
-              })
             })
         }
       }
