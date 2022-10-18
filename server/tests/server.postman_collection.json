@@ -272,48 +272,6 @@
 					"response": []
 				},
 				{
-					"name": "3a. POST /clients/:id/requests",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"exec": [
-									"pm.test(\"Status code is 201\", function () {\r",
-									"    pm.response.to.have.status(201);\r",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"client\": \"{{createdClientID}}\",\r\n    \"address\": \"Addressgatan 12\",\r\n    \"handyman\": \"{{createdHandymanID}}\",\r\n    \"date\": \"2022-10-11\",\r\n    \"priceRange\": \"50-100 SEK/h\",\r\n    \"job\": \"Fix Lighting System\",\r\n    \"description\": \"Hey. I am able to provide the service. Please see the proposed price range. \"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{localhost}}/api/clients/{{createdClientID}}/requests",
-							"host": [
-								"{{localhost}}"
-							],
-							"path": [
-								"api",
-								"clients",
-								"{{createdClientID}}",
-								"requests"
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "2a. POST /requests",
 					"event": [
 						{
@@ -525,7 +483,7 @@
 					"response": []
 				},
 				{
-					"name": "AUTH POST /auth/signin (as Client)",
+					"name": "AUTH POST /auth/signin/clients (as Client)",
 					"event": [
 						{
 							"listen": "test",
@@ -556,21 +514,22 @@
 							}
 						},
 						"url": {
-							"raw": "{{localhost}}/api/auth/signin",
+							"raw": "{{localhost}}/api/auth/signin/clients",
 							"host": [
 								"{{localhost}}"
 							],
 							"path": [
 								"api",
 								"auth",
-								"signin"
+								"signin",
+								"clients"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "AUTH POST /auth/signin (as Handyman)",
+					"name": "AUTH POST /auth/signin/handymen (as Handyman)",
 					"event": [
 						{
 							"listen": "test",
@@ -601,14 +560,15 @@
 							}
 						},
 						"url": {
-							"raw": "{{localhost}}/api/auth/signin",
+							"raw": "{{localhost}}/api/auth/signin/handymen",
 							"host": [
 								"{{localhost}}"
 							],
 							"path": [
 								"api",
 								"auth",
-								"signin"
+								"signin",
+								"handymen"
 							]
 						}
 					},
@@ -825,6 +785,37 @@
 					"response": []
 				},
 				{
+					"name": "2b. GET /reviews",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{localhost}}/api/reviews",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"api",
+								"reviews"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "2d. GET /handymen/:id",
 					"event": [
 						{
@@ -907,6 +898,94 @@
 								"api",
 								"clients",
 								"{{createdClientID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "2d. GET /requests/:id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}/api/requests/{{createdReqID}}",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"api",
+								"requests",
+								"{{createdReqID}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "2d. GET /reviews/:id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{localhost}}/api/reviews/{{createdReviewID}}",
+							"host": [
+								"{{localhost}}"
+							],
+							"path": [
+								"api",
+								"reviews",
+								"{{createdReviewID}}"
 							]
 						}
 					},
@@ -1335,7 +1414,7 @@
 			"name": "DELETE",
 			"item": [
 				{
-					"name": "3d. DELETE /handymen/:id/requests/:rq_id",
+					"name": "3d. DELETE /clients/:id/requests/:rq_id",
 					"event": [
 						{
 							"listen": "test",
@@ -1353,14 +1432,14 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{localhost}}/api/handymen/{{createdHandymanID}}/requests/{{createdReqID}}",
+							"raw": "{{localhost}}/api/clients/{{createdClientID}}/requests/{{createdReqID}}",
 							"host": [
 								"{{localhost}}"
 							],
 							"path": [
 								"api",
-								"handymen",
-								"{{createdHandymanID}}",
+								"clients",
+								"{{createdClientID}}",
 								"requests",
 								"{{createdReqID}}"
 							]

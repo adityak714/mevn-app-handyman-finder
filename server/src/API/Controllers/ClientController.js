@@ -127,39 +127,6 @@ router.delete("/api/clients/:id", function (req, res) {
     });
   });
 
-//Create a request for a specific client
-router.post("/api/clients/:id/requests", async function (req, res) {
-  let request = new Request({
-    client: req.params.id,
-    address: req.body.address,
-    priceRange: req.body.priceRange,
-    date: req.body.date,
-    handyman: req.body.handyman, 
-    job: req.body.job, 
-    description: req.body.description
-  });
-  request.save(function (err, new_request) {
-    if (err) {
-      return res.send(err);
-    }
-    Client.findById(new_request.client, (err, client) => {
-      if (err) return res.status(500).send(err);
-      if (!client) return res.status(400).send("Client does not exist.");
-      client.requests.push(new_request._id);
-      client.save().then(() => {    
-        HandyMan.findById(new_request.handyman, (err, handyman) => {
-          if (err) return res.status(500).send(err);
-          if (!handyman) return res.status(400).send("Handyman does not exist.");
-          handyman.requests.push(new_request._id);
-          handyman.save().then(() => {
-            res.status(201).json(new_request);
-          });
-        });
-      });
-    });
-  })
-});
-
 //Get all requests that a client has made (Client must exist and verified)
 router.get("/api/clients/:id/requests", async function (req, res) {
   Client.findById(req.params.id, { requests: 1 })
@@ -191,8 +158,12 @@ router.get("/api/clients/:id/requests/:rq_id", function (req, res) {
 //Delete specific request in specific handyman
 router.delete("/api/clients/:id/requests/:rq_id", function (req, res) {
   Client.findById(req.params.id, (err, client) => {
-    if (err) return res.status(500).send(err);
-    if (!client) return res.status(404).send("Client does not exist.");
+    if (err) {
+      return res.status(500).send(err);
+    }
+    if (client == null) {
+      return res.status(404).send("Client does not exist.");
+    }
     Request.findByIdAndRemove(
         req.params.rq_id,
         { useFindAndModify: false },
