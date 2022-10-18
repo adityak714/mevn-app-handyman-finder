@@ -105,7 +105,6 @@ export default {
 display: flex;
 background-image: url('../../assets/electricianpic.jpg');
 background-size: cover;
-background-size: cover;
 min-height: 1000px;
 padding-top: 70px;
 padding-left: 5px;
