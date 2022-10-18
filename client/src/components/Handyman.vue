@@ -183,17 +183,26 @@ export default {
         const createdRequest = {
           address: this.address,
           date: this.date,
+          client: id,
           handyman: this.handyman._id,
           job: this.job,
           description: this.description
         }
-        Api.post(`/clients/${id}/requests`, createdRequest).then(response => {
+        Api.post(`/handymen/${this.handyman._id}/requests`, createdRequest).then(response => {
           console.log(response.data)
           this.$bvModal.hide(this.handyman._id)
-          this.$bvToast.toast('Request added successfully')
+          this.$bvToast.toast('Request added successfully.', {
+            title: 'Request sent.',
+            variant: 'success',
+            solid: true
+          })
         }).catch(err => {
           this.message = err
-          this.$bvToast.toast('There was an error in making the request.')
+          this.$bvToast.toast('There was an error in making the request.', {
+            title: 'Request not sent',
+            variant: 'danger',
+            solid: true
+          })
           console.log({
             error: err,
             reason: 'Invalid Credentials'

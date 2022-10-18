@@ -137,25 +137,33 @@ export default {
       hash.update(this.oldPassword)
 
       if (hash.digest('hex') === this.currPassHash) {
-        Api.delete(`/clients/${this.id}`)
-          .then(response => {
-            if (response.data === 'Client could not be found.') {
-              Api.delete(`/handymen/${this.id}`)
-                .then(res => {
-                  console.log(res.data)
-                  localStorage.clear()
-                })
-                .catch(error => {
-                  console.log(error)
-                })
-            } else {
+        if (this.isHandy) {
+          Api.delete(`/handymen/${this.id}`)
+            .then(res => {
+              console.log(res.data)
+              localStorage.clear()
+              this.$router.push('/login')
+            })
+            .catch(error => {
+              console.log(error)
+            })
+        } else {
+          Api.delete(`/clients/${this.id}`)
+            .then(response => {
               console.log(response.data)
               localStorage.clear()
-            }
-          })
-          .catch(error => {
-            console.log(error)
-          })
+              this.$router.push('/login')
+            })
+            .catch(error => {
+              console.log(error)
+            })
+        }
+      } else {
+        this.$bvToast.toast('Password does not match.', {
+          title: 'Deletion unsuccessful',
+          variant: 'danger',
+          solid: true
+        })
       }
     },
     changePasswordPopup() {
@@ -191,6 +199,7 @@ export default {
             this.isHandy = false
             this.$emit('isHandy', false)
           }
+          console.log(this.isHandy)
         })
         .catch(error => {
           console.log(error)
@@ -220,32 +229,32 @@ export default {
       const strs = searchURL.split('/')
       const id = strs.at(-1)
       console.log(id)
-      Api.put(`/clients/${id}`, {
-        firstName: this.updatedFirstName || this.fn,
-        lastName: this.updatedLastName || this.ln,
-        phoneNumber: this.updatedPhoneNumber || this.phoneNumber,
-        address: this.updatedAddress || this.address
-      }).then(response => {
-        console.log(response.data)
-        this.$router.push(`/account/${id}`)
-      })
-        .catch(error => {
-          if (error.response.status === 404) {
-            Api.put(`/handymen/${id}`, {
-              firstName: this.updatedFirstName || this.fn,
-              lastName: this.updatedLastName || this.ln,
-              phoneNumber: this.updatedPhoneNumber || this.phoneNumber,
-              area: this.updatedArea || this.area,
-              profession: this.updatedProfession || this.profession
-            }).then(response => {
-              console.log(response.data)
-              this.$router.push(`/account/${id}`)
-            }).catch(error => {
-              console.log(error)
-            })
-          }
+      if (this.isHandy) {
+        Api.put(`/handymen/${id}`, {
+          firstName: this.updatedFirstName || this.fn,
+          lastName: this.updatedLastName || this.ln,
+          phoneNumber: this.updatedPhoneNumber || this.phoneNumber,
+          area: this.updatedArea || this.area,
+          profession: this.updatedProfession || this.profession
+        }).then(response => {
+          console.log(response.data)
+          this.$router.push(`/account/${id}`)
+        }).catch(error => {
+          console.log(error)
+        })
+      } else {
+        Api.put(`/clients/${id}`, {
+          firstName: this.updatedFirstName || this.fn,
+          lastName: this.updatedLastName || this.ln,
+          phoneNumber: this.updatedPhoneNumber || this.phoneNumber,
+          address: this.updatedAddress || this.address
+        }).then(response => {
+          console.log(response.data)
+          this.$router.push(`/account/${id}`)
+        }).catch(error => {
           console.log(error.response.status)
         })
+      }
     }
   }
 }

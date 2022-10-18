@@ -16,7 +16,8 @@
                     <p>Welcome to HandyApp! We provide easy point of connection between handyman or clients for every type of service.
                     </p>
                     <p>Start now!</p>
-                    <b-button  v-if = !isHandy pill variant="primary">Get Started!</b-button>
+                    <b-button v-if = !isHandy pill variant="primary" @click="clientRedirect">Get Started!</b-button>
+                    <b-button v-else pill variant="primary" @click="handyRedirect">See My Requests</b-button>
                   </b-col>
                 </b-col>
               </b-row>
@@ -62,6 +63,12 @@ export default {
         .catch(error => {
           this.message = error
         })
+    },
+    clientRedirect() {
+      this.$router.push(`findhandymen/${this.userId}`)
+    },
+    handyRedirect() {
+      this.$router.push(`requests/${this.userId}`)
     }
   },
   created() {

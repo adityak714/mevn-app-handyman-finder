@@ -15,7 +15,7 @@
                 Desc: {{ request.description }}
               </b-col>
               <b-col cols = "12" v-if="request.status === 'Accepted'">
-                Phone Number: {{ request.handyman }}
+                Phone Number: {{ phoneNumber }}
               </b-col>
               <b-col cols="12" v-if="isHandy === true">
                   Change Status: <b-form-select v-model="statusSelected" :options="status_options" size="sm" class="mt-3"></b-form-select>
@@ -94,7 +94,8 @@ export default {
         { value: 'Accepted', text: 'Accepted' },
         { value: 'Rejected', text: 'Rejected' }
       ],
-      newDate: ''
+      newDate: '',
+      phoneNumber: ''
     }
   },
   props: {
@@ -102,9 +103,21 @@ export default {
     isHandy: Boolean
   },
   mounted() {
-    var dateString = this.request.date.toString()
+    const dateString = this.request.date.toString()
     const parts = dateString.split('T', 2)
     this.newDate = parts[0]
+    if (this.request.status === 'Accepted') {
+      Api.get(`/clients/${this.request.client}`).then(response => {
+        this.phoneNumber = response.data.phoneNumber
+        this.$bvToast.toast("The client's phone number has now been provided.", {
+          title: 'Contact details now available',
+          variant: 'warning',
+          solid: true
+        })
+      }).catch(err => {
+        console.log(err)
+      })
+    }
   },
   methods: {
     deleteRequest() {
