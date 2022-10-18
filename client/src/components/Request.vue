@@ -9,7 +9,7 @@
                 Date created: {{ request.creationDate }}
               </b-col>
               <b-col cols = "12">
-                Requested for: {{ request.date }}
+                Requested for: {{ request.date.toLocaleString('en-GB')}}
               </b-col>
               <b-col cols = "12">
                 Job: {{request.job}}
@@ -120,8 +120,8 @@ export default {
         }
       }).catch(err => {
         console.log(err)
-        this.$bvToast.toast('Request could not be deleted', {
-          title: 'Error Message',
+        this.$bvToast.toast('Request could not be deleted.', {
+          title: 'Error',
           variant: 'danger',
           solid: true
         })
@@ -132,7 +132,7 @@ export default {
         if (response.status === 200) {
           console.log(response.data)
           this.$bvToast.toast('Status successfully changed to ' + `${this.statusSelected}`, {
-            title: 'Success Message',
+            title: 'Success',
             variant: 'success',
             solid: true
           })
@@ -147,6 +147,10 @@ export default {
         })
       })
     }
+  },
+  mounted() {
+    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }
+    console.log(this.request.date.toLocaleString('en-GB', options))
   }
 }
 </script>

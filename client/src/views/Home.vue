@@ -16,7 +16,7 @@
                     <p>Welcome to HandyApp! We provide easy point of connection between handyman or clients for every type of service.
                     </p>
                     <p>Start now!</p>
-                    <b-button  v-if = !isHandy pill variant="primary">Get Started!</b-button>
+                    <b-button  v-if="!isHandy" @click="this.$router.push(`/account/requests/${userId}`)" pill variant="primary">Get Started!</b-button>
                   </b-col>
                 </b-col>
               </b-row>

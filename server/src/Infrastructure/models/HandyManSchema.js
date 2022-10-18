@@ -23,7 +23,7 @@ var handymenSchema = new Schema({
     required: true
   },
   phoneNumber: {
-    type: String,
+    type: Number,
     required: true
   },
   area: {
