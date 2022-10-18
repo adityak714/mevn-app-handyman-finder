@@ -51,18 +51,18 @@
               </div>
             </div>
             <div>
-              <b-modal id="modal-center" centered title="You are about to delete your account" ok-title="Delete" ok-variant="danger" @ok="delAcc" :ok-disabled="oldPassword === ''">
-                <div class="col-md-10 input"><label class="labels">Password</label>
+              <b-modal id="modal-center" centered title="DELETE YOUR ACCOUNT" ok-title="Delete" ok-variant="danger" @ok="delAcc" :ok-disabled="oldPassword === ''">
+                <div class="col-10 input"><label class="labels">Password</label>
                 <input type="password" class="form-control" v-model="oldPassword" value="">
-                <p class="my-4">Are you sure?</p>
+                <p class="my-4">Are you sure? This action is <strong>irreversible</strong>.
+                </p>
                 </div>
               </b-modal>
               <b-modal id="change-password" title="Change Password" ok-title="Change" ok-variant="primary" @ok="changedPassword">
-                <div class="col-md-10 input">
+                <div class="col-11 input">
                   <label class="labels">Old Password</label><input type="password" class="form-control" v-model="oldPassword" value="">
                   <label class="labels">New Password</label><input type="password" class="form-control" v-model="newPassword" value="">
                   <label class="labels">Confirm Password</label><input type="password" class="form-control" v-model="confirmPass" value="">
-                  <p class="my-4">Are you sure?</p>
                 </div>
               </b-modal>
             </div>
@@ -210,18 +210,33 @@ export default {
       const hash = new SHA3.SHA3(512)
       hash.update(this.oldPassword)
 
-      if (this.newPassword === this.confirmPass && hash.digest('hex') === this.currPassHash) {
+      if (this.newPassword !== this.confirmPass || hash.digest('hex') !== this.currPassHash) {
+        this.$bvToast.toast('Please try again.', {
+          title: 'Passwords do not match',
+          variant: 'danger',
+          solid: true
+        })
+      } else if (this.newPassword.length < 8) {
+        this.$bvToast.toast('Password must be at least 8 characters', {
+          title: 'Insufficient length',
+          variant: 'warning',
+          solid: true
+        })
+      } else {
         Api.patch(`/clients/${this.id}`, { password: this.newPassword }).then(response => {
           if (response.data === 'Client could not be found.') {
             Api.patch(`/handymen/${this.id}`, { password: this.newPassword }).then(response => {
               console.log(response.data)
             }).catch(error => console.log(error))
           }
-          this.$router.push(`/account/${this.id}`)
+          this.$bvToast.toast('Your password has been updated.', {
+            title: 'Successful',
+            variant: 'success',
+            solid: true
+          })
+          setTimeout(() => this.$router.push(`/account/${this.id}`), 1000)
         }).catch(error => console.log(error))
         return true
-      } else {
-        return false
       }
     },
     updateUser() {
@@ -229,31 +244,55 @@ export default {
       const strs = searchURL.split('/')
       const id = strs.at(-1)
       console.log(id)
-      if (this.isHandy) {
-        Api.put(`/handymen/${id}`, {
-          firstName: this.updatedFirstName || this.fn,
-          lastName: this.updatedLastName || this.ln,
-          phoneNumber: this.updatedPhoneNumber || this.phoneNumber,
-          area: this.updatedArea || this.area,
-          profession: this.updatedProfession || this.profession
-        }).then(response => {
-          console.log(response.data)
-          this.$router.push(`/account/${id}`)
-        }).catch(error => {
-          console.log(error)
+      if (this.updatedPhoneNumber !== '' && (this.updatedPhoneNumber.length < 9 || this.updatedPhoneNumber.length > 11)) {
+        this.$bvToast.toast('The number must be between 9 to 11 digits', {
+          title: 'Incorrect Phone Number Length',
+          variant: 'warning',
+          solid: true
+        })
+      } else if (this.updatedProfession !== '' && this.updatedProfession.length < 4) {
+        this.$bvToast.toast('Minimum required characters is 4', {
+          title: 'Incorrect Length',
+          variant: 'warning',
+          solid: true
         })
       } else {
-        Api.put(`/clients/${id}`, {
-          firstName: this.updatedFirstName || this.fn,
-          lastName: this.updatedLastName || this.ln,
-          phoneNumber: this.updatedPhoneNumber || this.phoneNumber,
-          address: this.updatedAddress || this.address
-        }).then(response => {
-          console.log(response.data)
-          this.$router.push(`/account/${id}`)
-        }).catch(error => {
-          console.log(error.response.status)
-        })
+        if (this.isHandy) {
+          Api.put(`/handymen/${id}`, {
+            firstName: this.updatedFirstName || this.fn,
+            lastName: this.updatedLastName || this.ln,
+            phoneNumber: this.updatedPhoneNumber || this.phoneNumber,
+            area: this.updatedArea || this.area,
+            profession: this.updatedProfession || this.profession
+          }).then(response => {
+            console.log(response.data)
+            this.$bvToast.toast('Your account has been updated.', {
+              title: 'Successful',
+              variant: 'success',
+              solid: true
+            })
+            this.$router.push(`/account/${id}`)
+          }).catch(error => {
+            console.log(error)
+          })
+        } else {
+          Api.put(`/clients/${id}`, {
+            firstName: this.updatedFirstName || this.fn,
+            lastName: this.updatedLastName || this.ln,
+            phoneNumber: this.updatedPhoneNumber || this.phoneNumber,
+            address: this.updatedAddress || this.address
+          }).then(response => {
+            console.log(response.data)
+            this.$bvToast.toast('Your account has been updated.', {
+              title: 'Successful',
+              variant: 'success',
+              solid: true
+            })
+            this.$router.push(`/account/${id}`)
+          }).catch(error => {
+            console.log(error.response.status)
+          })
+        }
       }
     }
   }
@@ -308,6 +347,9 @@ font-size: 50px;
 }
 
 .input {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   padding-top: 10px;
   padding-bottom: 10px;
   width: 100%;
@@ -329,12 +371,8 @@ font-size: 50px;
 }
 .delete-account-button {
   align-self: flex-end;
-  background-color: #007BFF;
+  background-color: red !important;
   border-width: 0px;
-}
-.delete-account-button:hover {
-  align-self: flex-end;
-  background-color: red;
 }
 
 .delete-account-button {

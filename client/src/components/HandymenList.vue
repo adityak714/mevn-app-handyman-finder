@@ -1,8 +1,7 @@
 <template>
       <div class="content" >
         <div class = "col-12 title-container">
-          <p class="title" v-if="this.profession !== ''">All {{profession}}s at {{area}}</p>
-          <p class="title" v-else>All handymen in {{area}}</p>
+          <p class="title">Handymen Results</p>
         </div>
         <div class="col-12 message-container" v-if="handymen.length === 0">
           <p class="message">No handymen found</p>
@@ -58,7 +57,7 @@ export default {
 }
 
 .title{
-  font-size: 50px;
+  font-size: 30px;
 }
 
 .cards {
@@ -68,6 +67,7 @@ export default {
   flex-direction: column;
   width: 100%;
   max-width: 900px;
+  padding-top: 20px;
 }
 
 .card-row {
