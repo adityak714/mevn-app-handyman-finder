@@ -137,7 +137,7 @@ router.delete("/api/handymen", async function (req, res) {
 
 //Delete one handyman
 router.delete("/api/handymen/:id", function (req, res) {
-  HandyMan.findByIdAndRemove(req.params.id)
+  HandyMan.findByIdAndRemove(req.params.id, {useFindAndModify: false})
     .then((handyman) => {
       if (handyman == null) {
         return res.status(404).send('Handyman not found.')
