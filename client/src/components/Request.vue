@@ -6,7 +6,10 @@
           <b-col cols = "12" class = "medium-card">
             <b-col cols = "9" class = "handyman-information">
               <b-col cols = "12">
-                Date: {{ request.date }}
+                Date created: {{ request.creationDate }}
+              </b-col>
+              <b-col cols = "12">
+                Requested for: {{ request.date }}
               </b-col>
               <b-col cols = "12">
                 Job: {{request.job}}

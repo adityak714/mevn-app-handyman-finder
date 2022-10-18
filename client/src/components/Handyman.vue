@@ -175,7 +175,11 @@ export default {
   methods: {
     createRequest() {
       if (this.address === '' || this.job === '' || this.description === '') {
-        this.$bvToast.toast('Please fill all fields')
+        this.$bvToast.toast('Please fill all the fields', {
+          title: 'Fields are not completed.',
+          variant: 'danger',
+          solid: true
+        })
       } else {
         const searchURL = new URL(window.location).pathname
         const strs = searchURL.split('/')
@@ -183,17 +187,26 @@ export default {
         const createdRequest = {
           address: this.address,
           date: this.date,
+          client: id,
           handyman: this.handyman._id,
           job: this.job,
           description: this.description
         }
-        Api.post(`/clients/${id}/requests`, createdRequest).then(response => {
+        Api.post(`/handymen/${this.handyman._id}/requests`, createdRequest).then(response => {
           console.log(response.data)
           this.$bvModal.hide(this.handyman._id)
-          this.$bvToast.toast('Request added successfully')
+          this.$bvToast.toast('Request added successfully', {
+            title: 'Success.',
+            variant: 'success',
+            solid: true
+          })
         }).catch(err => {
           this.message = err
-          this.$bvToast.toast('There was an error in making the request.')
+          this.$bvToast.toast('There was an error in making the request', {
+            title: 'Request error',
+            variant: 'danger',
+            solid: true
+          })
           console.log({
             error: err,
             reason: 'Invalid Credentials'
