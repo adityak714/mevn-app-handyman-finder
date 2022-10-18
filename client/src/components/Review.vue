@@ -92,7 +92,11 @@ export default {
   },
   created() {
     Api.get(`/clients/${this.review.sender}`).then((response) => {
-      this.reviewer = `${response.data.firstName} ${response.data.lastName}`
+      if (response.data === 'No such client exists!') {
+        this.reviewer = 'Deleted Account'
+      } else {
+        this.reviewer = `${response.data.firstName} ${response.data.lastName}`
+      }
     }).catch((err) => {
       console.log(err)
     })

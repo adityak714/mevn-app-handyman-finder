@@ -103,7 +103,8 @@ export default {
 }
 .main-container {
 display: flex;
-background-image: linear-gradient(to bottom right, rgba(222, 46, 23, 0.5), rgba(159, 16, 8, 0.85));
+background-image: url('../../assets/electricianpic.jpg');
+background-size: cover;
 min-height: 1000px;
 padding-top: 70px;
 padding-left: 5px;

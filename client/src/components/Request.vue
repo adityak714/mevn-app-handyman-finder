@@ -118,14 +118,19 @@ export default {
     this.newDate = parts[0]
     if (this.isHandy === true) {
       Api.get(`/clients/${this.request.client}`).then(response => {
-        this.clientName = `${response.data.firstName} ${response.data.lastName}`
-        if (this.request.status === 'Accepted') {
-          this.clientPhoneNumber = response.data.phoneNumber
-          this.$bvToast.toast("The client's phone number has now been provided.", {
-            title: 'Contact details now available',
-            variant: 'warning',
-            solid: true
-          })
+        if (response.data === 'No such client exists!') {
+          this.clientName = 'Deleted Account'
+          this.clientPhoneNumber = 'Unavailable'
+        } else {
+          this.clientName = `${response.data.firstName} ${response.data.lastName}`
+          if (this.request.status === 'Accepted') {
+            this.clientPhoneNumber = response.data.phoneNumber
+            this.$bvToast.toast("The client's phone number has now been provided.", {
+              title: 'Contact details now available',
+              variant: 'warning',
+              solid: true
+            })
+          }
         }
       }).catch(err => {
         console.log(err)
@@ -133,14 +138,19 @@ export default {
     }
     if (this.isHandy !== true) {
       Api.get(`/handymen/${this.request.handyman}`).then(response => {
-        this.handymanName = `${response.data.firstName} ${response.data.lastName}`
-        if (this.request.status === 'Accepted') {
-          this.handymanPhoneNumber = response.data.phoneNumber
-          this.$bvToast.toast("The handyman's phone number has now been provided.", {
-            title: 'Contact details now available',
-            variant: 'warning',
-            solid: true
-          })
+        if (response.data === 'No such handyman exists!') {
+          this.handymanName = 'Deleted Account'
+          this.handymanPhoneNumber = 'Unavailable'
+        } else {
+          this.handymanName = `${response.data.firstName} ${response.data.lastName}`
+          if (this.request.status === 'Accepted') {
+            this.handymanPhoneNumber = response.data.phoneNumber
+            this.$bvToast.toast("The handyman's phone number has now been provided.", {
+              title: 'Contact details now available',
+              variant: 'warning',
+              solid: true
+            })
+          }
         }
       }).catch(err => {
         console.log(err)
