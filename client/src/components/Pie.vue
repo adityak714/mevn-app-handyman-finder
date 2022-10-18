@@ -79,10 +79,10 @@ export default {
     return {
       dataloaded: false,
       chartData: {
-        labels: ['Accepted', 'Rejected', 'Pending'],
+        labels: ['Accepted', 'Pending', 'Rejected'],
         datasets: [
           {
-            backgroundColor: ['#41B883', '#E46651', '#00D8FF'],
+            backgroundColor: ['#41B883', '#00D8FF', '#E46651'],
             data: [accepted, pending, rejected]
           }
         ]
