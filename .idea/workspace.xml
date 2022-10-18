@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="1b8ec0d1-37c9-43bb-be64-ba4a1cc42eff" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/client/src/components/Request.vue" beforeDir="false" afterPath="$PROJECT_DIR$/client/src/components/Request.vue" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -17,6 +18,11 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="frontend/fixdate" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="MarkdownSettingsMigration">
@@ -63,6 +69,7 @@
       <workItem from="1665832906572" duration="12600000" />
       <workItem from="1666014836246" duration="92000" />
       <workItem from="1666015037305" duration="97000" />
+      <workItem from="1666106950262" duration="2657000" />
     </task>
     <servers />
   </component>

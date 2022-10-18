@@ -6,7 +6,7 @@
           <b-col cols = "12" class = "medium-card">
             <b-col cols = "9" class = "handyman-information">
               <b-col cols = "12">
-                Date: {{ request.date }}
+                Date: {{ this.newDate}}
               </b-col>
               <b-col cols = "12">
                 Job: {{request.job}}
@@ -93,12 +93,18 @@ export default {
         { value: '', text: 'Change the status' },
         { value: 'Accepted', text: 'Accepted' },
         { value: 'Rejected', text: 'Rejected' }
-      ]
+      ],
+      newDate: ''
     }
   },
   props: {
     request: Object,
     isHandy: Boolean
+  },
+  mounted() {
+    var dateString = this.request.date.toString()
+    const parts = dateString.split('T', 2)
+    this.newDate = parts[0]
   },
   methods: {
     deleteRequest() {
