@@ -118,12 +118,13 @@ router.delete("/api/clients/:id", function (req, res) {
     .then((client) => {
       if (client == null) {
         return res.status(404).send('Client could not be found.')
+      } else {
+        return res.status(204).json(`User with id ${req.params.id} successfully deleted.`);
       }
-      res.status(204).json(`User with id ${req.params.id} successfully deleted.`);
     })
     .catch((err) => {
       console.log(err);
-      return res.send('Client could not be deleted.');
+      return res.status(500).send('Client could not be deleted.');
     });
   });
 

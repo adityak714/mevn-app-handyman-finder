@@ -125,6 +125,8 @@ export default {
     const id = strs.at(-1)
     this.id = id
     this.getUser(id)
+
+    console.log(this.isHandy)
   },
   methods: {
     delAccPopup() {
@@ -139,22 +141,23 @@ export default {
       if (hash.digest('hex') === this.currPassHash) {
         Api.delete(`/clients/${this.id}`)
           .then(response => {
-            if (response.data === 'Client could not be found.') {
+            console.log(response.data)
+            localStorage.clear()
+            this.$router.push('/login')
+          }).catch(error => {
+            if (error.response.status === 404) {
               Api.delete(`/handymen/${this.id}`)
                 .then(res => {
                   console.log(res.data)
                   localStorage.clear()
+                  this.$router.push('/login')
                 })
                 .catch(error => {
                   console.log(error)
                 })
             } else {
-              console.log(response.data)
-              localStorage.clear()
+              console.log(error)
             }
-          })
-          .catch(error => {
-            console.log(error)
           })
       }
     },
