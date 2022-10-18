@@ -69,16 +69,12 @@ The handymen can publish an advertisement that they are willing to work, and con
 
 ### Pages
  
-* Login: page for users to access their personal accounts
-* SignUp: page for new users to create their personal accounts 
-* ForgotMyPassword: page used for users that forgot their password
-* Home: page with dashboard with options like searching for listings and looking for handymen in a specified area
-* CreateRequest: page which asks the user for all of the required information to request services
-* MyRequests: page showing all of the requests made by a user (with optional filtering/sorting) 
-* AcceptedRequests: page showing in ascending order by date all of the accepted service requests made by a user
-* SearchResults: upon clients search entry, a page showing all listings matching criteria (such as location, job, etc) 
-* ClientProfilePage: page showing the personal information of the user
-* WorkerProfilePage: page showing the personal information/reviews of the handymen
+* Log in: page for users to access their personal accounts
+* Sign Up: page for new users to create their personal accounts 
+* Home: page that shows a dashboard with the classification of all of the requests made
+* Find Handymen: page where clients can locate handymen, create requests and add or view reviews based on location and profession filtering
+* My Requests: this is a two-sided page based on the user who has logged-in. The client can see all requests made, see all the information about the request and has the option to delete a specific request of their choice.
+* Profile Page: the profile page shows the profile information of the user. The user has the options to delete their profile, update specific fields about themselves, and update their current password.
 
 
 ### Entity-Relationship (ER) Diagram
