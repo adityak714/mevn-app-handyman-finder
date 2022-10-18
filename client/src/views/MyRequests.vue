@@ -37,6 +37,9 @@ export default {
     }
   },
   created() {
+    if (localStorage.getItem('token') === null || localStorage.getItem('user') === null) {
+      this.$router.push('/login')
+    }
     const searchURL = new URL(window.location).pathname
     const strs = searchURL.split('/')
     const id = strs.at(-1)

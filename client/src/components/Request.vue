@@ -6,7 +6,14 @@
           <b-col cols = "12" class = "medium-card">
             <b-col cols = "9" class = "handyman-information">
               <b-col cols = "12">
-                Date: {{ request.date }}
+                {{ isHandy === true ? 'Name: ' + clientName : 'Name: ' + handymanName }}
+              </b-col>
+              <b-col cols = "12" v-if="request.status === 'Accepted' && isHandy === true">
+                Phone Number: {{ clientPhoneNumber }}
+              </b-col>
+              <br>
+              <b-col cols = "12">
+                Date: {{ this.newDate}}
               </b-col>
               <b-col cols = "12">
                 Job: {{request.job}}
@@ -14,11 +21,11 @@
               <b-col cols = "12">
                 Desc: {{ request.description }}
               </b-col>
-              <b-col cols = "12" v-if="request.status === 'Accepted'">
-                Phone Number: {{ request.handyman }}
+              <b-col cols = "12" v-if="request.status === 'Accepted' && isHandy !== true">
+                Phone Number: {{ handymanPhoneNumber }}
               </b-col>
-              <b-col cols="12" v-if="isHandy === true">
-                  Change Status: <b-form-select v-model="statusSelected" :options="status_options" size="sm" class="mt-3"></b-form-select>
+              <b-col cols="12" class = "status" v-if="isHandy === true" style="margin-top: 20px;">
+                  Change Status: <b-form-select v-model="statusSelected" :options="status_options"></b-form-select>
               </b-col>
             </b-col>
             <b-col cols = "3">
@@ -26,7 +33,7 @@
                 <b-col cols="12" style="display: flex; justify-content: center; margin-bottom: 5px">Status: {{statusSelected === '' ? request.status : statusSelected }}</b-col>
                 <b-col cols="12" style="display: flex; justify-content: center; margin-bottom: 5px" v-if="isHandy === true"><b-button @click="saveChanges" variant="outline-primary">Save Changes</b-button></b-col>
                 <b-col cols="12" style="display: flex; justify-content: center; margin-bottom: 5px" v-else>
-                  <b-button variant="outline-primary" @click="deleteRequest">Delete request</b-button>
+                  <b-button variant="outline-primary" class = "button" @click="deleteRequest">Delete request</b-button>
                 </b-col>
               </b-row>
             </b-col>
@@ -93,12 +100,52 @@ export default {
         { value: '', text: 'Change the status' },
         { value: 'Accepted', text: 'Accepted' },
         { value: 'Rejected', text: 'Rejected' }
-      ]
+      ],
+      newDate: '',
+      clientPhoneNumber: '',
+      handymanPhoneNumber: '',
+      clientName: '',
+      handymanName: ''
     }
   },
   props: {
     request: Object,
     isHandy: Boolean
+  },
+  mounted() {
+    const dateString = this.request.date.toString()
+    const parts = dateString.split('T', 2)
+    this.newDate = parts[0]
+    if (this.isHandy === true) {
+      Api.get(`/clients/${this.request.client}`).then(response => {
+        this.clientName = `${response.data.firstName} ${response.data.lastName}`
+        if (this.request.status === 'Accepted') {
+          this.clientPhoneNumber = response.data.phoneNumber
+          this.$bvToast.toast("The client's phone number has now been provided.", {
+            title: 'Contact details now available',
+            variant: 'warning',
+            solid: true
+          })
+        }
+      }).catch(err => {
+        console.log(err)
+      })
+    }
+    if (this.isHandy !== true) {
+      Api.get(`/handymen/${this.request.handyman}`).then(response => {
+        this.handymanName = `${response.data.firstName} ${response.data.lastName}`
+        if (this.request.status === 'Accepted') {
+          this.handymanPhoneNumber = response.data.phoneNumber
+          this.$bvToast.toast("The handyman's phone number has now been provided.", {
+            title: 'Contact details now available',
+            variant: 'warning',
+            solid: true
+          })
+        }
+      }).catch(err => {
+        console.log(err)
+      })
+    }
   },
   methods: {
     deleteRequest() {
@@ -113,7 +160,7 @@ export default {
             variant: 'success',
             solid: true
           })
-          setTimeout(() => window.location.reload(), 1000)
+          setTimeout(() => window.location.reload(), 100)
         }
       }).catch(err => {
         console.log(err)
@@ -133,7 +180,7 @@ export default {
             variant: 'success',
             solid: true
           })
-          setTimeout(() => window.location.reload(), 1000)
+          setTimeout(() => window.location.reload(), 100)
         }
       }).catch(err => {
         console.log(err)
@@ -150,6 +197,7 @@ export default {
 <style scoped>
 
 .card {
+  padding: 30px 0px 30px 0px;
   min-height: 100px;
   height: 100%;
   margin-bottom: 30px;
@@ -162,6 +210,10 @@ export default {
   border-radius: 30px;
 }
 
+.status {
+  width: 100%;
+}
+
 .medium-card {
   display: flex;
   justify-content: flex-start;
@@ -172,6 +224,10 @@ export default {
 .create-request-button {
   justify-content: flex-end;
   display: flex;
+}
+
+.button {
+  font-size: 10px;
 }
 
 .handyman-information {

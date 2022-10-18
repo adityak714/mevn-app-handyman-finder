@@ -3,10 +3,10 @@
     <div>
       <b-container no-body class="overflow-hidden card">
           <b-row class = "card-container">
-            <b-col cols = "2" class = "left-card">
+            <b-col cols = "1" class = "left-card">
               <img src="../assets/UserIcon.png" class="rounded-0 card-image">
             </b-col>
-            <b-col cols = "10" class = "medium-card">
+            <b-col cols = "11" class = "medium-card">
               <b-col cols = "9" class = "handyman-information">
                 <b-col cols = "12">
                   {{ handyman.firstName }} {{ handyman.lastName }}
@@ -183,17 +183,26 @@ export default {
         const createdRequest = {
           address: this.address,
           date: this.date,
+          client: id,
           handyman: this.handyman._id,
           job: this.job,
           description: this.description
         }
-        Api.post(`/clients/${id}/requests`, createdRequest).then(response => {
+        Api.post(`/handymen/${this.handyman._id}/requests`, createdRequest).then(response => {
           console.log(response.data)
           this.$bvModal.hide(this.handyman._id)
-          this.$bvToast.toast('Request added successfully')
+          this.$bvToast.toast('Request added successfully.', {
+            title: 'Request sent.',
+            variant: 'success',
+            solid: true
+          })
         }).catch(err => {
           this.message = err
-          this.$bvToast.toast('There was an error in making the request.')
+          this.$bvToast.toast('There was an error in making the request.', {
+            title: 'Request not sent',
+            variant: 'danger',
+            solid: true
+          })
           console.log({
             error: err,
             reason: 'Invalid Credentials'
@@ -206,7 +215,7 @@ export default {
       this.comment = ''
     },
     createReview() {
-      if (this.rating === '' || this.comment === '') {
+      if (this.rating === 0 || this.comment === '') {
         this.$bvToast.toast('Please fill all fields', {
           title: 'Error Message',
           variant: 'danger',
@@ -283,15 +292,10 @@ export default {
 }
 
 .medium-card {
-  display: flex;
-  justify-content: flex-start;
+  display: inline-flex;
+  justify-content: space-between;
   align-items: center;
   padding-left: 25px;
-}
-
-.create-request-button {
-  justify-content: flex-end;
-  display: flex;
 }
 
 .handyman-information {

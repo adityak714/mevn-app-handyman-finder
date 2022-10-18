@@ -11,12 +11,12 @@
                   <PieChart v-if="dataloaded" :userId='userId' :isHandyman='isHandy' />
                 </b-col>
                 <b-col cols = "6" class = "button-section">
+                  <p class="title">Welcome {{ firstName }}</p>
                   <b-col cols = "12" class = "inner-section">
-                    <p class="title">Welcome {{ firstName }}</p>
-                    <p>Welcome to HandyApp! We provide easy point of connection between handyman or clients for every type of service.
+                    <p>Welcome to HandyApp! We provide an easy point of connection between handyman and clients for every type of service.
                     </p>
-                    <p>Start now!</p>
-                    <b-button  v-if = !isHandy pill variant="primary">Get Started!</b-button>
+                    <b-button v-if = !isHandy pill variant="primary" @click="clientRedirect">Get Started!</b-button>
+                    <b-button v-else pill variant="primary" @click="handyRedirect">See My Requests</b-button>
                   </b-col>
                 </b-col>
               </b-row>
@@ -62,6 +62,12 @@ export default {
         .catch(error => {
           this.message = error
         })
+    },
+    clientRedirect() {
+      this.$router.push(`findhandymen/${this.userId}`)
+    },
+    handyRedirect() {
+      this.$router.push(`requests/${this.userId}`)
     }
   },
   created() {
@@ -146,8 +152,10 @@ div#body {
 
 .button-section {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
+  justify-content: center;
+  padding-top: 20px;
 }
 
 .inner-section {
@@ -155,7 +163,9 @@ div#body {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
+  align-items: center;
   height: 100%;
+  margin-top: 20px;
 }
 
 .chart-section {

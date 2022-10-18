@@ -28,14 +28,7 @@ var handymenSchema = new Schema({
   },
   area: {
     type: String,
-    enum: [
-      "Västra Götaland",
-      "Stockholms Län",
-      "Skåne Län",
-      "Hallands Län",
-      "Jönköpings Län",
-      "Uppsala Län",
-    ]
+    required: true
   },
   profession: {
     type: String,

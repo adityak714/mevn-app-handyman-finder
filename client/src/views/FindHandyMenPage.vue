@@ -14,12 +14,20 @@
         <div class="main-container" >
         <b-col cols="12">
             <b-container fluid class="content" v-show="isFind">
-                <p class="title">Find Handymen</p>
-                <label for="area">Area/Location</label>
-                <b-form-select size="sm" class="mt-3" :options="area_options" v-model="area"></b-form-select>
-                <b-container fluid id='rendered-map'><Gmap v-if="area !== null" :region="area"/></b-container>
+                <b-row class = "first-container">
+                  <p class="title">Find Handymen</p>
+                <label for="area">Optionally filter by Area/Location</label>
+                </b-row>
+                <b-row>
+                  <b-col cols = "12">
+                    <b-form-select size="sm" class="filter" :options="area_options" v-model="area"></b-form-select>
+                  </b-col>
+                  <b-col cols = "12">
+                    <b-container fluid id='rendered-map'><Gmap v-if="area !== ''" :region="area"/></b-container>
+                  </b-col>
+                </b-row>
                 <div>
-                <b-form-select v-model="profession" :options="options" size="sm" class="mt-3"></b-form-select>
+                <b-form-input v-model="profession" size="sm" class="filter" placeholder="Profession"></b-form-input>
                 </div>
                 <div>
                     <b-button @click="showHandymen" class="button">Find</b-button>
@@ -55,16 +63,9 @@ export default {
       userId: '',
       firstName: '',
       lastName: '',
-      area: null,
-      options: [
-        { value: '', text: '- All Categories -' },
-        { value: 'Architect', text: 'Architect' },
-        { value: 'Plumber', text: 'Plumber' },
-        { value: 'Electrician', text: 'Electrician' },
-        { value: 'Carpenter', text: 'Carpenter' }
-      ],
+      area: '',
       area_options: [
-        { value: null, text: '- Filter Area -' },
+        { value: '', text: '- Filter Area -' },
         { value: 'Västra Götaland', text: 'Västra Götaland' },
         { value: 'Stockholms Län', text: 'Stockholms Län' },
         { value: 'Skåne Län', text: 'Skåne' },
@@ -91,7 +92,7 @@ export default {
       if (this.profession === null || this.area === null) {
         this.$bvModal.show('field-empty')
       } else {
-        Api.get(`/handymen?profession=${this.profession}`)
+        Api.get(`/handymen?profession=${this.profession}&area=${this.area}`)
           .then(response => {
             this.handymen = response.data
           }
@@ -151,6 +152,13 @@ align-items: flex-start;
 .header-container{
 border:#9D5100
 }
+
+.first-container {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
 .content{
 display:flex;
 flex-direction: column;
@@ -164,8 +172,10 @@ padding-top: 10px;
 margin-left: 10px;
 margin-right: 10px;
 }
-.mt-3{
-width: 300px;
+.filter{
+width: 200px;
+text-align: start;
+padding-bottom: 5px;
 }
 .area-location{
 width: 300px;
